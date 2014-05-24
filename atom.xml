@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Running_snail's Blog]]></title>
+  <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://weibo.com/u/1649298213/"/>
+  <updated>2014-05-24T09:10:47.811Z</updated>
+  <id>http://weibo.com/u/1649298213/</id>
+  
+  <author>
+    <name><![CDATA[running_snail]]></name>
+    <email><![CDATA[505324327@qq.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Hello My Blog]]></title>
+    <link href="http://weibo.com/u/1649298213/2014/05/18/hello-my-blog/"/>
+    <id>http://weibo.com/u/1649298213/2014/05/18/hello-my-blog/</id>
+    <published>2014-05-18T14:50:49.000Z</published>
+    <updated>2014-05-20T04:32:44.000Z</updated>
+    <content type="html"><![CDATA[<p>这是<strong>我的blog </strong>，我正在创建第一篇日志。<br>今后的博客的测试什么的也将在这篇博客里尝试~<br>真的是实时更新的么 改了yml之后没有更新…<br>好吧明白了，内容会实时更新yml不会</p>
+<p>我要在这开始我的博客之旅咯…</p>
+<p>最重要的代码神马的这样写…</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>console.<span class="keyword">log</span>(<span class="string">"hello world"</span>);
+</pre></td></tr></table></figure>
+]]></content>
+    
+    
+      <category term="blog" scheme="http://weibo.com/u/1649298213/tags/blog/"/>
+    
+      <category term="新" scheme="http://weibo.com/u/1649298213/tags/%E6%96%B0/"/>
+    
+      <category term="我" scheme="http://weibo.com/u/1649298213/tags/%E6%88%91/"/>
+    
+      <category term="日记" scheme="http://weibo.com/u/1649298213/tags/%E6%97%A5%E8%AE%B0/"/>
+    
+      <category term="生活随笔" scheme="http://weibo.com/u/1649298213/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>
