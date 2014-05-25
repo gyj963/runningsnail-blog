@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-05-24T09:10:47.811Z</updated>
+  <updated>2014-05-25T12:50:33.333Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -13,6 +13,20 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[test]]></title>
+    <link href="http://weibo.com/u/1649298213/2014/05/25/test/"/>
+    <id>http://weibo.com/u/1649298213/2014/05/25/test/</id>
+    <published>2014-05-25T12:45:32.000Z</published>
+    <updated>2014-05-25T12:46:16.000Z</updated>
+    <content type="html"><![CDATA[<p>提交代码，会自动刷新吗？测试下~~</p>
+]]></content>
+    
+    
+      <category term="生活随笔" scheme="http://weibo.com/u/1649298213/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Hello My Blog]]></title>
