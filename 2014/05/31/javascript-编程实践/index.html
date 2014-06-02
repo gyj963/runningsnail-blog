@@ -85,7 +85,7 @@ WEB开发中 UI由三个彼此隔离又相互作用的层定义（HTML,CSS,JavaS
     </p>
   <p class="article-time">
     <time datetime="2014-05-31T03:33:37.000Z" itemprop="datePublished">5月 31 2014</time>
-    更新日期:<time datetime="2014-06-02T06:51:47.000Z" itemprop="dateModified">6月 2 2014</time>
+    更新日期:<time datetime="2014-06-02T13:59:04.000Z" itemprop="dateModified">6月 2 2014</time>
     
   </p>
 </header>
@@ -108,7 +108,7 @@ WEB开发中 UI由三个彼此隔离又相互作用的层定义（HTML,CSS,JavaS
 <p>如果两个组件耦合太紧，则说明一个组件和另一个组件直接相关，<br>如果修改一个组件的逻辑，那么另外一个组件的逻辑也需修改。</p>
 <p>耦合的例子：有一个贯穿整个站点的css类叫做error，被嵌入到HTML中。如果有一天你要改error这个名字为warning，不仅要修改CSS还要修改用到这个类名的HTML，HTML和CSS紧耦合在一起。</p>
 <h3 id="1-2_什么时候才能称作松耦合：">1.2 什么时候才能称作松耦合：</h3>
-<p>当你能够做到修改一个组件二不需要更改其他组件是，你就做到了松耦合。</p>
+<p>当你能够做到修改一个组件而不需要更改其他组件时，你就做到了松耦合。</p>
 <p>松耦合是易于调试的，这对于代码的可维护性来说至关重要。修改某部分代码是不会破坏其他人的代码，那便是极好的 0.0’</p>
 <p>在一起工作的组件无法达到“无耦合”，我们的目标是确保对一个组件的修改不会经常性地影响其他部分。</p>
 <h2 id="2-_将JavaScript从CSS中抽离">2. 将JavaScript从CSS中抽离</h2>
@@ -122,7 +122,7 @@ WEB开发中 UI由三个彼此隔离又相互作用的层定义（HTML,CSS,JavaS
 <span class="class">.box</span><span class="rules">{
     <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="function">expression(document.body.offsetWidth + <span class="string">"px"</span>)</span></span></span>;
 <span class="rule">}</span></span>
-</pre></td></tr></table></figure><br>CSS表达式包裹在一个特殊的expression()函数中，可以给它传入任意JavaScript代码。<br>浏览器会以高频率重复计算CSS表达式，严重影响了性能。且难以维护。<br>IE9不再支持CSS表达式，老版本IE依然可以运行CSS表达式。<br>有人会用CSS表达式来让低版本浏览器里也达到和高级浏览器一致的表现，但尽量避免使用，以避免浪费不必要的时间精力。<br><br><strong>总结</strong>：避免使用CSS表达式<br><br><br>## 3. 将CSS从JavaScript中抽离<br>CSS和JavaScript互相协作的很不错，所以我们经常将样式数据和JavaScript混写在一起。<br><br><strong>JavaScript改CSS方式</strong>：<br><br><strong>方式一</strong> <em>（不好）</em>：直接修改DOM元素的style属性。<br><br>style属性是一个对象，包含了可以读取和修改的CSS属性。<br><em>如：修改元素文本颜色</em><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td></tr></table></figure><br>CSS表达式包裹在一个特殊的expression()函数中，可以给它传入任意JavaScript代码。<br>浏览器会以高频率重复计算CSS表达式，严重影响了性能。且难以维护。<br>IE9不再支持CSS表达式，老版本IE依然可以运行CSS表达式。<br>有人会用CSS表达式来让低版本浏览器里也达到和高级浏览器一致的表现，但尽量避免使用，以避免浪费不必要的时间精力。<br><br><strong>总结</strong>：避免使用CSS表达式<br><br><br>##  3. 将CSS从JavaScript中抽离<br>CSS和JavaScript互相协作的很不错，所以我们经常将样式数据和JavaScript混写在一起。<br><br><strong>JavaScript改CSS方式</strong>：<br><br><strong>方式一</strong> <em>（不好）</em>：直接修改DOM元素的style属性。<br><br>style属性是一个对象，包含了可以读取和修改的CSS属性。<br><em>如：修改元素文本颜色</em><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre><span class="comment">/* 不好的写法 */</span>
 element<span class="preprocessor">.style</span><span class="preprocessor">.color</span> = <span class="string">"red"</span><span class="comment">;</span>
