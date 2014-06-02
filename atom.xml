@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-05-25T14:10:56.905Z</updated>
+  <updated>2014-06-02T06:45:56.426Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -15,16 +15,97 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[test]]></title>
-    <link href="http://weibo.com/u/1649298213/2014/05/25/test/"/>
-    <id>http://weibo.com/u/1649298213/2014/05/25/test/</id>
-    <published>2014-05-25T12:45:32.000Z</published>
-    <updated>2014-05-25T12:46:16.000Z</updated>
-    <content type="html"><![CDATA[<p>提交代码，会自动刷新吗？测试下~~</p>
+    <title><![CDATA[JavaScript 编程实践 - UI层的松耦合 (一)]]></title>
+    <link href="http://weibo.com/u/1649298213/2014/05/31/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://weibo.com/u/1649298213/2014/05/31/javascript-编程实践/</id>
+    <published>2014-05-31T03:33:37.000Z</published>
+    <updated>2014-06-02T06:43:57.000Z</updated>
+    <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
+<hr>
+<h1 id="UI层的松耦合">UI层的松耦合</h1>
+<p>WEB开发中 UI由三个彼此隔离又相互作用的层定义（HTML,CSS,JavaScript）<br>在实际场景中，css和JavaScript是同等重要的，两者更像是兄弟关系并非依赖关系（javascript依赖css）<br>一个页面很可能只有HTML和CSS而没有JavaScript,<br>或…………..只有HTML和JavaScript而没有CSS。<br>在所有Web UI中，JavaScript的正确运行不应依赖CSS—在缺少CSS情况下也要能够正确运行，尽管两者之间可能有互动</p>
+<h2 id="1-什么是松耦合">1.什么是松耦合</h2>
+<h3 id="1-1什么是耦合：">1.1什么是耦合：</h3>
+<p>如果两个组件耦合太紧，则说明一个组件和另一个组件直接相关，<br>如果修改一个组件的逻辑，那么另外一个组件的逻辑也需修改。</p>
+<p>耦合的例子：有一个贯穿整个站点的css类叫做error，被嵌入到HTML中。如果有一天你要改error这个名字为warning，<br>不仅要修改CSS还要修改用到这个类名的HTML。HTML和CSS紧耦合在一起</p>
+<h3 id="1-2什么时候才能称作松耦合：">1.2什么时候才能称作松耦合：</h3>
+<p>当你能够做到修改一个组件二不需要更改其他组件是，你就做到了松耦合。</p>
+<p>松耦合是易于调试的，这对于代码的可维护性来说至关重要。修改某部分代码是不会破坏其他人的代码，那便是极好的 0.0’<br>在一起工作的组件无法达到“无耦合”，我们的目标是确保对一个组件的修改不会经常性地影响其他部分。</p>
+<h2 id="2-将JavaScript从CSS中抽离">2.将JavaScript从CSS中抽离</h2>
+<p>IE8和更早版本的浏览器中有一个特性让人爱少恨多，即CSS表达式（CSS expression）。<br>CSS表达式允许你将JavaScript直接插入到CSS中，可以在CSS代码中直接执行运算或其他操作。</p>
+<p><em>设置元素宽度以匹配浏览器宽度</em></p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="comment">/* 不好的写法 */</span>
+<span class="class">.box</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="function">expression(document.body.offsetWidth + <span class="string">"px"</span>)</span></span></span>;
+<span class="rule">}</span></span>
+</pre></td></tr></table></figure><br>CSS表达式包裹在一个特殊的expression()函数中，可以给它传入任意JavaScript代码。<br>浏览器会以高频率重复计算CSS表达式，严重影响了性能。且难以维护。<br>IE9不再支持CSS表达式，老版本IE依然可以运行CSS表达式。<br>有人会用CSS表达式来让低版本浏览器里也达到和高级浏览器一致的表现，但尽量避免使用，以避免浪费不必要的时间精力。<br><br>总结：避免使用CSS表达式<br><br><br>## 3.将CSS从JavaScript中抽离<br>CSS和JavaScript互相协作的很不错，所以我们经常将样式数据和JavaScript混写在一起。<br><br><strong>JavaScript改CSS方式</strong>：<br><br><strong>方式一</strong> <em>（不好）</em>：直接修改DOM元素的style属性。<br><br>style属性是一个对象，包含了可以读取和修改的CSS属性。<br><em>如：修改元素文本颜色</em><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 不好的写法 */</span>
+element<span class="preprocessor">.style</span><span class="preprocessor">.color</span> = <span class="string">"red"</span><span class="comment">;</span>
+</pre></td></tr></table></figure><br>评价：这种写法经常看到，但是这种写法是有问题的。<br>缺点：当出现样式问题，通常首先去查找CSS，而非JavaScript，浪费时间。<br>例外：<br>有一种使用style属性的情形是可以接受的:<br>当你需要给页面中的元素作定位，使其相对于另外一个元素或整个页面重新定位。这种计算在CSS中无法完成，<br>此时可以使用style.top、style.left、style.bottom、style.right 来对元素作正确定位。<br>在CSS中定义这个元素的默认属性，而在JavaScript中修改这些默认值。<br><br><br><br><strong>方式二</strong> <em>（不好）</em>：给cssText属性赋值整个CSS字符串<br><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 不好的写法 */</span>
+element<span class="preprocessor">.style</span><span class="preprocessor">.cssText</span> = <span class="string">"color: red; left: 10px; top: 100px; visibility: hidden"</span><span class="comment">;</span>
+</pre></td></tr></table></figure><br>评价：这种写法是一次性设置多个CSS属性的一种快捷方法，同样有问题。<br>缺点：比如设置单个属性时：将样式信息写入JavaScript带来了可维护性问题。<br><br><br><br><strong>方式三</strong> <em>（最佳）</em>：操作CSS的className<br><br>例：在页面中显示一个对话框，css中的样式定义像下面这样<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="class">.reveal</span><span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">10</span>px</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100</span>px</span></span>;
+    <span class="rule"><span class="attribute">visibility</span>:<span class="value"> visible</span></span>;
+<span class="rule">}</span></span>
+</pre></td></tr></table></figure><br>在JavaScript中像这样将样式添加至元素。<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - 原生方法 */</span>
+element<span class="preprocessor">.className</span> += <span class="string">" reveal"</span><span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - HTML5 */</span>
+element<span class="preprocessor">.classList</span><span class="preprocessor">.add</span>(<span class="string">"reveal"</span>)<span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - YUI */</span>
+<span class="built_in">Y</span><span class="preprocessor">.one</span>(element)<span class="preprocessor">.addClass</span>(<span class="string">"reveal"</span>)<span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - jQuery */</span>
+$(element).addClass(<span class="string">"reveal"</span>);
+</pre></td></tr></table></figure>
+
+<p><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - Dojo */</span>
+dojo<span class="preprocessor">.addClass</span>(element, <span class="string">"reveal"</span>)<span class="comment">;</span>
+</pre></td></tr></table></figure><br>评价：JavaScript可以随意添加删除元素的className，而className定义的样式则在CSS代码中。<br>CSS样式随时可以修改，而不必更新JavaScript。<br>优点：JavaScript未直接操作样式，保持了和CSS的松耦合。</p>
+<p><em>写不下了，未完待续…</em></p>
 ]]></content>
     
     
-      <category term="生活随笔" scheme="http://weibo.com/u/1649298213/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+      <category term="javascript" scheme="http://weibo.com/u/1649298213/tags/javascript/"/>
+    
+      <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="书" scheme="http://weibo.com/u/1649298213/tags/%E4%B9%A6/"/>
+    
+      <category term="实践" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%9E%E8%B7%B5/"/>
+    
+      <category term="读书笔记" scheme="http://weibo.com/u/1649298213/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -33,7 +114,7 @@
     <link href="http://weibo.com/u/1649298213/2014/05/18/hello-my-blog/"/>
     <id>http://weibo.com/u/1649298213/2014/05/18/hello-my-blog/</id>
     <published>2014-05-18T14:50:49.000Z</published>
-    <updated>2014-05-20T04:32:44.000Z</updated>
+    <updated>2014-05-31T06:53:47.000Z</updated>
     <content type="html"><![CDATA[<p>这是<strong>我的blog </strong>，我正在创建第一篇日志。<br>今后的博客的测试什么的也将在这篇博客里尝试~<br>真的是实时更新的么 改了yml之后没有更新…<br>好吧明白了，内容会实时更新yml不会</p>
 <p>我要在这开始我的博客之旅咯…</p>
 <p>最重要的代码神马的这样写…</p>
@@ -43,13 +124,11 @@
 ]]></content>
     
     
-      <category term="blog" scheme="http://weibo.com/u/1649298213/tags/blog/"/>
-    
-      <category term="新" scheme="http://weibo.com/u/1649298213/tags/%E6%96%B0/"/>
-    
       <category term="我" scheme="http://weibo.com/u/1649298213/tags/%E6%88%91/"/>
     
       <category term="日记" scheme="http://weibo.com/u/1649298213/tags/%E6%97%A5%E8%AE%B0/"/>
+    
+      <category term="生活" scheme="http://weibo.com/u/1649298213/tags/%E7%94%9F%E6%B4%BB/"/>
     
       <category term="生活随笔" scheme="http://weibo.com/u/1649298213/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
     
