@@ -1,0 +1,582 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JavaScript 编程实践 - UI层的松耦合 (一) | Running_snail&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="running_snail">
+    
+    <meta name="description" content="这是一篇读书笔记，对书中的描述进行精简，归纳，总结，有时也会自己写一些例子，感想和扩展 O(∩_∩)O~
+
+UI层的松耦合
+WEB开发中 UI由三个彼此隔离又相互作用的层定义（HTML,CSS,JavaScript）。
+在实际场景中，css和JavaScript是同等重要的，两者更像是兄弟关系并非依">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="running_snail1" />
+    <meta name="twitter:title" content="JavaScript 编程实践 - UI层的松耦合 (一) | Running_snail&#39;s Blog" />
+      
+    
+    
+    <link rel="alternative" href="http://snailsky.me/atom.xml" title="Running_snail&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/snail.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/luoxiaohei.png" alt="Running_snail&#39;s Blog" title="Running_snail&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Running_snail&#39;s Blog">Running_snail&#39;s Blog</a></h1>
+				<h2 class="blog-motto">Some notes about Web Front-End and others</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:weibo.com/u/1649298213">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/31/javascript-编程实践-UI层的松耦合（一）/" title="JavaScript 编程实践 - UI层的松耦合 (一)" itemprop="url">JavaScript 编程实践 - UI层的松耦合 (一)</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/104285874726961351995?rel=author" title="running_snail" target="_blank" itemprop="author">running_snail</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-05-31T03:33:37.000Z" itemprop="datePublished">5月 31 2014</time>
+    更新日期:<time datetime="2014-06-09T05:26:31.000Z" itemprop="dateModified">6月 9 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UI层的松耦合"><span class="toc-number">1.</span> <span class="toc-text">UI层的松耦合</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_什么是松耦合"><span class="toc-number">1.1.</span> <span class="toc-text">1. 什么是松耦合</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1_什么是耦合："><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 什么是耦合：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2_什么时候才能称作松耦合："><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 什么时候才能称作松耦合：</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_将JavaScript从CSS中抽离"><span class="toc-number">1.2.</span> <span class="toc-text">2. 将JavaScript从CSS中抽离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_将CSS从JavaScript中抽离"><span class="toc-number">1.3.</span> <span class="toc-text">3. 将CSS从JavaScript中抽离</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript改CSS方式："><span class="toc-number">1.3.1.</span> <span class="toc-text">JavaScript改CSS方式：</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方式一（不好）：style属性"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">方式一（不好）：style属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式二（不好）：cssText属性"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">方式二（不好）：cssText属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式三（最佳）：操作className"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">方式三（最佳）：操作className</span></a></li></ol></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#4-将JavaScript从HTML中抽离"><span class="toc-number">1.4.</span> <span class="toc-text">4.将JavaScript从HTML中抽离</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#绑定事件方式"><span class="toc-number">1.4.1.</span> <span class="toc-text">绑定事件方式</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方式一_（不好）：使用on属性"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">方式一 （不好）：使用on属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式二（最佳）：_通过&lt;script&gt;标签来引用"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">方式二（最佳）： 通过&lt;script&gt;标签来引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式三_（不好）：HTML中内联的脚本代码"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">方式三 （不好）：HTML中内联的脚本代码</span></a></li></ol>
+		</div>
+		
+		<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
+<hr>
+<h1 id="UI层的松耦合">UI层的松耦合</h1>
+<p>WEB开发中 UI由三个彼此隔离又相互作用的层定义（HTML,CSS,JavaScript）。</p>
+<p>在实际场景中，css和JavaScript是同等重要的，两者更像是兄弟关系并非依赖关系（javascript依赖css）。<br>一个页面很可能只有HTML和CSS而没有JavaScript,<br>或………………只有HTML和JavaScript而没有CSS。</p>
+<p>在所有Web UI中，JavaScript的正确运行不应依赖CSS—在缺少CSS情况下也要能够正确运行，尽管两者之间可能有互动。</p>
+<h2 id="1-_什么是松耦合">1. 什么是松耦合</h2>
+<h3 id="1-1_什么是耦合：">1.1 什么是耦合：</h3>
+<p>如果两个组件耦合太紧，则说明一个组件和另一个组件直接相关，<br>如果修改一个组件的逻辑，那么另外一个组件的逻辑也需修改。</p>
+<p>耦合的例子：有一个贯穿整个站点的css类叫做error，被嵌入到HTML中。如果有一天你要改error这个名字为warning，不仅要修改CSS还要修改用到这个类名的HTML，HTML和CSS紧耦合在一起。</p>
+<h3 id="1-2_什么时候才能称作松耦合：">1.2 什么时候才能称作松耦合：</h3>
+<p>当你能够做到修改一个组件而不需要更改其他组件时，你就做到了松耦合。</p>
+<p>松耦合是易于调试的，这对于代码的可维护性来说至关重要。修改某部分代码是不会破坏其他人的代码，那便是极好的 0.0’</p>
+<p>在一起工作的组件无法达到“无耦合”，我们的目标是确保对一个组件的修改不会经常性地影响其他部分。</p>
+<h2 id="2-_将JavaScript从CSS中抽离">2. 将JavaScript从CSS中抽离</h2>
+<p>IE8和更早版本的浏览器中有一个特性让人爱少恨多，即CSS表达式（CSS expression）。<br>CSS表达式允许你将JavaScript直接插入到CSS中，可以在CSS代码中直接执行运算或其他操作。</p>
+<p><em>设置元素宽度以匹配浏览器宽度</em></p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="comment">/* 不好的写法 */</span>
+<span class="class">.box</span><span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="function">expression(document.body.offsetWidth + <span class="string">"px"</span>)</span></span></span>;
+<span class="rule">}</span></span>
+</pre></td></tr></table></figure>
+
+<p>CSS表达式包裹在一个特殊的expression()函数中，可以给它传入任意JavaScript代码。<br>浏览器会以高频率重复计算CSS表达式，严重影响了性能。且难以维护。<br>IE9不再支持CSS表达式，老版本IE依然可以运行CSS表达式。<br>有人会用CSS表达式来让低版本浏览器里也达到和高级浏览器一致的表现，但尽量避免使用，以避免浪费不必要的时间精力。</p>
+<p><strong>总结</strong>：避免使用CSS表达式</p>
+<h2 id="3-_将CSS从JavaScript中抽离">3. 将CSS从JavaScript中抽离</h2>
+<p>CSS和JavaScript互相协作的很不错，所以我们经常将样式数据和JavaScript混写在一起。</p>
+<h3 id="JavaScript改CSS方式：">JavaScript改CSS方式：</h3>
+<h4 id="方式一（不好）：style属性">方式一（不好）：style属性</h4>
+<p>直接修改DOM元素的style属性。</p>
+<p>style属性是一个对象，包含了可以读取和修改的CSS属性。<br><em>如：修改元素文本颜色</em></p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 不好的写法 */</span>
+element<span class="preprocessor">.style</span><span class="preprocessor">.color</span> = <span class="string">"red"</span><span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<p><strong>评价</strong>：这种写法经常看到，但是这种写法是有问题的。<br><strong>缺点</strong>：当出现样式问题，通常首先去查找CSS，而非JavaScript，浪费时间。<br><strong>例外</strong>：有一种使用style属性的情形是可以接受的:<br>当你需要给页面中的元素作定位，使其相对于另外一个元素或整个页面重新定位。这种计算在CSS中无法完成，<br>此时可以使用style.top、style.left、style.bottom、style.right 来对元素作正确定位。<br>在CSS中定义这个元素的默认属性，而在JavaScript中修改这些默认值。</p>
+<h4 id="方式二（不好）：cssText属性">方式二（不好）：cssText属性</h4>
+<p>给cssText属性赋值整个CSS字符串</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 不好的写法 */</span>
+element<span class="preprocessor">.style</span><span class="preprocessor">.cssText</span> = <span class="string">"color: red; left: 10px; top: 100px; visibility: hidden"</span><span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<p><strong>评价</strong>：这种写法是一次性设置多个CSS属性的一种快捷方法，同样有问题。<br><strong>缺点</strong>：比如设置单个属性时：将样式信息写入JavaScript带来了可维护性问题。</p>
+<h4 id="方式三（最佳）：操作className">方式三（最佳）：操作className</h4>
+<p>操作CSS的className</p>
+<p><em>例：在页面中显示一个对话框，css中的样式定义像下面这样</em></p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="class">.reveal</span><span class="rules">{
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">10</span>px</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100</span>px</span></span>;
+    <span class="rule"><span class="attribute">visibility</span>:<span class="value"> visible</span></span>;
+<span class="rule">}</span></span>
+</pre></td></tr></table></figure><br><em>在JavaScript中像这样将样式添加至元素。</em><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - 原生方法 */</span>
+element<span class="preprocessor">.className</span> += <span class="string">" reveal"</span><span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - HTML5 */</span>
+element<span class="preprocessor">.classList</span><span class="preprocessor">.add</span>(<span class="string">"reveal"</span>)<span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - YUI */</span>
+<span class="built_in">Y</span><span class="preprocessor">.one</span>(element)<span class="preprocessor">.addClass</span>(<span class="string">"reveal"</span>)<span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - jQuery */</span>
+$(element).addClass(<span class="string">"reveal"</span>);
+</pre></td></tr></table></figure>
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">/* 好的写法 - Dojo */</span>
+dojo<span class="preprocessor">.addClass</span>(element, <span class="string">"reveal"</span>)<span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<p><strong>评价</strong>：JavaScript可以随意添加删除元素的className，而className定义的样式则在CSS代码中。<br>CSS样式随时可以修改，而不必更新JavaScript。<br><strong>优点</strong>：JavaScript未直接操作样式，保持了和CSS的松耦合。</p>
+<h2 id="4-将JavaScript从HTML中抽离">4.将JavaScript从HTML中抽离</h2>
+<p>很多人学习JavaScript之初所做的第一件事是，将脚本嵌入HTML中来运行。</p>
+<h3 id="绑定事件方式">绑定事件方式</h3>
+<h4 id="方式一_（不好）：使用on属性">方式一 （不好）：使用on属性</h4>
+<p>使用on属性（ 比如onclick ）绑定一个事件处理程序</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">&lt;!-- 不好的写法 --&gt;</span>
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">onclick</span>=<span class="value">"doSomething()"</span> <span class="attribute">id</span>=<span class="value">"action-btn"</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+</pre></td></tr></table></figure>
+
+<p><strong>评价</strong>：此写法2000年时非常流行，尽管这种代码多数场景下是正常工作的，但却是两个UI层（HTML和JavaScript）的深耦合，这种写法有一些问题<br><strong>缺点</strong>：</p>
+<ol>
+<li>点击事件发生时，doSomething()函数必须存在，否则会报JavaScript错误，页面或弹出错误信息或点击事件不会有任何响应。</li>
+<li>如果修改了doSomething()的函数名或如果此时点击按钮调用了其他函数，需要同时修改JavaScript和HTML代码。给维护带来了困难，这是典型的紧耦合的代码。</li>
+</ol>
+<h4 id="方式二（最佳）：_通过&lt;script&gt;标签来引用">方式二（最佳）： 通过&lt;script&gt;标签来引用</h4>
+<p>绝大多数（并非所有的）JavaScript代码包含在外部文件中，并在页面中通过&lt;script&gt;标签来引用。<br>对于支持2级DOM模型的浏览器来说，用下代码可完成上面例子中的功能：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span><span class="params">()</span>{</span>
+    <span class="comment">//代码</span>
+}
+<span class="keyword">var</span> btn = document.getElementById(<span class="string">"action-btn"</span>);
+btn.addEventListener(<span class="string">"click"</span>, doSomething, <span class="literal">false</span>);
+</pre></td></tr></table></figure><br><strong>关于addEventListener()函数</strong>：<br>IE8及其更早的版本不支持addEventListener()函数，因此需要一个标准的函数将这些差异性做封装。<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="code"><pre><span class="comment">/*
+ * 这个函数可以做到在各种浏览器中给一个元素添加事件处理程序
+ * 甚至可以降级到支持给0级DOM模型对象的on属性赋值处理程序
+ * （只有在非常古老的浏览器），比如Netscape4中，才会执行这一步，
+ * 因此这段代码可以在所有情形下都正常工作）
+ */</span>
+<span class="keyword">function</span> addListener(target, <span class="class"><span class="keyword">type</span>, <span class="title">handler</span>){</span>
+    <span class="keyword">if</span>(target.addEventListener){
+        target.addEventListener(<span class="class"><span class="keyword">type</span>, <span class="title">handler</span>, <span class="title">false</span>);</span>
+    }<span class="keyword">else</span>{
+        target.attachEvent(<span class="string">"on"</span> + <span class="class"><span class="keyword">type</span>, <span class="title">handler</span>);</span>
+    }<span class="keyword">else</span>{
+        target[<span class="string">"on"</span> + <span class="class"><span class="keyword">type</span>] =</span> handler;
+    }
+}
+</pre></td></tr></table></figure><br>我们常常像下面这样来使用这个方法<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span><span class="params">()</span>{</span>
+    <span class="comment">//代码</span>
+}
+<span class="keyword">var</span> btn = document.getElementById(<span class="string">"action-btn"</span>);
+addListener(btn, <span class="string">"click"</span>, doSomething);
+</pre></td></tr></table></figure><br>如果你用了 <strong>JavaScript 类库</strong>，可以使用类库提供的方法来给元素挂载事件处理程序<br>这里给出一些流行类库中的实例代码。<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>// YUI
+<span class="built_in">Y</span><span class="preprocessor">.one</span>(<span class="string">"#action-btn"</span>)<span class="preprocessor">.on</span>(<span class="string">"click"</span>, doSomething)<span class="comment">;</span>
+</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">// jQuery</span>
+$(<span class="string">"#action-btn"</span>).on(<span class="string">"click"</span>, doSomething);
+</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="comment">// Dojo</span>
+<span class="keyword">var</span> btn = dojo.byId(<span class="string">"action-btn"</span>);
+dojo.connect(btn, <span class="string">"click"</span>, doSomething);
+</pre></td></tr></table></figure>
+
+<p><strong>评价</strong>：优势在于，函数doSomething()的定义和事件处理程序绑定都是在一个文件中完成的。如果函数名称需要修改，则只需修改一个文件；<br>如果点击事件发生时想额外做些动作，也只需在一处做修改。<br><strong>优点</strong>：不需同时修改多个文件，可维护性提高，实现了松耦合。</p>
+<h4 id="方式三_（不好）：HTML中内联的脚本代码">方式三 （不好）：HTML中内联的脚本代码</h4>
+<p>在HTML中使用&lt;script&gt;标签，标签内包含内联的脚本代码。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="comment">&lt;!-- 不好的写法 --&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+    doSomething();
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</pre></td></tr></table></figure>
+
+<p><strong>评价</strong>：最好将所有JavaScript代码都放入外置文件中，以确保在HTML代码中不会有内联的JavaScript代码，利于调试。<br><strong>缺点</strong>：不利于确信（而非猜测）从何下手调试bug</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/javascript/">javascript</a><a href="/tags/前端/">前端</a><a href="/tags/笔记/">笔记</a><a href="/tags/书/">书</a><a href="/tags/实践/">实践</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://weibo.com/u/1649298213/2014/05/31/javascript-编程实践-UI层的松耦合（一）/" data-title="JavaScript 编程实践 - UI层的松耦合 (一) | Running_snail&#39;s Blog" data-tsina="1649298213" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/06/07/javascript-编程实践-ui层的松耦合（二）/" title="JavaScript 编程实践 - UI层的松耦合 (二)">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  JavaScript 编程实践 - UI层的松耦合 (二)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/05/18/hello-my-blog/"  title="Hello My Blog">
+ <strong>NEXT:</strong><br/> 
+ <span>Hello My Blog
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UI层的松耦合"><span class="toc-number">1.</span> <span class="toc-text">UI层的松耦合</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_什么是松耦合"><span class="toc-number">1.1.</span> <span class="toc-text">1. 什么是松耦合</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1_什么是耦合："><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 什么是耦合：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2_什么时候才能称作松耦合："><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 什么时候才能称作松耦合：</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_将JavaScript从CSS中抽离"><span class="toc-number">1.2.</span> <span class="toc-text">2. 将JavaScript从CSS中抽离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_将CSS从JavaScript中抽离"><span class="toc-number">1.3.</span> <span class="toc-text">3. 将CSS从JavaScript中抽离</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript改CSS方式："><span class="toc-number">1.3.1.</span> <span class="toc-text">JavaScript改CSS方式：</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方式一（不好）：style属性"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">方式一（不好）：style属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式二（不好）：cssText属性"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">方式二（不好）：cssText属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式三（最佳）：操作className"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">方式三（最佳）：操作className</span></a></li></ol></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#4-将JavaScript从HTML中抽离"><span class="toc-number">1.4.</span> <span class="toc-text">4.将JavaScript从HTML中抽离</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#绑定事件方式"><span class="toc-number">1.4.1.</span> <span class="toc-text">绑定事件方式</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方式一_（不好）：使用on属性"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">方式一 （不好）：使用on属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式二（最佳）：_通过&lt;script&gt;标签来引用"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">方式二（最佳）： 通过&lt;script&gt;标签来引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式三_（不好）：HTML中内联的脚本代码"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">方式三 （不好）：HTML中内联的脚本代码</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/生活随笔/" title="生活随笔">生活随笔<sup>1</sup></a></li>
+		
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/javascript/" title="javascript">javascript<sup>2</sup></a></li>
+		
+			<li><a href="/tags/书/" title="书">书<sup>2</sup></a></li>
+		
+			<li><a href="/tags/前端/" title="前端">前端<sup>2</sup></a></li>
+		
+			<li><a href="/tags/实践/" title="实践">实践<sup>2</sup></a></li>
+		
+			<li><a href="/tags/我/" title="我">我<sup>1</sup></a></li>
+		
+			<li><a href="/tags/日记/" title="日记">日记<sup>1</sup></a></li>
+		
+			<li><a href="/tags/生活/" title="生活">生活<sup>1</sup></a></li>
+		
+			<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="http://snailsky.me/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m running_snail. <br/>
+			This is my blog</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1649298213" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/running_snail1" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/gyj963" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://weibo.com/u/1649298213" target="_blank" title="running_snail">running_snail</a>
+		
+		</p>
+</div>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-51312198-1', 'snailsky.me');
+    ga('send', 'pageview');
+
+</script>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"snailskyme"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-51312198-1', 'snailsky.me');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
