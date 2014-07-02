@@ -1,0 +1,551 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>MongoDB的安装及简单使用示例 | Running_snail&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="running_snail">
+    
+    <meta name="description" content="什么是MongoDB
+MongoDB是介于传统数据库和NoSQL数据库之间的一种非关系型数据库。MongoDB使用c++实现，具有高可靠，高可用等优秀特性。Mongo的官方网站地址是：http://www.mongodb.org/
+MongoDB的安装(windows下)
+在官方网站下载了Mongo">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="running_snail1" />
+    <meta name="twitter:title" content="MongoDB的安装及简单使用示例 | Running_snail&#39;s Blog" />
+      
+    
+    
+    <link rel="alternative" href="http://snailsky.me/atom.xml" title="Running_snail&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/snail.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/luoxiaohei.png" alt="Running_snail&#39;s Blog" title="Running_snail&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Running_snail&#39;s Blog">Running_snail&#39;s Blog</a></h1>
+				<h2 class="blog-motto">Some notes about Web Front-End and others</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:weibo.com/u/1649298213">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/02/mongodb的安装及简单使用示例/" title="MongoDB的安装及简单使用示例" itemprop="url">MongoDB的安装及简单使用示例</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/104285874726961351995?rel=author" title="running_snail" target="_blank" itemprop="author">running_snail</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-07-02T06:26:23.000Z" itemprop="datePublished">7月 2 2014</time>
+    更新日期:<time datetime="2014-07-02T09:15:52.000Z" itemprop="dateModified">7月 2 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是MongoDB"><span class="toc-number">1.</span> <span class="toc-text">什么是MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB的安装(windows下)"><span class="toc-number">2.</span> <span class="toc-text">MongoDB的安装(windows下)</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装包解压"><span class="toc-number">2.1.</span> <span class="toc-text">1.安装包解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-新建存数据的文件夹"><span class="toc-number">2.2.</span> <span class="toc-text">2.新建存数据的文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-运行mongo"><span class="toc-number">2.3.</span> <span class="toc-text">3.运行mongo</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB简单使用示例"><span class="toc-number">3.</span> <span class="toc-text">MongoDB简单使用示例</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建新的database"><span class="toc-number">3.1.</span> <span class="toc-text">创建新的database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建新表"><span class="toc-number">3.2.</span> <span class="toc-text">创建新表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询"><span class="toc-number">3.3.</span> <span class="toc-text">查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新"><span class="toc-number">3.4.</span> <span class="toc-text">更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入"><span class="toc-number">3.5.</span> <span class="toc-text">插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#唯一索引"><span class="toc-number">3.6.</span> <span class="toc-text">唯一索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除"><span class="toc-number">3.7.</span> <span class="toc-text">删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在Node-js中使用MongoDB"><span class="toc-number">3.8.</span> <span class="toc-text">在Node.js中使用MongoDB</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一些问题"><span class="toc-number">3.8.1.</span> <span class="toc-text">一些问题</span></a></li></ol>
+		</div>
+		
+		<h2 id="什么是MongoDB">什么是MongoDB</h2>
+<p>MongoDB是介于传统数据库和NoSQL数据库之间的一种非关系型数据库。MongoDB使用c++实现，具有高可靠，高可用等优秀特性。<br>Mongo的官方网站地址是：<a href="http://www.mongodb.org/" target="_blank">http://www.mongodb.org/</a></p>
+<h2 id="MongoDB的安装(windows下)">MongoDB的安装(windows下)</h2>
+<p>在官方网站下载了MongoDB了之后，我们就可以进行MongoDB的安装工作了。<br>（以下截图来自在windows server 2003系统上面安装mongo过程中）</p>
+<h3 id="1-安装包解压">1.安装包解压</h3>
+<p>将mongo安装包解压放在D:/ 改名为mongodb<br><img src="/img/mongoInstall/mongodb1_1.png" alt="mongo的安装"></p>
+<h3 id="2-新建存数据的文件夹">2.新建存数据的文件夹</h3>
+<p>mongodb下新建文件夹db（随便叫什么都行）用来存mongo的数据<br><img src="/img/mongoInstall/mongodb1_2.png" alt="mongo的安装"></p>
+<h3 id="3-运行mongo">3.运行mongo</h3>
+<p>现在你已经可以运行mongo咯~<br><em>方法一</em><br>mongodb的bin目录下，shift+鼠标右键&gt;在此处打开命令窗口&gt;输入以下命令</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>mongod --dbpath D:<span class="command">\Mongodb</span><span class="command">\db</span>
+</pre></td></tr></table></figure>
+
+<p>这样就可以启动mongo了~</p>
+<p><em>方法二</em><br>不过由于作者我是个懒虫，所以为了每次少输入这么个命令，所以就写了个bat文件，O(∩_∩)O哈哈~<br>在mongodb的bin文件夹下新建一个”快速启动.bat”<br><img src="/img/mongoInstall/mongodb1_3.png" alt="mongo的安装"><br>bat文件内容如下<br><img src="/img/mongoInstall/mongodb1_4.png" alt="mongo的安装"><br>保存，并双击”快速启动.bat”将看到以下界面，运行成功~<br><img src="/img/mongoInstall/mongodb1_5.png" alt="mongo的安装"><br>在浏览器输入：<a href="http://localhost:27017/" target="_blank">http://localhost:27017/</a><br>可以看到如下提示：<br>You are trying to access MongoDB on the native driver port. For http diagnostic access, add 1000 to the port number</p>
+<p>如此，MongoDB数据库服务已经成功启动了。</p>
+<h2 id="MongoDB简单使用示例">MongoDB简单使用示例</h2>
+<p>这里只做最简单的示范，如果有兴趣详细了解可以去看《MongoDB权威指南》这本书哟~</p>
+<p>博主偶数据方面都偏爱使用可视化工具,使用起较方便( 其实是因为懒吧Σ(￣。￣ﾉ)ﾉ ),MongoDB我是用的可视化工具是Robomongo…</p>
+<h3 id="创建新的database">创建新的database</h3>
+<p>在你的connection（左上角可新建connection）上右键&gt;单击CreateDatabase&gt;输入数据库名字&gt;create 这样就创建完成了..<br>像这样：<br><img src="/img/mongoInstall/mongodb1_6.jpg" alt="robomongo的使用"><br>新建的数据库里啥都没有,首先偶们先来给他添一张表吧,右键数据库&gt;Open Shell 在右边框框里可输入命令</p>
+<h3 id="创建新表">创建新表</h3>
+<p>现在我们创建一张用户表users（包含字段“用户名”、“密码”、“注册时间”）,我们可以这样写</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="tag">db</span><span class="class">.users</span><span class="class">.save</span>(<span class="rules">{
+                     <span class="rule"><span class="attribute">username</span>:<span class="value"><span class="string">'admin'</span> ,
+                     password:<span class="string">'admin'</span>,
+                     register_time : new <span class="function">Date()</span>,
+              </span></span></span>})
+</pre></td></tr></table></figure>
+
+<p>现在我们点击红框框里的执行按钮,运行我们刚刚写的代码<br><img src="/img/mongoInstall/mongodb1_7.jpg" alt="robomongo的使用"></p>
+<h3 id="查询">查询</h3>
+<p>执行成功后我们发现左边collections下多出一张users表,此时我们执行代码来查询一下users表中都有神马<br>以下命令将查询出users中所有数据：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>db<span class="preprocessor">.users</span><span class="preprocessor">.find</span>()
+</pre></td></tr></table></figure>
+
+<p>我们看到刚才插入的数据确实已经在这张users表中了<br><img src="/img/mongoInstall/mongodb1_8.jpg" alt="robomongo的使用"></p>
+<h3 id="更新">更新</h3>
+<p>我们尝试把刚刚插入的那个用户的密码改成123456</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>db<span class="preprocessor">.users</span><span class="preprocessor">.update</span>(
+    { <span class="string">"username"</span>: <span class="string">"test"</span> },
+    { <span class="string">"$set"</span>: { <span class="string">"password"</span>: <span class="string">"123456"</span> } }
+)
+</pre></td></tr></table></figure>
+
+<p>之后查询一下<br><img src="/img/mongoInstall/mongodb1_9.jpg" alt="robomongo的使用"><br>我们发现密码字段已经变成了123456</p>
+<h3 id="插入">插入</h3>
+<p>我们尝试插入一条新数据</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="tag">db</span><span class="class">.users</span><span class="class">.insert</span>(<span class="rules">{
+                     <span class="rule"><span class="attribute">username</span>:<span class="value"><span class="string">'test'</span> ,
+                     password:<span class="string">'test'</span>,
+                     register_time : new <span class="function">Date()</span>
+              </span></span></span>})
+</pre></td></tr></table></figure>
+
+<p>第一次执行成功，我们不小心执行了两次！<br>查询一下，也许我们只希望出现一个叫做test的用户，可是现在数据库中有两个了！<br><img src="/img/mongoInstall/mongodb1_11.jpg" alt="robomongo的使用"></p>
+<p>我们想保证文档的”username”键都有不一样的值，创建唯一索引可以确保集合的每一个文档的指定值都有唯一值。</p>
+<h3 id="唯一索引">唯一索引</h3>
+<p>我们先把重复创建的名叫test的用户删除（只保留了一个test用户），再来执行下面代码创建唯一索引：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>db<span class="preprocessor">.users</span><span class="preprocessor">.ensureIndex</span>({<span class="string">"username"</span>:<span class="number">1</span>},{<span class="string">"unique"</span>:true})；
+</pre></td></tr></table></figure>
+
+<p>创建成功后，我们再执行上面插入名叫test的用户（此时已经有一个叫test的用户在数据库中）<br><img src="/img/mongoInstall/mongodb1_12.jpg" alt="robomongo的使用"><br>我们发现报错了！test用户插入不进去，因为唯一索引起了作用，用find查询，也并没有改变，我们的唯一索引创建成功~</p>
+<h3 id="删除">删除</h3>
+<p>我们再尝试将admin这个user删除掉(注意：这里是筛选条件的删除)</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>db.users.remove({<span class="string">'username'</span>:<span class="string">'admin'</span>})
+</pre></td></tr></table></figure>
+
+<p>之后查询下<br><img src="/img/mongoInstall/mongodb1_13.jpg" alt="robomongo的使用"><br>我们发现现在admin这个用户已经被删除，只剩下了test用户…</p>
+<p><em>注意</em>：remove操作较危险,要小心给其传递条件,如果不加条件,像这样:</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>db<span class="preprocessor">.users</span><span class="preprocessor">.remove</span>()
+</pre></td></tr></table></figure>
+
+<p>运行该命令后会移除users数据库中所有的数据,需谨慎使用！</p>
+<p>目前为止,是基础中的基础,很简单对不对？不过实际应用中会比上述例子要复杂得多。</p>
+<h3 id="在Node-js中使用MongoDB">在Node.js中使用MongoDB</h3>
+<p>使用mongoose类库，可以让JSON数据直接入库MongoDB。这里并不做过多介绍,有兴趣,或需要用到的朋友可以去了解下。<br>mongoose官网：<a href="http://mongoosejs.com/" target="_blank">http://mongoosejs.com/</a></p>
+<h4 id="一些问题">一些问题</h4>
+<p>以下记录一点,我遇到的问题,其实并不难,但是如果要去找就很花时间。</p>
+<p>有一张表，表结构如下(此为缩略版本的mongoose的表结构)：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="keyword">var</span> VersionSchema = <span class="keyword">new</span> Schema({
+	                            username:{ type:<span class="built_in">String</span>, index: <span class="literal">true</span> } ,
+	                            historyVersion:
+		                            [
+			                            {
+			                                version:<span class="built_in">String</span>,
+				                            time : { type: <span class="built_in">Date</span>, <span class="keyword">default</span>: <span class="built_in">Date</span>.now },
+				                            describe:<span class="built_in">String</span>
+			                            }
+		                            ]
+                            });
+<span class="keyword">var</span> Version = mongodb.mongoose.model(<span class="string">"Version"</span>, VersionSchema);
+</pre></td></tr></table></figure>
+
+<p>historyVersion是一个数组，数组里面存放的是对象类型。</p>
+<ul>
+<li>关于覆盖一个表中类型为数组中的某个对象的某个字段 = =<br>我要改historyVersion这个数组的某个对象的某个字段的值。<br>做法如下：<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>db.versions.update(
+    { <span class="string">"username"</span>: <span class="string">"admin"</span>,<span class="string">'historyVersion._id'</span>:ObjectId(<span class="string">"539db613ec7788dc2414cacf"</span>) },
+    { <span class="string">"<span class="variable">$set</span>"</span>: { <span class="string">"historyVersion.$.version"</span>: <span class="string">"2"</span> } }
+)
+</pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>historyVersion中对象中的_id是自动生成的，通过这个来辨别更新哪个对象里的字段</p>
+<ul>
+<li>关于删除一个表中类型为数组中的某个对象<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>db.versions.update(
+    {<span class="string">'username'</span><span class="symbol">:<span class="string">'test'</span></span>},
+    {<span class="variable">$pull</span><span class="symbol">:</span>{<span class="string">'historyVersion'</span><span class="symbol">:</span>{<span class="string">'_id'</span><span class="symbol">:ObjectId</span>(<span class="string">"539dcd6b29fb842026d1a5f3"</span>)}}}
+)
+</pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mongodb/">mongodb</a><a href="/tags/mongo/">mongo</a><a href="/tags/安装/">安装</a><a href="/tags/前端/">前端</a><a href="/tags/笔记/">笔记</a><a href="/tags/实践/">实践</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/实践笔记/">实践笔记</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://weibo.com/u/1649298213/2014/07/02/mongodb的安装及简单使用示例/" data-title="MongoDB的安装及简单使用示例 | Running_snail&#39;s Blog" data-tsina="1649298213" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/06/07/javascript-编程实践-ui层的松耦合（二）/"  title="JavaScript 编程实践 - UI层的松耦合 (二)">
+ <strong>NEXT:</strong><br/> 
+ <span>JavaScript 编程实践 - UI层的松耦合 (二)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是MongoDB"><span class="toc-number">1.</span> <span class="toc-text">什么是MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB的安装(windows下)"><span class="toc-number">2.</span> <span class="toc-text">MongoDB的安装(windows下)</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装包解压"><span class="toc-number">2.1.</span> <span class="toc-text">1.安装包解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-新建存数据的文件夹"><span class="toc-number">2.2.</span> <span class="toc-text">2.新建存数据的文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-运行mongo"><span class="toc-number">2.3.</span> <span class="toc-text">3.运行mongo</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB简单使用示例"><span class="toc-number">3.</span> <span class="toc-text">MongoDB简单使用示例</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建新的database"><span class="toc-number">3.1.</span> <span class="toc-text">创建新的database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建新表"><span class="toc-number">3.2.</span> <span class="toc-text">创建新表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询"><span class="toc-number">3.3.</span> <span class="toc-text">查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新"><span class="toc-number">3.4.</span> <span class="toc-text">更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入"><span class="toc-number">3.5.</span> <span class="toc-text">插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#唯一索引"><span class="toc-number">3.6.</span> <span class="toc-text">唯一索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除"><span class="toc-number">3.7.</span> <span class="toc-text">删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在Node-js中使用MongoDB"><span class="toc-number">3.8.</span> <span class="toc-text">在Node.js中使用MongoDB</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一些问题"><span class="toc-number">3.8.1.</span> <span class="toc-text">一些问题</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/实践笔记/" title="实践笔记">实践笔记<sup>1</sup></a></li>
+		
+			<li><a href="/categories/生活随笔/" title="生活随笔">生活随笔<sup>1</sup></a></li>
+		
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/javascript/" title="javascript">javascript<sup>2</sup></a></li>
+		
+			<li><a href="/tags/mongo/" title="mongo">mongo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/mongodb/" title="mongodb">mongodb<sup>1</sup></a></li>
+		
+			<li><a href="/tags/书/" title="书">书<sup>2</sup></a></li>
+		
+			<li><a href="/tags/前端/" title="前端">前端<sup>3</sup></a></li>
+		
+			<li><a href="/tags/安装/" title="安装">安装<sup>1</sup></a></li>
+		
+			<li><a href="/tags/实践/" title="实践">实践<sup>3</sup></a></li>
+		
+			<li><a href="/tags/我/" title="我">我<sup>1</sup></a></li>
+		
+			<li><a href="/tags/日记/" title="日记">日记<sup>1</sup></a></li>
+		
+			<li><a href="/tags/生活/" title="生活">生活<sup>1</sup></a></li>
+		
+			<li><a href="/tags/笔记/" title="笔记">笔记<sup>3</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="http://snailsky.me/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m running_snail. <br/>
+			This is my blog</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1649298213" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/running_snail1" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/gyj963" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://weibo.com/u/1649298213" target="_blank" title="running_snail">running_snail</a>
+		
+		</p>
+</div>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-51312198-1', 'snailsky.me');
+    ga('send', 'pageview');
+
+</script>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"snailskyme"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-51312198-1', 'snailsky.me');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
