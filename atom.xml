@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-07-02T09:24:23.685Z</updated>
+  <updated>2014-07-02T09:37:56.495Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://weibo.com/u/1649298213/2014/07/02/mongodb%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/"/>
     <id>http://weibo.com/u/1649298213/2014/07/02/mongodb的安装及简单使用示例/</id>
     <published>2014-07-02T06:26:23.000Z</published>
-    <updated>2014-07-02T09:15:52.000Z</updated>
+    <updated>2014-07-02T09:34:12.000Z</updated>
     <content type="html"><![CDATA[<h2 id="什么是MongoDB">什么是MongoDB</h2>
 <p>MongoDB是介于传统数据库和NoSQL数据库之间的一种非关系型数据库。MongoDB使用c++实现，具有高可靠，高可用等优秀特性。<br>Mongo的官方网站地址是：<a href="http://www.mongodb.org/" target="_blank">http://www.mongodb.org/</a></p>
 <h2 id="MongoDB的安装(windows下)">MongoDB的安装(windows下)</h2>
@@ -71,7 +71,7 @@
 3
 4
 </pre></td><td class="code"><pre>db<span class="preprocessor">.users</span><span class="preprocessor">.update</span>(
-    { <span class="string">"username"</span>: <span class="string">"test"</span> },
+    { <span class="string">"username"</span>: <span class="string">"admin"</span> },
     { <span class="string">"$set"</span>: { <span class="string">"password"</span>: <span class="string">"123456"</span> } }
 )
 </pre></td></tr></table></figure>
@@ -96,7 +96,7 @@
 <h3 id="唯一索引">唯一索引</h3>
 <p>我们先把重复创建的名叫test的用户删除（只保留了一个test用户），再来执行下面代码创建唯一索引：</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>db<span class="preprocessor">.users</span><span class="preprocessor">.ensureIndex</span>({<span class="string">"username"</span>:<span class="number">1</span>},{<span class="string">"unique"</span>:true})；
+</pre></td><td class="code"><pre>db<span class="preprocessor">.users</span><span class="preprocessor">.ensureIndex</span>({<span class="string">"username"</span>:<span class="number">1</span>},{<span class="string">"unique"</span>:true})
 </pre></td></tr></table></figure>
 
 <p>创建成功后，我们再执行上面插入名叫test的用户（此时已经有一个叫test的用户在数据库中）<br><img src="/img/mongoInstall/mongodb1_12.jpg" alt="robomongo的使用"><br>我们发现报错了！test用户插入不进去，因为唯一索引起了作用，用find查询，也并没有改变，我们的唯一索引创建成功~</p>
