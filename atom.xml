@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-07-11T15:56:53.713Z</updated>
+  <updated>2014-07-11T15:59:15.356Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://weibo.com/u/1649298213/2014/07/11/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://weibo.com/u/1649298213/2014/07/11/javascript学习笔记--闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-11T15:55:06.000Z</updated>
+    <updated>2014-07-11T15:57:05.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，相信大家看了都会明白的。O(∩_∩)O~</p>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
 <h3 id="作用域">作用域</h3>
@@ -363,7 +363,7 @@ lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
 }
 </pre></td></tr></table></figure>
 
-<p>执行结果为：</p>
+<p>执行结果为：<br><img src="/img/closure/1.jpg" alt="closure"></p>
 <p>上面的代码不会输出数字 0 到 9，而是会输出数字 10 十次。</p>
 <p>当 console.log 被调用的时候，匿名函数保持对外部变量 i 的引用，此时 for循环已经结束， i 的值被修改成了 10.</p>
 <p>为了得到想要的结果，需要在每次循环中创建变量 i 的拷贝。</p>
@@ -385,7 +385,7 @@ lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
 }
 </pre></td></tr></table></figure>
 
-<p>执行结果为：</p>
+<p>执行结果为：<br><img src="/img/closure/2.jpg" alt="closure"></p>
 <p>外部的匿名函数会立即执行，并把 i 作为它的参数，此时函数内 e 变量就拥有了 i 的一个拷贝。</p>
 <p>当传递给 setTimeout 的匿名函数执行时，它就拥有了对 e 的引用，而这个值是不会被循环改变的。</p>
 <p>有另一个方法完成同样的工作；那就是从匿名包装器中返回一个函数。这和上面的代码效果一样。</p>
@@ -405,7 +405,7 @@ lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
 }
 </pre></td></tr></table></figure>
 
-<p>执行结果为：</p>
+<p>执行结果为：<br><img src="/img/closure/3.jpg" alt="closure"></p>
 ]]></content>
     
     
