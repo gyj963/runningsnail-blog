@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-07-11T15:59:15.356Z</updated>
+  <updated>2014-07-11T16:04:08.094Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://weibo.com/u/1649298213/2014/07/11/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://weibo.com/u/1649298213/2014/07/11/javascript学习笔记--闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-11T15:57:05.000Z</updated>
+    <updated>2014-07-11T16:03:33.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，相信大家看了都会明白的。O(∩_∩)O~</p>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
 <h3 id="作用域">作用域</h3>
@@ -406,8 +406,18 @@ lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
 </pre></td></tr></table></figure>
 
 <p>执行结果为：<br><img src="/img/closure/3.jpg" alt="closure"></p>
+<hr>
+<p>参考文献：<br><a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank">学习Javascript闭包（Closure）</a><br><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.closures" target="_blank">闭包和引用</a></p>
 ]]></content>
     
+    
+      <category term="JavaScript" scheme="http://weibo.com/u/1649298213/tags/JavaScript/"/>
+    
+      <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="实践" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%9E%E8%B7%B5/"/>
+    
+      <category term="实践笔记" scheme="http://weibo.com/u/1649298213/categories/%E5%AE%9E%E8%B7%B5%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
