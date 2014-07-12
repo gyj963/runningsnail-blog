@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-07-12T05:08:07.396Z</updated>
+  <updated>2014-07-12T05:10:24.226Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -19,8 +19,10 @@
     <link href="http://weibo.com/u/1649298213/2014/07/12/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BC%96%E7%A8%8B/"/>
     <id>http://weibo.com/u/1649298213/2014/07/12/JavaScript学习笔记 - 模块化编程/</id>
     <published>2014-07-12T03:05:46.000Z</published>
-    <updated>2014-07-12T04:42:49.000Z</updated>
-    <content type="html"><![CDATA[<p>前段时间，我急需这种模块化的方法来管理我的JavaScript代码<br>这篇文章给我很大帮助</p>
+    <updated>2014-07-12T05:08:30.000Z</updated>
+    <content type="html"><![CDATA[<p>前段时间，我急需这种模块化的方法来管理我的JavaScript代码<br><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">Javascript模块化编程</a>这一系列文章给我很大帮助，介绍得很通俗易懂，小伙伴们可以看看，我将在此文基础上记录一些我的笔记。</p>
+<hr>
+<p>粗去玩了回来写哈~</p>
 ]]></content>
     
     
