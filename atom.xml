@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-07-12T02:22:48.594Z</updated>
+  <updated>2014-07-12T02:27:06.982Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://weibo.com/u/1649298213/2014/07/11/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://weibo.com/u/1649298213/2014/07/11/javascript学习笔记--闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-12T02:19:35.000Z</updated>
+    <updated>2014-07-12T02:24:51.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
@@ -533,6 +533,8 @@ lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
     
       <category term="JavaScript" scheme="http://weibo.com/u/1649298213/tags/JavaScript/"/>
     
+      <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
+    
       <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="实践" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%9E%E8%B7%B5/"/>
@@ -768,7 +770,7 @@ lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
     <link href="http://weibo.com/u/1649298213/2014/06/07/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-ui%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>http://weibo.com/u/1649298213/2014/06/07/javascript-编程实践-ui层的松耦合（二）/</id>
     <published>2014-06-07T07:46:17.000Z</published>
-    <updated>2014-06-09T05:23:05.000Z</updated>
+    <updated>2014-07-12T02:26:41.000Z</updated>
     <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
 <hr>
 <h2 id="5-将HTML从JavaScript中抽离">5.将HTML从JavaScript中抽离</h2>
@@ -1097,15 +1099,13 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 ]]></content>
     
     
-      <category term="javascript" scheme="http://weibo.com/u/1649298213/tags/javascript/"/>
+      <category term="JavaScript" scheme="http://weibo.com/u/1649298213/tags/JavaScript/"/>
     
       <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
     
       <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="书" scheme="http://weibo.com/u/1649298213/tags/%E4%B9%A6/"/>
-    
-      <category term="实践" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%9E%E8%B7%B5/"/>
     
       <category term="读书笔记" scheme="http://weibo.com/u/1649298213/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
@@ -1116,7 +1116,7 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
     <link href="http://weibo.com/u/1649298213/2014/05/31/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-UI%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://weibo.com/u/1649298213/2014/05/31/javascript-编程实践-UI层的松耦合（一）/</id>
     <published>2014-05-31T03:33:37.000Z</published>
-    <updated>2014-06-09T05:26:31.000Z</updated>
+    <updated>2014-07-12T02:26:41.000Z</updated>
     <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
 <hr>
 <h1 id="UI层的松耦合">UI层的松耦合</h1>
@@ -1315,15 +1315,13 @@ dojo.connect(btn, <span class="string">"click"</span>, doSomething);
 ]]></content>
     
     
-      <category term="javascript" scheme="http://weibo.com/u/1649298213/tags/javascript/"/>
+      <category term="JavaScript" scheme="http://weibo.com/u/1649298213/tags/JavaScript/"/>
     
       <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
     
       <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="书" scheme="http://weibo.com/u/1649298213/tags/%E4%B9%A6/"/>
-    
-      <category term="实践" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%9E%E8%B7%B5/"/>
     
       <category term="读书笔记" scheme="http://weibo.com/u/1649298213/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
@@ -1334,7 +1332,7 @@ dojo.connect(btn, <span class="string">"click"</span>, doSomething);
     <link href="http://weibo.com/u/1649298213/2014/05/18/hello-my-blog/"/>
     <id>http://weibo.com/u/1649298213/2014/05/18/hello-my-blog/</id>
     <published>2014-05-18T14:50:49.000Z</published>
-    <updated>2014-06-02T06:55:05.000Z</updated>
+    <updated>2014-07-12T02:26:57.000Z</updated>
     <content type="html"><![CDATA[<p>这是<strong>我的blog </strong>，我正在创建第一篇日志。<br>今后的博客的测试什么的也将在这篇博客里尝试~</p>
 <p>我要在这开始我的博客之旅咯…</p>
 <p>最重要的代码神马的这样写…</p>
@@ -1343,8 +1341,6 @@ dojo.connect(btn, <span class="string">"click"</span>, doSomething);
 </pre></td></tr></table></figure>
 ]]></content>
     
-    
-      <category term="我" scheme="http://weibo.com/u/1649298213/tags/%E6%88%91/"/>
     
       <category term="日记" scheme="http://weibo.com/u/1649298213/tags/%E6%97%A5%E8%AE%B0/"/>
     
