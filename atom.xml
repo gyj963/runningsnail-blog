@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-07-12T14:04:22.421Z</updated>
+  <updated>2014-07-13T14:18:48.357Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -19,10 +19,74 @@
     <link href="http://weibo.com/u/1649298213/2014/07/12/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BC%96%E7%A8%8B/"/>
     <id>http://weibo.com/u/1649298213/2014/07/12/JavaScript学习笔记 - 模块化编程/</id>
     <published>2014-07-12T03:05:46.000Z</published>
-    <updated>2014-07-12T05:08:30.000Z</updated>
+    <updated>2014-07-13T14:17:35.000Z</updated>
     <content type="html"><![CDATA[<p>前段时间，我急需这种模块化的方法来管理我的JavaScript代码<br><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">Javascript模块化编程</a>这一系列文章给我很大帮助，介绍得很通俗易懂，小伙伴们可以看看，我将在此文基础上记录一些我的笔记。</p>
 <hr>
-<p>粗去玩了回来写哈~</p>
+<h2 id="JavaScript模块简介">JavaScript模块简介</h2>
+<p>JavaScript不是一种模块化编程语言，它不支持“类”（class），更不用说“模块”（module）了。（正在制定中的ECMAScript标准第六版，将正式支持”类”和”模块”，但还需要很长时间才能投入实用。）</p>
+<p>我们可以使用函数和闭包来构造模块。模块是一个提供接口却隐藏状态与实现的函数或对象。通过使用函数产生模块，我们几乎可以完全摒弃全局变量的使用，从而缓解这个JavaScript的最为糟糕的特性之一所带来的影响。</p>
+<h2 id="JavaScript模块写法">JavaScript模块写法</h2>
+<h3 id="立即执行函数">立即执行函数</h3>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+    <span class="keyword">var</span> count=<span class="number">0</span>;
+    <span class="keyword">var</span> setCount = <span class="function"><span class="keyword">function</span><span class="params">(start)</span>{</span>
+        count=start;
+    }
+    <span class="keyword">var</span> getCount = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        <span class="keyword">return</span> count;
+    }
+    <span class="keyword">return</span> {
+        setCount:setCount,
+        getCount:getCount,
+    }
+})();
+</pre></td></tr></table></figure>
+
+<p>本例是JavaScript模块的基本写法。使用到了<a href="http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/" target="_blank">闭包</a>。</p>
+<p>此时外部代码无法读取内部的count变量。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>console.<span class="keyword">log</span>(foo.count);   <span class="comment">//undefined</span>
+</pre></td></tr></table></figure>
+
+<h3 id="模块的继承">模块的继承</h3>
+<p>如果一个模块很大，必须分成几个部分，或者一个模块需要继承另一个模块。在上例的基础上，让bar继承foo。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="keyword">var</span> bar = (<span class="function"><span class="keyword">function</span><span class="params">(mod)</span>{</span>
+    mod.newFunc=<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        alert(<span class="string">"这是新增的方法"</span>);
+    }
+    <span class="keyword">return</span> mod;
+})(foo);
+alert(bar.getCount()); <span class="comment">//0</span>
+bar.setCount(<span class="number">4</span>);
+alert(bar.getCount()); <span class="comment">//4</span>
+bar.newFunc();
+</pre></td></tr></table></figure>
+
+<p>我们看到bar可以访问foo中的函数，并且添加了新的方法。那他可不可以访问foo中的私有变量呢？</p>
+<p>未完待续…</p>
 ]]></content>
     
     
@@ -43,12 +107,39 @@
     <link href="http://weibo.com/u/1649298213/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://weibo.com/u/1649298213/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-12T04:12:46.000Z</updated>
+    <updated>2014-07-13T07:09:53.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
 <h3 id="作用域">作用域</h3>
 <p>函数是JavaScript中唯一拥有自身作用域的结构。（JavaScript不支持块级作用域）<br>意味着定义在函数中的参数和变量在函数外部是不可见的，而在一个函数内部任何位置定义的变量，在该函数内部任何地方都可见。</p>
+<p>一个值得注意的例子：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+    <span class="keyword">var</span> a = <span class="number">3</span>,b = <span class="number">5</span>;
+    <span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        <span class="keyword">var</span> b = <span class="number">7</span>,c = <span class="number">11</span>;
+        <span class="comment">//此时，a为3，b为7，c为11。</span>
+        a += b+c;
+        <span class="comment">//此时，a为21，b为7，c为11。</span>
+    };
+    <span class="comment">//此时，a为3，b为5，而c还没有定义</span>
+    bar();
+    <span class="comment">//此时，a为21，b为5</span>
+};
+</pre></td></tr></table></figure>
+
 <h4 id="函数访问全局变量">函数访问全局变量</h4>
 <p>JavaScript中函数内部可以直接访问全局变量。</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
@@ -396,7 +487,18 @@ foo.increment();
 alert(foo.getCount());   <span class="comment">//5</span>
 </pre></td></tr></table></figure>
 
-<p>此处我们直接把调用函数后的结果赋值给foo，注意最后一行的()，成为直接执行函数。<br>之后我们可以直接使用foo.xx的方式来访问相关函数。<br>这也是JavaScript模块化编程的一种写法。</p>
+<p>此处我们直接把调用函数后的结果赋值给foo，注意最后一行的()，成为立即执行函数。<br>之后我们可以直接使用foo.xx的方式来访问相关函数。<br>这也是JavaScript模块化编程的一种写法。</p>
+<p>关于立即执行函数，以下两种写法均可，看个人习惯：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="comment">//写法一</span>
+(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span> <span class="comment">/* code */</span> } ());
+<span class="comment">//写法二</span>
+(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span> <span class="comment">/* code */</span> })();
+</pre></td></tr></table></figure>
+
 <h2 id="闭包是什么？">闭包是什么？</h2>
 <p>闭包是 JavaScript一个非常重要的特性，这意味着当前作用域总是能够访问外部作用域中的变量。 因为函数是JavaScript中唯一拥有自身作用域的结构，因此闭包的创建依赖于函数。</p>
 <h3 id="改变私有变量？">改变私有变量？</h3>

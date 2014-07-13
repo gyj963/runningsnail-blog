@@ -85,7 +85,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-07-11T12:59:40.000Z" itemprop="datePublished">7月 11 2014</time>
-    更新日期:<time datetime="2014-07-12T04:12:46.000Z" itemprop="dateModified">7月 12 2014</time>
+    更新日期:<time datetime="2014-07-13T07:09:53.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -102,6 +102,33 @@
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
 <h3 id="作用域">作用域</h3>
 <p>函数是JavaScript中唯一拥有自身作用域的结构。（JavaScript不支持块级作用域）<br>意味着定义在函数中的参数和变量在函数外部是不可见的，而在一个函数内部任何位置定义的变量，在该函数内部任何地方都可见。</p>
+<p>一个值得注意的例子：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+    <span class="keyword">var</span> a = <span class="number">3</span>,b = <span class="number">5</span>;
+    <span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        <span class="keyword">var</span> b = <span class="number">7</span>,c = <span class="number">11</span>;
+        <span class="comment">//此时，a为3，b为7，c为11。</span>
+        a += b+c;
+        <span class="comment">//此时，a为21，b为7，c为11。</span>
+    };
+    <span class="comment">//此时，a为3，b为5，而c还没有定义</span>
+    bar();
+    <span class="comment">//此时，a为21，b为5</span>
+};
+</pre></td></tr></table></figure>
+
 <h4 id="函数访问全局变量">函数访问全局变量</h4>
 <p>JavaScript中函数内部可以直接访问全局变量。</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
@@ -449,7 +476,18 @@ foo.increment();
 alert(foo.getCount());   <span class="comment">//5</span>
 </pre></td></tr></table></figure>
 
-<p>此处我们直接把调用函数后的结果赋值给foo，注意最后一行的()，成为直接执行函数。<br>之后我们可以直接使用foo.xx的方式来访问相关函数。<br>这也是JavaScript模块化编程的一种写法。</p>
+<p>此处我们直接把调用函数后的结果赋值给foo，注意最后一行的()，成为立即执行函数。<br>之后我们可以直接使用foo.xx的方式来访问相关函数。<br>这也是JavaScript模块化编程的一种写法。</p>
+<p>关于立即执行函数，以下两种写法均可，看个人习惯：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="comment">//写法一</span>
+(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span> <span class="comment">/* code */</span> } ());
+<span class="comment">//写法二</span>
+(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span> <span class="comment">/* code */</span> })();
+</pre></td></tr></table></figure>
+
 <h2 id="闭包是什么？">闭包是什么？</h2>
 <p>闭包是 JavaScript一个非常重要的特性，这意味着当前作用域总是能够访问外部作用域中的变量。 因为函数是JavaScript中唯一拥有自身作用域的结构，因此闭包的创建依赖于函数。</p>
 <h3 id="改变私有变量？">改变私有变量？</h3>

@@ -11,7 +11,8 @@
     
     <meta name="description" content="前段时间，我急需这种模块化的方法来管理我的JavaScript代码Javascript模块化编程这一系列文章给我很大帮助，介绍得很通俗易懂，小伙伴们可以看看，我将在此文基础上记录一些我的笔记。
 
-粗去玩了回来写哈~">
+JavaScript模块简介
+JavaScript不是一种模块化编程语言，它不支持“类”（class），">
     
     
     
@@ -83,7 +84,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-07-12T03:05:46.000Z" itemprop="datePublished">7月 12 2014</time>
-    更新日期:<time datetime="2014-07-12T05:08:30.000Z" itemprop="dateModified">7月 12 2014</time>
+    更新日期:<time datetime="2014-07-13T14:17:35.000Z" itemprop="dateModified">7月 13 2014</time>
     
   </p>
 </header>
@@ -92,12 +93,76 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript模块简介"><span class="toc-number">1.</span> <span class="toc-text">JavaScript模块简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript模块写法"><span class="toc-number">2.</span> <span class="toc-text">JavaScript模块写法</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#立即执行函数"><span class="toc-number">2.1.</span> <span class="toc-text">立即执行函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的继承"><span class="toc-number">2.2.</span> <span class="toc-text">模块的继承</span></a></li></ol>
 		</div>
 		
 		<p>前段时间，我急需这种模块化的方法来管理我的JavaScript代码<br><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">Javascript模块化编程</a>这一系列文章给我很大帮助，介绍得很通俗易懂，小伙伴们可以看看，我将在此文基础上记录一些我的笔记。</p>
 <hr>
-<p>粗去玩了回来写哈~</p>
+<h2 id="JavaScript模块简介">JavaScript模块简介</h2>
+<p>JavaScript不是一种模块化编程语言，它不支持“类”（class），更不用说“模块”（module）了。（正在制定中的ECMAScript标准第六版，将正式支持”类”和”模块”，但还需要很长时间才能投入实用。）</p>
+<p>我们可以使用函数和闭包来构造模块。模块是一个提供接口却隐藏状态与实现的函数或对象。通过使用函数产生模块，我们几乎可以完全摒弃全局变量的使用，从而缓解这个JavaScript的最为糟糕的特性之一所带来的影响。</p>
+<h2 id="JavaScript模块写法">JavaScript模块写法</h2>
+<h3 id="立即执行函数">立即执行函数</h3>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+    <span class="keyword">var</span> count=<span class="number">0</span>;
+    <span class="keyword">var</span> setCount = <span class="function"><span class="keyword">function</span><span class="params">(start)</span>{</span>
+        count=start;
+    }
+    <span class="keyword">var</span> getCount = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        <span class="keyword">return</span> count;
+    }
+    <span class="keyword">return</span> {
+        setCount:setCount,
+        getCount:getCount,
+    }
+})();
+</pre></td></tr></table></figure>
+
+<p>本例是JavaScript模块的基本写法。使用到了<a href="http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/" target="_blank">闭包</a>。</p>
+<p>此时外部代码无法读取内部的count变量。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>console.<span class="keyword">log</span>(foo.count);   <span class="comment">//undefined</span>
+</pre></td></tr></table></figure>
+
+<h3 id="模块的继承">模块的继承</h3>
+<p>如果一个模块很大，必须分成几个部分，或者一个模块需要继承另一个模块。在上例的基础上，让bar继承foo。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="keyword">var</span> bar = (<span class="function"><span class="keyword">function</span><span class="params">(mod)</span>{</span>
+    mod.newFunc=<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        alert(<span class="string">"这是新增的方法"</span>);
+    }
+    <span class="keyword">return</span> mod;
+})(foo);
+alert(bar.getCount()); <span class="comment">//0</span>
+bar.setCount(<span class="number">4</span>);
+alert(bar.getCount()); <span class="comment">//4</span>
+bar.newFunc();
+</pre></td></tr></table></figure>
+
+<p>我们看到bar可以访问foo中的函数，并且添加了新的方法。那他可不可以访问foo中的私有变量呢？</p>
+<p>未完待续…</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -147,7 +212,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript模块简介"><span class="toc-number">1.</span> <span class="toc-text">JavaScript模块简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript模块写法"><span class="toc-number">2.</span> <span class="toc-text">JavaScript模块写法</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#立即执行函数"><span class="toc-number">2.1.</span> <span class="toc-text">立即执行函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的继承"><span class="toc-number">2.2.</span> <span class="toc-text">模块的继承</span></a></li></ol>
   </div>
 
 <div id="asidepart">
