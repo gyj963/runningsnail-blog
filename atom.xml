@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-07-13T14:24:37.016Z</updated>
+  <updated>2014-07-14T07:11:13.272Z</updated>
   <id>http://weibo.com/u/1649298213/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://weibo.com/u/1649298213/2014/07/12/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BC%96%E7%A8%8B/"/>
     <id>http://weibo.com/u/1649298213/2014/07/12/JavaScript学习笔记 - 模块化编程/</id>
     <published>2014-07-12T03:05:46.000Z</published>
-    <updated>2014-07-13T14:24:31.000Z</updated>
+    <updated>2014-07-14T07:11:01.000Z</updated>
     <content type="html"><![CDATA[<p>前段时间，我急需这种模块化的方法来管理我的JavaScript代码<br><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">Javascript模块化编程</a>这一系列文章给我很大帮助，介绍得很通俗易懂，小伙伴们可以看看，我将在此文基础上记录一些我的笔记。</p>
 <hr>
 <h2 id="JavaScript模块简介">JavaScript模块简介</h2>
@@ -40,7 +40,7 @@
 11
 12
 13
-</pre></td><td class="code"><pre><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+</pre></td><td class="code"><pre><span class="keyword">var</span> bar = (<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
     <span class="keyword">var</span> count=<span class="number">0</span>;
     <span class="keyword">var</span> setCount = <span class="function"><span class="keyword">function</span><span class="params">(start)</span>{</span>
         count=start;
@@ -61,8 +61,18 @@
 </pre></td><td class="code"><pre>console.<span class="keyword">log</span>(foo.count);   <span class="comment">//undefined</span>
 </pre></td></tr></table></figure>
 
-<h3 id="模块的继承">模块的继承</h3>
-<p>如果一个模块很大，必须分成几个部分，或者一个模块需要继承另一个模块。在上例的基础上，让bar继承foo。</p>
+<h3 id="导入全局变量">导入全局变量</h3>
+<p>把全局变量作为参数传递给一个立即执行函数，这样就完成了全局变量的导入，立即执行函数中可以使用此全局变量的方法，并可以修改（简化）全局变量的名称</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="list">(<span class="title">function</span> <span class="list">(<span class="title">$</span>, YAHOO)</span> <span class="collection">{
+	// now have access to globals jQuery <span class="list">(<span class="title">as</span> $)</span> and YAHOO in this code
+}</span><span class="list">(<span class="title">jQuery</span>, YAHOO)</span>)</span><span class="comment">;</span>
+</pre></td></tr></table></figure>
+
+<h3 id="导出模块">导出模块</h3>
+<p>通过在立即执行函数中返回一个Object，将模块导出到全局空间供其他模块使用</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -73,20 +83,278 @@
 8
 9
 10
-</pre></td><td class="code"><pre><span class="keyword">var</span> bar = (<span class="function"><span class="keyword">function</span><span class="params">(mod)</span>{</span>
-    mod.newFunc=<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
-        alert(<span class="string">"这是新增的方法"</span>);
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="code"><pre><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+	<span class="keyword">var</span> mod = {},
+		privateVariable = <span class="number">1</span>;
+	<span class="function"><span class="keyword">function</span> <span class="title">privateMethod</span><span class="params">()</span> {</span>
+		console.log(<span class="string">"this is a private method"</span>);
+	}
+	mod.moduleProperty = <span class="number">2</span>;
+	mod.moduleMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+		console.log(privateVariable);       
+	};
+    mod.callPrivateMethod = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        privateMethod();
     }
-    <span class="keyword">return</span> mod;
-})(foo);
-alert(bar.getCount()); <span class="comment">//0</span>
-bar.setCount(<span class="number">4</span>);
-alert(bar.getCount()); <span class="comment">//4</span>
-bar.newFunc();  <span class="comment">//这是新增的方法</span>
+	<span class="keyword">return</span> mod;
+}());
+
+<span class="comment">//test</span>
+foo.moduleMethod(); <span class="comment">//output：1</span>
+console.log(foo.moduleProperty);  <span class="comment">//output：2</span>
+foo.callPrivateMethod(); <span class="comment">//output："this is a private method"</span>
+foo.privateMethod(); <span class="comment">//undefined</span>
+console.log(foo.privateVariable); <span class="comment">//undefined</span>
 </pre></td></tr></table></figure>
 
-<p>我们看到bar可以访问foo中的函数，并且添加了新的方法。那他可不可以访问foo中的私有变量呢？</p>
-<p>未完待续…</p>
+<h3 id="方法的重写">方法的重写</h3>
+<p>在“导出模块”例子基础上，重写他的moduleMethod方法..</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="params">(mod)</span> {</span>
+	<span class="keyword">var</span> old_moduleMethod = mod.moduleMethod;
+	mod.moduleMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+		<span class="comment">// method override, has access to old through old_moduleMethod...</span>
+        console.log(<span class="string">"this is already overridden"</span>);
+	};
+	<span class="keyword">return</span> mod;
+}(foo));
+
+<span class="comment">//test</span>
+foo.moduleMethod(); <span class="comment">//output："this is already overridden"</span>
+</pre></td></tr></table></figure>
+
+<p>并且你可以在新方法中访问老方法，如果需要的话。</p>
+<h3 id="克隆并重写方法">克隆并重写方法</h3>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="keyword">var</span> cfoo = (<span class="function"><span class="keyword">function</span><span class="params">(old)</span>{</span>
+    <span class="keyword">var</span> mod = {},
+		key;
+	<span class="keyword">for</span> (key <span class="keyword">in</span> old) {
+		<span class="keyword">if</span> (old.hasOwnProperty(key)) {
+			mod[key] = old[key];
+		}
+	}
+	<span class="keyword">var</span> super_moduleMethod = old.moduleMethod;
+	mod.moduleMethod = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+		<span class="comment">// override method on the clone, access to super through super_moduleMethod</span>
+        console.log(<span class="string">"this is a override method on the clone"</span>);
+	};
+	<span class="keyword">return</span> mod;
+})(foo);
+
+<span class="comment">//test</span>
+foo.moduleMethod(); <span class="comment">//output：1</span>
+cfoo.moduleMethod(); <span class="comment">//output："this is a override method on the clone"</span>
+cfoo.callPrivateMethod(); <span class="comment">//output："this is a private method"</span>
+</pre></td></tr></table></figure>
+
+<p>此可以克隆某个模块并可根据自己需要重写其方法。</p>
+<h3 id="模块的继承">模块的继承</h3>
+<p>如果一个模块很大，必须分成几个部分，或者一个模块需要继承另一个模块。在”立即执行函数”例子的基础上，继承bar。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="keyword">var</span> bar = (<span class="function"><span class="keyword">function</span><span class="params">(mod)</span>{</span>
+    mod.newFunc=<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        console.log(<span class="string">"this is a new function"</span>);
+    }
+    <span class="keyword">return</span> mod;
+})(bar);
+
+<span class="comment">//test</span>
+console.log(bar.getCount()); <span class="comment">//output：0</span>
+bar.setCount(<span class="number">4</span>);
+console.log(bar.getCount()); <span class="comment">//output：4</span>
+bar.newFunc(); <span class="comment">//output："this is a new function"</span>
+</pre></td></tr></table></figure>
+
+<p>我们看到可以访问foo中的老函数和新方法。那他可不可以访问foo中的私有变量呢？</p>
+<p>let’s have a try…</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="keyword">var</span> bar = (<span class="function"><span class="keyword">function</span><span class="params">(mod)</span>{</span>
+    mod.newFunc=<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        console.log(<span class="string">"this is a new function"</span>);
+    }
+    mod.testFunc=<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        console.log(count);
+        console.log(<span class="keyword">this</span>.count);
+    }
+    <span class="keyword">return</span> mod;
+})(bar);
+
+<span class="comment">//test</span>
+bar.testFunc(); <span class="comment">//两种访问count方式，结果都是undefined，即说明这种方法访问不到父模块的私有变量</span>
+</pre></td></tr></table></figure>
+
+<p><em>注意</em>：这种方法是访问不到父模块的私有变量的。</p>
+<p>在浏览器环境中，模块的各个部分通常都是从网上获取的，有时无法知道哪个部分会先加载。如果采用上一节的写法，第一个执行的部分有可能加载一个不存在空对象。可以用一下方式解决：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="keyword">var</span> bar = (<span class="function"><span class="keyword">function</span><span class="params">(mod)</span>{</span>
+    mod.newFunc=<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+        console.log(<span class="string">"this is a new function"</span>);
+    }
+    <span class="keyword">return</span> mod;
+})(bar||{});
+</pre></td></tr></table></figure>
+
+<h2 id="模块应用-单例模式">模块应用-单例模式</h2>
+<p>模块模式通常结合单例模式（Singleton Pattern）使用。JavaScript的单例就是用对象字面量表示法创建的对象，对象的属性值可以试数值或函数，并且属性值在该对象的生命周期中不会发生变化。</p>
+<p>单例的最佳实践：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="keyword">var</span> Universe;
+(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>    
+    <span class="keyword">var</span> instance;   
+    Universe = <span class="function"><span class="keyword">function</span> <span class="title">Universe</span><span class="params">()</span> {</span>        
+        <span class="keyword">if</span> (instance) {
+            <span class="keyword">return</span> instance;
+        }        
+        instance = <span class="keyword">this</span>;        
+        <span class="comment">// all the functionality</span>
+        <span class="keyword">this</span>.start_time = <span class="number">0</span>;
+        <span class="keyword">this</span>.bang = <span class="string">"Big"</span>;
+    };
+}());
+</pre></td></tr></table></figure>
+
+<p>测试一下一以上代码：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="code"><pre><span class="comment">// testing</span>
+<span class="built_in">var</span> uni <span class="subst">=</span> <span class="literal">new</span> Universe();
+<span class="built_in">var</span> uni2 <span class="subst">=</span> <span class="literal">new</span> Universe();
+console<span class="built_in">.</span><span class="keyword">log</span>(uni<span class="subst">===</span>uni2); <span class="comment">//output：true</span>
+
+<span class="comment">// adding to the prototype</span>
+Universe<span class="built_in">.</span>prototype<span class="built_in">.</span>nothing <span class="subst">=</span> <span class="literal">true</span>;
+
+<span class="built_in">var</span> uni <span class="subst">=</span> <span class="literal">new</span> Universe();
+
+<span class="comment">// again adding to the prototype</span>
+<span class="comment">// after the initial object is created</span>
+Universe<span class="built_in">.</span>prototype<span class="built_in">.</span>everything <span class="subst">=</span> <span class="literal">true</span>;
+
+<span class="built_in">var</span> uni2 <span class="subst">=</span> <span class="literal">new</span> Universe();
+
+<span class="comment">// linked to the objects</span>
+console<span class="built_in">.</span><span class="keyword">log</span>(uni<span class="built_in">.</span>nothing); <span class="comment">// output：true</span>
+console<span class="built_in">.</span><span class="keyword">log</span>(uni2<span class="built_in">.</span>nothing); <span class="comment">// output：true</span>
+console<span class="built_in">.</span><span class="keyword">log</span>(uni<span class="built_in">.</span>everything); <span class="comment">// output：true</span>
+console<span class="built_in">.</span><span class="keyword">log</span>(uni2<span class="built_in">.</span>everything); <span class="comment">// output：true</span>
+
+console<span class="built_in">.</span><span class="keyword">log</span>(uni<span class="built_in">.</span>constructor<span class="built_in">.</span>name); <span class="comment">// output："Universe"</span>
+console<span class="built_in">.</span><span class="keyword">log</span>(uni<span class="built_in">.</span>constructor <span class="subst">===</span> Universe); <span class="comment">// output："Universe"</span>
+</pre></td></tr></table></figure>
+
+<p>我们发现new出来的两个Universe对象是同一个所以他们是同一个对象，实现了单例，且加进原型的属性在两个对象均可访问。</p>
+<p>关于constructor：<br>constructor属性不影响任何JavaScript的内部属性。instanceof检测对象的原型链，通常你是无法修改的（不过某些引擎通过私有的<strong>proto</strong>属性暴露出来）。</p>
+<p>constructor其实没有什么用处，只是JavaScript语言设计的历史遗留物。由于constructor属性是可以变更的，所以未必真的指向对象的构造函数，只是一个提示。不过，从编程习惯上，我们应该尽量让对象的constructor指向其构造函数，以维持这个惯例。</p>
+<h2 id="模块的规范">模块的规范</h2>
+<p>目前，通行的Javascript模块规范有：CommonJS（node.js应用此规范），AMD(异步模块定义)，CMD（通用模块定义）。<br>主要有两个Javascript库实现了AMD规范：require.js和curl.js。<br>实现了CMD规范：sea.js。</p>
+<p>关于这些库和规范的讨论相关文章有：<br><a href="https://github.com/seajs/seajs/issues/277" target="_blank">seaJS与RequireJS的异同</a><br><a href="http://www.zhihu.com/question/20351507/answer/14859415" target="_blank">AMD 和 CMD 的区别有哪些？</a></p>
+<p>先写到这，对于这些库，尚在了解中。等应用一阵再写相关的博文吧。</p>
+<hr>
+<p>参考文献：<br><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">[1] Javascript模块化编程</a><br><a href="http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html" target="_blank">[2] JavaScript Module Pattern: In-Depth</a><br><a href="http://book.douban.com/subject/2994925/" target="_blank">[3] JavaScript - The Good Parts</a><br><a href="http://www.cnblogs.com/TomXu/archive/2012/02/20/2352817.html" target="_blank">[4] 深入理解JavaScript系列（25）：设计模式之单例模式</a><br><a href="https://github.com/shichuan/javascript-patterns/blob/master/design-patterns/singleton.html" target="_blank">[5] javascript-patterns  singleton</a></p>
 ]]></content>
     
     
@@ -107,7 +375,7 @@ bar.newFunc();  <span class="comment">//这是新增的方法</span>
     <link href="http://weibo.com/u/1649298213/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://weibo.com/u/1649298213/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-13T07:09:53.000Z</updated>
+    <updated>2014-07-14T07:08:04.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
@@ -147,11 +415,15 @@ bar.newFunc();  <span class="comment">//这是新增的方法</span>
 3
 4
 5
+6
+7
 </pre></td><td class="code"><pre><span class="keyword">var</span> n=<span class="number">999</span>;
-<span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span><span class="comment">{
-    alert(n);
-}</span>
-<span class="title">f1</span><span class="params">()</span>;</span> <span class="comment">// 999</span>
+<span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span>{</span>
+    console.log(n);
+}
+
+<span class="comment">//test</span>
+f1(); <span class="comment">// 999</span>
 </pre></td></tr></table></figure>
 
 <p>函数外部无法读取函数内的局部变量。</p>
@@ -161,12 +433,16 @@ bar.newFunc();  <span class="comment">//这是新增的方法</span>
 4
 5
 6
+7
+8
 </pre></td><td class="code"><pre><span class="keyword">var</span> m=<span class="number">123</span>;
 <span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span>{</span>
     <span class="keyword">var</span> n=<span class="number">999</span>;
 }
-alert(m);    <span class="comment">// 123</span>
-alert(n);    <span class="comment">// undefined</span>
+
+<span class="comment">//test</span>
+console.log(m);    <span class="comment">// output：123</span>
+console.log(n);    <span class="comment">// undefined</span>
 </pre></td></tr></table></figure>
 
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
@@ -176,13 +452,17 @@ alert(n);    <span class="comment">// undefined</span>
 5
 6
 7
+8
+9
 </pre></td><td class="code"><pre><span class="keyword">var</span> m=<span class="number">123</span>;
 <span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span>{</span>
     <span class="keyword">var</span> n=<span class="number">999</span>;
 }
 f1();
-alert(m);    <span class="comment">// 123</span>
-alert(n);    <span class="comment">// undefined</span>
+
+<span class="comment">//test</span>
+console.log(m);    <span class="comment">// output：123</span>
+console.log(n);    <span class="comment">// undefined</span>
 </pre></td></tr></table></figure>
 
 <p><em>注意</em>：此时的n，如果声明时没有用var命令，在执行了声明它的函数后，事实上是产生了一个全局变量！</p>
@@ -192,63 +472,18 @@ alert(n);    <span class="comment">// undefined</span>
 4
 5
 6
-</pre></td><td class="code"><pre><span class="keyword">var</span> m=<span class="number">123</span>;
-<span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span><span class="comment">{
-    n=999;
-}</span>
-<span class="title">alert</span><span class="params">(m)</span>;</span>    <span class="comment">// 123</span>
-alert(n);    <span class="comment">// undefined</span>
-</pre></td></tr></table></figure>
-
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
 7
+8
 </pre></td><td class="code"><pre><span class="keyword">var</span> m=<span class="number">123</span>;
-<span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span><span class="comment">{
-    n=999;
-}</span>
-<span class="title">f1</span><span class="params">()</span>;</span>
-alert(m);    <span class="comment">// 123</span>
-alert(n);    <span class="comment">// 999</span>
-</pre></td></tr></table></figure>
-
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-</pre></td><td class="code"><pre><span class="keyword">var</span> n=<span class="number">123</span>;
-<span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span><span class="comment">{
-    n=999;
-}</span>
-<span class="title">f1</span><span class="params">()</span>;</span>
-alert(n);    <span class="comment">// 999</span>
-</pre></td></tr></table></figure>
-
-<h4 id="外部访问函数局部变量">外部访问函数局部变量</h4>
-<p>正常情况下JavaScript无法获得函数内部的局部变量的值，可是我们有时需要获取，我们应该怎样做？</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
-    <span class="keyword">var</span> count=<span class="number">5</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
-        alert(count);
-    }
+<span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span>{</span>
+    n=<span class="number">999</span>;
 }
-counter();  <span class="comment">//木有反应</span>
+
+<span class="comment">//test</span>
+console.log(m);    <span class="comment">// output：123</span>
+console.log(n);    <span class="comment">// undefined</span>
 </pre></td></tr></table></figure>
 
-<p>以上代码木有反应，因为我们执行了counter函数却没执行counter函数里面的个体函数哟..<br>我们在counter里面调用一下get();这样执行counter函数即执行了get函数。</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -257,30 +492,38 @@ counter();  <span class="comment">//木有反应</span>
 6
 7
 8
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
-    <span class="keyword">var</span> count=<span class="number">5</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
-        alert(count);
-    }
-    <span class="keyword">get</span>();
-}
-counter();  <span class="comment">//5</span>
+9
+</pre></td><td class="code"><pre><span class="keyword">var</span> m=<span class="number">123</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span><span class="comment">{
+    n=999;
+}</span>
+<span class="title">f1</span><span class="params">()</span>;</span>
+
+<span class="comment">//test</span>
+console.log(m);    <span class="comment">// output：123</span>
+console.log(n);    <span class="comment">// output：999</span>
 </pre></td></tr></table></figure>
 
-<p>这样我们便访问到了counter的局部变量，哈哈，大功告成！…了吗？<br>我们这样做和一下代码有什么区别？！</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
-    <span class="keyword">var</span> count=<span class="number">5</span>;
-    alert(count);
-}
-counter();  <span class="comment">//5</span>
+6
+7
+8
+</pre></td><td class="code"><pre><span class="keyword">var</span> n=<span class="number">123</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span><span class="comment">{
+    n=999;
+}</span>
+<span class="title">f1</span><span class="params">()</span>;</span>
+
+<span class="comment">//test</span>
+console.log(n);    <span class="comment">// output：999</span>
 </pre></td></tr></table></figure>
 
-<p>这样做行不通，我们另寻他径。</p>
+<h4 id="外部访问函数局部变量">外部访问函数局部变量</h4>
+<p>正常情况下JavaScript无法获得函数内部的局部变量的值，可是我们有时需要获取，我们应该怎样做？</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -293,12 +536,77 @@ counter();  <span class="comment">//5</span>
 </pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
     <span class="keyword">var</span> count=<span class="number">5</span>;
     <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
+        console.log(count);
+    }
+}
+
+<span class="comment">//test</span>
+counter();  <span class="comment">//木有反应</span>
+</pre></td></tr></table></figure>
+
+<p>以上代码木有反应，因为我们执行了counter函数却没执行counter函数里面的个体函数哟..<br>我们在counter里面调用一下get();这样执行counter函数即执行了get函数。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
+    <span class="keyword">var</span> count=<span class="number">5</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
+        console.log(count);
+    }
+    <span class="keyword">get</span>();
+}
+
+<span class="comment">//test</span>
+counter();  <span class="comment">//output：5</span>
+</pre></td></tr></table></figure>
+
+<p>这样我们便访问到了counter的局部变量，哈哈，大功告成！…了吗？<br>我们这样做和一下代码有什么区别？！</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
+    <span class="keyword">var</span> count=<span class="number">5</span>;
+    console.log(count);
+}
+
+<span class="comment">//test</span>
+counter();  <span class="comment">//output：5</span>
+</pre></td></tr></table></figure>
+
+<p>这样做行不通，我们另寻他径。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
+    <span class="keyword">var</span> count=<span class="number">5</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
         <span class="keyword">return</span> count;
     }
     <span class="keyword">return</span> <span class="keyword">get</span>;
 }
+
+<span class="comment">//test</span>
 <span class="keyword">var</span> foo=counter();
-alert(foo());    <span class="comment">//5</span>
+console.log(foo());    <span class="comment">//output：5</span>
 </pre></td></tr></table></figure>
 
 <p>我们返回了一个函数名get，当执行了counter函数后返回了counter函数内的get函数的引用并赋值给foo，在外面执行了foo()相当于调用了get()，我们获取到了局部变量count！！！~</p>
@@ -313,6 +621,8 @@ alert(foo());    <span class="comment">//5</span>
 8
 9
 10
+11
+12
 </pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
     <span class="keyword">var</span> count=<span class="number">5</span>;
     <span class="keyword">return</span> {
@@ -321,8 +631,10 @@ alert(foo());    <span class="comment">//5</span>
         }
     }
 }
+
+<span class="comment">//test</span>
 <span class="keyword">var</span> foo=counter();
-alert(foo.<span class="keyword">get</span>());    <span class="comment">//5</span>
+console.log(foo.<span class="keyword">get</span>());    <span class="comment">//output：5</span>
 </pre></td></tr></table></figure>
 
 <p>这次我们return了一个对象字面量，在执行counter函数后返回了一个对象字面量并赋给一个foo变量，里面有个名为get的key，其value为一个匿名函数（是否是匿名并没有关系）。我们执行字面量中的get方法，得到了count。</p>
@@ -342,6 +654,8 @@ alert(foo.<span class="keyword">get</span>());    <span class="comment">//5</spa
 13
 14
 15
+16
+17
 </pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
     <span class="keyword">var</span> count=<span class="number">5</span>;
     <span class="keyword">return</span> {
@@ -353,10 +667,12 @@ alert(foo.<span class="keyword">get</span>());    <span class="comment">//5</spa
         }
     }
 }
+
+<span class="comment">//test</span>
 <span class="keyword">var</span> foo=counter();
-alert(foo.<span class="keyword">get</span>());   <span class="comment">//5</span>
+console.log(foo.<span class="keyword">get</span>());   <span class="comment">//output：5</span>
 foo.increment();
-alert(foo.<span class="keyword">get</span>());   <span class="comment">//6</span>
+console.log(foo.<span class="keyword">get</span>());   <span class="comment">//output：6</span>
 </pre></td></tr></table></figure>
 
 <p>以上例子也可以这么写：</p>
@@ -377,6 +693,8 @@ alert(foo.<span class="keyword">get</span>());   <span class="comment">//6</span
 15
 16
 17
+18
+19
 </pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">()</span>{</span>
     <span class="keyword">var</span> count=<span class="number">5</span>;
      <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
@@ -390,10 +708,12 @@ alert(foo.<span class="keyword">get</span>());   <span class="comment">//6</span
         increment:increment
     }
 }
+
+<span class="comment">//test</span>
 <span class="keyword">var</span> foo=counter();
-alert(foo.<span class="keyword">get</span>());   <span class="comment">//5</span>
+console.log(foo.<span class="keyword">get</span>());   <span class="comment">//output：5</span>
 foo.increment();
-alert(foo.<span class="keyword">get</span>());    <span class="comment">//6</span>
+console.log(foo.<span class="keyword">get</span>());    <span class="comment">//output：6</span>
 </pre></td></tr></table></figure>
 
 <p>再改进一下，使他更有意义：</p>
@@ -414,6 +734,8 @@ alert(foo.<span class="keyword">get</span>());    <span class="comment">//6</spa
 15
 16
 17
+18
+19
 </pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">(start)</span>{</span>
     <span class="keyword">var</span> count=start;
      <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
@@ -427,10 +749,12 @@ alert(foo.<span class="keyword">get</span>());    <span class="comment">//6</spa
         increment:increment
     }
 }
+
+<span class="comment">//test</span>
 <span class="keyword">var</span> foo=counter(<span class="number">4</span>);
-alert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
+console.log(foo.<span class="keyword">get</span>());   <span class="comment">//output：4</span>
 foo.increment();
-alert(foo.<span class="keyword">get</span>());   <span class="comment">//5</span>
+console.log(foo.<span class="keyword">get</span>());   <span class="comment">//output：5</span>
 </pre></td></tr></table></figure>
 
 <p>至此，我们已经应用到了闭包。<br>这个例子中的counter函数返回两个闭包，函数get和函数increment。这两个函数都维持着对外部作用域 counter 的引用，因此总可以访问此作用域内定义的变量 count。</p>
@@ -460,6 +784,8 @@ alert(foo.<span class="keyword">get</span>());   <span class="comment">//5</span
 23
 24
 25
+26
+27
 </pre></td><td class="code"><pre><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
     <span class="keyword">var</span> count=<span class="number">0</span>;
     <span class="function"><span class="keyword">function</span> <span class="title">setCount</span><span class="params">(start)</span>{</span>
@@ -477,14 +803,16 @@ alert(foo.<span class="keyword">get</span>());   <span class="comment">//5</span
         increment:increment
     }
 }());
-alert(foo.getCount());   <span class="comment">//0</span>
+
+<span class="comment">//test</span>
+console.log(foo.getCount());   <span class="comment">//output：0</span>
 foo.increment();
-alert(foo.getCount());   <span class="comment">//1</span>
+console.log(foo.getCount());   <span class="comment">//output：1</span>
 <span class="comment">//重新设置count</span>
 foo.setCount(<span class="number">4</span>);
-alert(foo.getCount());   <span class="comment">//4</span>
+console.log(foo.getCount());   <span class="comment">//output：4</span>
 foo.increment();
-alert(foo.getCount());   <span class="comment">//5</span>
+console.log(foo.getCount());   <span class="comment">//output：5</span>
 </pre></td></tr></table></figure>
 
 <p>此处我们直接把调用函数后的结果赋值给foo，注意最后一行的()，成为立即执行函数。<br>之后我们可以直接使用foo.xx的方式来访问相关函数。<br>这也是JavaScript模块化编程的一种写法。</p>
@@ -499,6 +827,7 @@ alert(foo.getCount());   <span class="comment">//5</span>
 (<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span> <span class="comment">/* code */</span> })();
 </pre></td></tr></table></figure>
 
+<p>(function(){}())是使用了强制运算符执行函数调用运算，(function(){})()是通过函数调用运算符操作函数引用。两者功能上是一致的，只是运算过程不同。</p>
 <h2 id="闭包是什么？">闭包是什么？</h2>
 <p>闭包是 JavaScript一个非常重要的特性，这意味着当前作用域总是能够访问外部作用域中的变量。 因为函数是JavaScript中唯一拥有自身作用域的结构，因此闭包的创建依赖于函数。</p>
 <h3 id="改变私有变量？">改变私有变量？</h3>
@@ -521,6 +850,8 @@ alert(foo.getCount());   <span class="comment">//5</span>
 16
 17
 18
+19
+20
 </pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">counter</span><span class="params">(start)</span>{</span>
    <span class="keyword">var</span> count=start;
     <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
@@ -538,7 +869,9 @@ ar foo=counter(<span class="number">4</span>);
 oo.hack = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
    count = <span class="number">999</span>;
 ;
-lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
+
+/test
+onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//output：4</span>
 </pre></td></tr></table></figure>
 
 <p>这种做法，答案是NO。foo.hack没有定义在counter作用域内，以上代码不会改变定义在counter作用域中的count值。</p>
@@ -618,7 +951,7 @@ lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
     var <span class="built_in">i</span>;
     <span class="keyword">for</span>(<span class="built_in">i</span>=<span class="number">0</span>; <span class="built_in">i</span>&lt;<span class="transposed_variable">nodes.</span><span class="built_in">length</span>; <span class="built_in">i</span>+=<span class="number">1</span>)<span class="cell">{
         node[i].onclick=function(e){
-            alert(i);
+            console.log(i);
         }</span>;
     }
 };
@@ -641,7 +974,7 @@ lert(foo.<span class="keyword">get</span>());   <span class="comment">//4</span>
 </pre></td><td class="code"><pre>var foo=<span class="function"><span class="keyword">function</span><span class="params">(nodes)</span>{</span>
     var helper=<span class="function"><span class="keyword">function</span><span class="params">(i)</span>{</span>
         <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(e)</span>{</span>
-           alert(<span class="built_in">i</span>);
+           <span class="transposed_variable">console.</span><span class="built_in">log</span>(<span class="built_in">i</span>);
         };
     };
     var <span class="built_in">i</span>;
