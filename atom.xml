@@ -3,9 +3,9 @@
   <title><![CDATA[Running_snail's Blog]]></title>
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://weibo.com/u/1649298213/"/>
-  <updated>2014-07-14T08:07:38.349Z</updated>
-  <id>http://weibo.com/u/1649298213/</id>
+  <link href="http://snailsky.me/"/>
+  <updated>2014-07-14T08:37:35.772Z</updated>
+  <id>http://snailsky.me/</id>
   
   <author>
     <name><![CDATA[running_snail]]></name>
@@ -16,10 +16,10 @@
   
   <entry>
     <title><![CDATA[JavaScript学习笔记 - 模块化编程]]></title>
-    <link href="http://weibo.com/u/1649298213/2014/07/12/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BC%96%E7%A8%8B/"/>
-    <id>http://weibo.com/u/1649298213/2014/07/12/JavaScript学习笔记 - 模块化编程/</id>
+    <link href="http://snailsky.me/2014/07/12/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BC%96%E7%A8%8B/"/>
+    <id>http://snailsky.me/2014/07/12/JavaScript学习笔记 - 模块化编程/</id>
     <published>2014-07-12T03:05:46.000Z</published>
-    <updated>2014-07-14T08:06:45.000Z</updated>
+    <updated>2014-07-14T08:15:08.000Z</updated>
     <content type="html"><![CDATA[<p>前段时间，我急需这种模块化的方法来管理我的JavaScript代码<br><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">Javascript模块化编程</a>这一系列文章给我很大帮助，介绍得很通俗易懂，小伙伴们可以看看，我将在此文基础上记录一些我的笔记。</p>
 <hr>
 <h2 id="JavaScript模块简介">JavaScript模块简介</h2>
@@ -358,24 +358,24 @@ console<span class="built_in">.</span><span class="keyword">log</span>(uni<span 
 ]]></content>
     
     
-      <category term="JavaScript" scheme="http://weibo.com/u/1649298213/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
+      <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
-      <category term="实践" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%9E%E8%B7%B5/"/>
+      <category term="实践" scheme="http://snailsky.me/tags/%E5%AE%9E%E8%B7%B5/"/>
     
-      <category term="JavaScript学习" scheme="http://weibo.com/u/1649298213/categories/JavaScript%E5%AD%A6%E4%B9%A0/"/>
+      <category term="JavaScript" scheme="http://snailsky.me/categories/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[JavaScript学习笔记 - 闭包（closure）]]></title>
-    <link href="http://weibo.com/u/1649298213/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
-    <id>http://weibo.com/u/1649298213/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
+    <link href="http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
+    <id>http://snailsky.me/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-14T08:06:45.000Z</updated>
+    <updated>2014-07-14T08:15:08.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
@@ -990,22 +990,22 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
 ]]></content>
     
     
-      <category term="JavaScript" scheme="http://weibo.com/u/1649298213/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
+      <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
-      <category term="实践" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%9E%E8%B7%B5/"/>
+      <category term="实践" scheme="http://snailsky.me/tags/%E5%AE%9E%E8%B7%B5/"/>
     
-      <category term="JavaScript学习" scheme="http://weibo.com/u/1649298213/categories/JavaScript%E5%AD%A6%E4%B9%A0/"/>
+      <category term="JavaScript" scheme="http://snailsky.me/categories/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[致将与前端技术渡过的宝贵假期]]></title>
-    <link href="http://weibo.com/u/1649298213/2014/07/04/%E8%87%B4%E5%B0%86%E4%B8%8E%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%B8%A1%E8%BF%87%E7%9A%84%E5%AE%9D%E8%B4%B5%E5%81%87%E6%9C%9F/"/>
-    <id>http://weibo.com/u/1649298213/2014/07/04/致将与前端技术渡过的宝贵假期/</id>
+    <link href="http://snailsky.me/2014/07/04/%E8%87%B4%E5%B0%86%E4%B8%8E%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%B8%A1%E8%BF%87%E7%9A%84%E5%AE%9D%E8%B4%B5%E5%81%87%E6%9C%9F/"/>
+    <id>http://snailsky.me/2014/07/04/致将与前端技术渡过的宝贵假期/</id>
     <published>2014-07-04T03:04:13.000Z</published>
     <updated>2014-07-04T04:54:30.000Z</updated>
     <content type="html"><![CDATA[<p>今天心血来潮，在家呆着，怕自己没了激情，自己给自己鼓励一下  (╯▔▽▔)╯</p>
@@ -1022,22 +1022,22 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
 ]]></content>
     
     
-      <category term="感悟" scheme="http://weibo.com/u/1649298213/tags/%E6%84%9F%E6%82%9F/"/>
+      <category term="感悟" scheme="http://snailsky.me/tags/%E6%84%9F%E6%82%9F/"/>
     
-      <category term="心情" scheme="http://weibo.com/u/1649298213/tags/%E5%BF%83%E6%83%85/"/>
+      <category term="心情" scheme="http://snailsky.me/tags/%E5%BF%83%E6%83%85/"/>
     
-      <category term="日记" scheme="http://weibo.com/u/1649298213/tags/%E6%97%A5%E8%AE%B0/"/>
+      <category term="日记" scheme="http://snailsky.me/tags/%E6%97%A5%E8%AE%B0/"/>
     
-      <category term="学习生活" scheme="http://weibo.com/u/1649298213/tags/%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%B4%BB/"/>
+      <category term="学习生活" scheme="http://snailsky.me/tags/%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="生活随笔" scheme="http://weibo.com/u/1649298213/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+      <category term="生活随笔" scheme="http://snailsky.me/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[MongoDB的安装及简单使用示例]]></title>
-    <link href="http://weibo.com/u/1649298213/2014/07/02/mongodb%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/"/>
-    <id>http://weibo.com/u/1649298213/2014/07/02/mongodb的安装及简单使用示例/</id>
+    <link href="http://snailsky.me/2014/07/02/mongodb%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/"/>
+    <id>http://snailsky.me/2014/07/02/mongodb的安装及简单使用示例/</id>
     <published>2014-07-02T06:26:23.000Z</published>
     <updated>2014-07-02T09:34:12.000Z</updated>
     <content type="html"><![CDATA[<h2 id="什么是MongoDB">什么是MongoDB</h2>
@@ -1208,26 +1208,26 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
 ]]></content>
     
     
-      <category term="mongodb" scheme="http://weibo.com/u/1649298213/tags/mongodb/"/>
+      <category term="mongodb" scheme="http://snailsky.me/tags/mongodb/"/>
     
-      <category term="mongo" scheme="http://weibo.com/u/1649298213/tags/mongo/"/>
+      <category term="mongo" scheme="http://snailsky.me/tags/mongo/"/>
     
-      <category term="安装" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%89%E8%A3%85/"/>
+      <category term="安装" scheme="http://snailsky.me/tags/%E5%AE%89%E8%A3%85/"/>
     
-      <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
+      <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
-      <category term="实践" scheme="http://weibo.com/u/1649298213/tags/%E5%AE%9E%E8%B7%B5/"/>
+      <category term="实践" scheme="http://snailsky.me/tags/%E5%AE%9E%E8%B7%B5/"/>
     
-      <category term="实践笔记" scheme="http://weibo.com/u/1649298213/categories/%E5%AE%9E%E8%B7%B5%E7%AC%94%E8%AE%B0/"/>
+      <category term="实践笔记" scheme="http://snailsky.me/categories/%E5%AE%9E%E8%B7%B5%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[JavaScript 编程实践 - UI层的松耦合 (二)]]></title>
-    <link href="http://weibo.com/u/1649298213/2014/06/07/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-ui%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
-    <id>http://weibo.com/u/1649298213/2014/06/07/javascript-编程实践-ui层的松耦合（二）/</id>
+    <link href="http://snailsky.me/2014/06/07/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-ui%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://snailsky.me/2014/06/07/javascript-编程实践-ui层的松耦合（二）/</id>
     <published>2014-06-07T07:46:17.000Z</published>
     <updated>2014-07-12T02:26:41.000Z</updated>
     <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
@@ -1558,22 +1558,22 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 ]]></content>
     
     
-      <category term="JavaScript" scheme="http://weibo.com/u/1649298213/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
+      <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
-      <category term="书" scheme="http://weibo.com/u/1649298213/tags/%E4%B9%A6/"/>
+      <category term="书" scheme="http://snailsky.me/tags/%E4%B9%A6/"/>
     
-      <category term="读书笔记" scheme="http://weibo.com/u/1649298213/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+      <category term="读书笔记" scheme="http://snailsky.me/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[JavaScript 编程实践 - UI层的松耦合 (一)]]></title>
-    <link href="http://weibo.com/u/1649298213/2014/05/31/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-UI%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://weibo.com/u/1649298213/2014/05/31/javascript-编程实践-UI层的松耦合（一）/</id>
+    <link href="http://snailsky.me/2014/05/31/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-UI%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://snailsky.me/2014/05/31/javascript-编程实践-UI层的松耦合（一）/</id>
     <published>2014-05-31T03:33:37.000Z</published>
     <updated>2014-07-12T02:26:41.000Z</updated>
     <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
@@ -1774,22 +1774,22 @@ dojo.connect(btn, <span class="string">"click"</span>, doSomething);
 ]]></content>
     
     
-      <category term="JavaScript" scheme="http://weibo.com/u/1649298213/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://weibo.com/u/1649298213/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="笔记" scheme="http://weibo.com/u/1649298213/tags/%E7%AC%94%E8%AE%B0/"/>
+      <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
-      <category term="书" scheme="http://weibo.com/u/1649298213/tags/%E4%B9%A6/"/>
+      <category term="书" scheme="http://snailsky.me/tags/%E4%B9%A6/"/>
     
-      <category term="读书笔记" scheme="http://weibo.com/u/1649298213/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+      <category term="读书笔记" scheme="http://snailsky.me/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Hello My Blog]]></title>
-    <link href="http://weibo.com/u/1649298213/2014/05/18/hello-my-blog/"/>
-    <id>http://weibo.com/u/1649298213/2014/05/18/hello-my-blog/</id>
+    <link href="http://snailsky.me/2014/05/18/hello-my-blog/"/>
+    <id>http://snailsky.me/2014/05/18/hello-my-blog/</id>
     <published>2014-05-18T14:50:49.000Z</published>
     <updated>2014-07-12T02:26:57.000Z</updated>
     <content type="html"><![CDATA[<p>这是<strong>我的blog </strong>，我正在创建第一篇日志。<br>今后的博客的测试什么的也将在这篇博客里尝试~</p>
@@ -1801,11 +1801,11 @@ dojo.connect(btn, <span class="string">"click"</span>, doSomething);
 ]]></content>
     
     
-      <category term="日记" scheme="http://weibo.com/u/1649298213/tags/%E6%97%A5%E8%AE%B0/"/>
+      <category term="日记" scheme="http://snailsky.me/tags/%E6%97%A5%E8%AE%B0/"/>
     
-      <category term="生活" scheme="http://weibo.com/u/1649298213/tags/%E7%94%9F%E6%B4%BB/"/>
+      <category term="生活" scheme="http://snailsky.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
-      <category term="生活随笔" scheme="http://weibo.com/u/1649298213/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+      <category term="生活随笔" scheme="http://snailsky.me/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
