@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-07-19T12:19:09.521Z</updated>
+  <updated>2014-07-19T12:23:57.396Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Grunt的配置及使用示例]]></title>
+    <title><![CDATA[Grunt的配置及liveReload功能实例]]></title>
     <link href="http://snailsky.me/2014/07/19/grunt%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/"/>
     <id>http://snailsky.me/2014/07/19/grunt的配置及使用示例/</id>
     <published>2014-07-19T11:27:42.000Z</published>
-    <updated>2014-07-19T12:18:52.000Z</updated>
+    <updated>2014-07-19T12:23:32.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Grunt的介绍">Grunt的介绍</h2>
 <p>Grunt是一个自动化的项目构建工具，配置好Grunt可以完成压缩，代码检查，单元测试等任务。C/C++有makefile，Java有Maven，Nodejs有grunt~</p>
 <p>Grunt常用的插件有：<br>1).grunt-contrib-uglify：压缩js代码<br>2).grunt-contrib-concat：合并js文件<br>3).grunt-contrib-qunit：单元测试<br>4).grunt-contrib-jshint：js代码检查<br>5).grunt-contrib-watch：文件监控</p>
