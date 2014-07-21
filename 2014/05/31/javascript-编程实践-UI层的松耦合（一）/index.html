@@ -85,7 +85,7 @@ WEB开发中 UI由三个彼此隔离又相互作用的层定义（HTML,CSS,JavaS
     </p>
   <p class="article-time">
     <time datetime="2014-05-31T03:33:37.000Z" itemprop="datePublished">5月 31 2014</time>
-    更新日期:<time datetime="2014-07-14T08:38:33.000Z" itemprop="dateModified">7月 14 2014</time>
+    更新日期:<time datetime="2014-07-21T15:09:34.000Z" itemprop="dateModified">7月 21 2014</time>
     
   </p>
 </header>
@@ -246,8 +246,8 @@ btn.addEventListener(<span class="string">"click"</span>, doSomething, <span cla
 <span class="keyword">function</span> addListener(target, <span class="class"><span class="keyword">type</span>, <span class="title">handler</span>){</span>
     <span class="keyword">if</span>(target.addEventListener){
         target.addEventListener(<span class="class"><span class="keyword">type</span>, <span class="title">handler</span>, <span class="title">false</span>);</span>
-    }<span class="keyword">else</span>{
-        target.attachEvent(<span class="string">"on"</span> + <span class="class"><span class="keyword">type</span>, <span class="title">handler</span>);</span>
+    }<span class="keyword">else</span> <span class="keyword">if</span>(target.attachEvent){
+    		target.attachEvent(<span class="string">"on"</span> + <span class="class"><span class="keyword">type</span>, <span class="title">handler</span>);</span>
     }<span class="keyword">else</span>{
         target[<span class="string">"on"</span> + <span class="class"><span class="keyword">type</span>] =</span> handler;
     }
