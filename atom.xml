@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-07-22T15:47:35.640Z</updated>
+  <updated>2014-07-23T15:51:37.682Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://snailsky.me/2014/07/22/%E9%82%A3%E4%BA%9B%E5%B9%B4%E8%A2%AB%E6%88%91%E4%BB%AC%E8%AF%AF%E7%94%A8%E7%9A%84css/"/>
     <id>http://snailsky.me/2014/07/22/那些年被我们误用的css/</id>
     <published>2014-07-22T14:57:11.000Z</published>
-    <updated>2014-07-22T15:35:38.000Z</updated>
-    <content type="html"><![CDATA[<p>曾几何时，我天真的认为“选择器肯定是越详细，层数越多越好呗”。现在觉得自己以前真是too young，too simple。<br>谨以此文，祭奠那些曾经被我误用的CSS, orz。</p>
+    <updated>2014-07-23T06:34:59.000Z</updated>
+    <content type="html"><![CDATA[<p>曾几何时，我天真的认为“选择器肯定是越详细，层数越多越好呗”。现在觉得自己以前真是图样图森破…<br>谨以此文，祭奠那些被我误用的CSS, orz。</p>
 <hr>
 ]]></content>
     
