@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>那些年被我们误用的CSS | Running_snail&#39;s Blog</title>
+    <title>那些年被我们误用的CSS选择器 | Running_snail&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="running_snail">
@@ -18,7 +18,7 @@
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="running_snail1" />
-    <meta name="twitter:title" content="那些年被我们误用的CSS | Running_snail&#39;s Blog" />
+    <meta name="twitter:title" content="那些年被我们误用的CSS选择器 | Running_snail&#39;s Blog" />
       
     
     
@@ -76,7 +76,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/22/那些年被我们误用的css/" title="那些年被我们误用的CSS" itemprop="url">那些年被我们误用的CSS</a>
+      <a href="/2014/07/22/那些年被我们误用的CSS选择器/" title="那些年被我们误用的CSS选择器" itemprop="url">那些年被我们误用的CSS选择器</a>
   </h1>
   <p class="article-author">By
     
@@ -84,7 +84,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-07-22T14:57:11.000Z" itemprop="datePublished">7月 22 2014</time>
-    更新日期:<time datetime="2014-07-24T11:06:36.000Z" itemprop="dateModified">7月 24 2014</time>
+    更新日期:<time datetime="2014-07-25T02:11:54.000Z" itemprop="dateModified">7月 25 2014</time>
     
   </p>
 </header>
@@ -96,7 +96,7 @@
 		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览如何识别选择器？"><span class="toc-number">1.</span> <span class="toc-text">浏览如何识别选择器？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何写有效率的CSS选择器？"><span class="toc-number">2.</span> <span class="toc-text">如何写有效率的CSS选择器？</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择器效率排序"><span class="toc-number">2.1.</span> <span class="toc-text">选择器效率排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些写高效CSS选择器的规则"><span class="toc-number">2.2.</span> <span class="toc-text">一些写高效CSS选择器的规则</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#不要在ID选择器前加标签名或类"><span class="toc-number">2.2.1.</span> <span class="toc-text">不要在ID选择器前加标签名或类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不要在类前加标签名"><span class="toc-number">2.2.2.</span> <span class="toc-text">不要在类前加标签名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#尽可能使用最具体的类别"><span class="toc-number">2.2.3.</span> <span class="toc-text">尽可能使用最具体的类别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免使用后代选择器"><span class="toc-number">2.2.4.</span> <span class="toc-text">避免使用后代选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#标签分类规则不应该包含子元素选择器"><span class="toc-number">2.2.5.</span> <span class="toc-text">标签分类规则不应该包含子元素选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免使用通配符选择器"><span class="toc-number">2.2.6.</span> <span class="toc-text">避免使用通配符选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免使用单规则的选择器"><span class="toc-number">2.2.7.</span> <span class="toc-text">避免使用单规则的选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免使用类正则的选择器"><span class="toc-number">2.2.8.</span> <span class="toc-text">避免使用类正则的选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#适当调整你的选择器"><span class="toc-number">2.2.9.</span> <span class="toc-text">适当调整你的选择器</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#我认为…"><span class="toc-number">2.3.</span> <span class="toc-text">我认为…</span></a></li></ol>
 		</div>
 		
-		<p>曾几何时，我天真的认为“选择器肯定是越详细，层数越多越好呗”。现在觉得自己以前真是图样图森破…<br>谨以此文，祭奠那些被我误用的CSS, orz。<br>此文重在讨论如何书写高效的CSS选择器。如有错误，欢迎指正，O(∩_∩)O</p>
+		<p>曾几何时，我天真的认为“选择器肯定是越详细，层数越多越好呗”。现在觉得自己以前真是图样图森破…<br>谨以此文，祭奠那些被我误用的CSS, orz。<br>此文重在讨论<em>如何书写高效的CSS选择器</em>。如有错误，欢迎指正，O(∩_∩)O</p>
 <hr>
 <h2 id="浏览如何识别选择器？">浏览如何识别选择器？</h2>
 <p>“浏览器读取选择器的顺序是由右到左进行”—<a href="http://css-tricks.com/efficiently-rendering-css/" target="_blank">《Efficiently Rendering CSS》Chris Coyier</a></p>
@@ -313,7 +313,7 @@ ul {…}                          /* Tag */</span>
 
 <div class="article-share" id="share">
 
-  <div data-url="http://snailsky.me/2014/07/22/那些年被我们误用的css/" data-title="那些年被我们误用的CSS | Running_snail&#39;s Blog" data-tsina="1649298213" class="share clearfix">
+  <div data-url="http://snailsky.me/2014/07/22/那些年被我们误用的CSS选择器/" data-title="那些年被我们误用的CSS选择器 | Running_snail&#39;s Blog" data-tsina="1649298213" class="share clearfix">
   </div>
 
 </div>
