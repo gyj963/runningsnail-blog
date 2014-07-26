@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-07-26T10:29:25.854Z</updated>
+  <updated>2014-07-26T10:37:33.521Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -695,7 +695,7 @@ console<span class="built_in">.</span><span class="keyword">log</span>(uni<span 
     <link href="http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://snailsky.me/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-26T10:28:50.000Z</updated>
+    <updated>2014-07-26T10:36:23.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
@@ -1154,8 +1154,8 @@ console.log(foo.getCount());   <span class="comment">//output：5</span>
 <p>闭包是函数和执行它的作用域组成的综合体 — 《JavaScript权威指南》</p>
 <p>闭包是一种在函数内访问和操作外部变量的方式;所有的函数都是闭包;函数可以访问它被创建时的上下文环境，成为闭包  — 《JavaScript语言精粹》</p>
 <p>内部函数比它的外部函数具有更长的生命周期</p>
-<p>更简单的定义—<br>闭包就是能够读取其他函数内部变量的函数。</p>
-<p>由于在JavaScript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<p>更简单的定义 — 闭包就是能够读取其他函数内部变量的函数。</p>
+<p>由于在JavaScript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”。所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
 <h3 id="改变私有变量？">改变私有变量？</h3>
 <p>我们能否在闭包外面改变私有变量呢？</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
@@ -1285,6 +1285,29 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
 
 <p>错误来源于在循环中创建函数，其本意是想传递给每个事件处理器一个唯一值(i)。但它未能达到目的，因为事件处理器函数绑定了变量i本身，而不是<br>函数在构造时的变量i的值。</p>
 <h4 id="避免引用错误-1">避免引用错误</h4>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="keyword">var</span> foo=<span class="function"><span class="keyword">function</span><span class="params">(nodes)</span>{</span>
+    <span class="keyword">var</span> i;
+    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;nodes.length; i+=<span class="number">1</span>){
+        (<span class="function"><span class="keyword">function</span><span class="params">(n)</span>{</span>
+           node[n].onclick=<span class="function"><span class="keyword">function</span><span class="params">(e)</span>{</span>
+                       console.log(n);
+           };
+        })(i);
+    }
+};
+</pre></td></tr></table></figure>
+
+
 <p>创建一个辅助函数，改良后的例子：</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2

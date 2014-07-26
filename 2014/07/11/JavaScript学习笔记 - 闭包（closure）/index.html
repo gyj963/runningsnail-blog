@@ -85,7 +85,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-07-11T12:59:40.000Z" itemprop="datePublished">7月 11 2014</time>
-    更新日期:<time datetime="2014-07-26T10:28:50.000Z" itemprop="dateModified">7月 26 2014</time>
+    更新日期:<time datetime="2014-07-26T10:36:23.000Z" itemprop="dateModified">7月 26 2014</time>
     
   </p>
 </header>
@@ -555,8 +555,8 @@ console.log(foo.getCount());   <span class="comment">//output：5</span>
 <p>闭包是函数和执行它的作用域组成的综合体 — 《JavaScript权威指南》</p>
 <p>闭包是一种在函数内访问和操作外部变量的方式;所有的函数都是闭包;函数可以访问它被创建时的上下文环境，成为闭包  — 《JavaScript语言精粹》</p>
 <p>内部函数比它的外部函数具有更长的生命周期</p>
-<p>更简单的定义—<br>闭包就是能够读取其他函数内部变量的函数。</p>
-<p>由于在JavaScript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<p>更简单的定义 — 闭包就是能够读取其他函数内部变量的函数。</p>
+<p>由于在JavaScript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”。所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
 <h3 id="改变私有变量？">改变私有变量？</h3>
 <p>我们能否在闭包外面改变私有变量呢？</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
@@ -686,6 +686,29 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
 
 <p>错误来源于在循环中创建函数，其本意是想传递给每个事件处理器一个唯一值(i)。但它未能达到目的，因为事件处理器函数绑定了变量i本身，而不是<br>函数在构造时的变量i的值。</p>
 <h4 id="避免引用错误-1">避免引用错误</h4>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="keyword">var</span> foo=<span class="function"><span class="keyword">function</span><span class="params">(nodes)</span>{</span>
+    <span class="keyword">var</span> i;
+    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;nodes.length; i+=<span class="number">1</span>){
+        (<span class="function"><span class="keyword">function</span><span class="params">(n)</span>{</span>
+           node[n].onclick=<span class="function"><span class="keyword">function</span><span class="params">(e)</span>{</span>
+                       console.log(n);
+           };
+        })(i);
+    }
+};
+</pre></td></tr></table></figure>
+
+
 <p>创建一个辅助函数，改良后的例子：</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
