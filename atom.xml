@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-07-26T10:25:36.663Z</updated>
+  <updated>2014-07-26T10:29:25.854Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -695,7 +695,7 @@ console<span class="built_in">.</span><span class="keyword">log</span>(uni<span 
     <link href="http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://snailsky.me/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-26T10:24:23.000Z</updated>
+    <updated>2014-07-26T10:28:50.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
@@ -1150,11 +1150,12 @@ console.log(foo.getCount());   <span class="comment">//output：5</span>
 <p>(function(){}())是使用了强制运算符执行函数调用运算，(function(){})()是通过函数调用运算符操作函数引用。两者功能上是一致的，只是运算过程不同。</p>
 <h2 id="闭包是什么？">闭包是什么？</h2>
 <p>闭包是 JavaScript一个非常重要的特性，这意味着当前作用域总是能够访问外部作用域中的变量。 因为函数是JavaScript中唯一拥有自身作用域的结构，因此闭包的创建依赖于函数。</p>
-<p>闭包在书中是这样被描述的：</p>
-<p>闭包是函数和执行它的作用域组成的综合体<br>                        — 《JavaScript权威指南》<br>闭包是一种在函数内访问和操作外部变量的方式<br>所有的函数都是闭包<br>函数可以访问它被创建时的上下文环境，成为闭包<br>                        — 《JavaScript语言精粹》</p>
+<p><em>闭包在书中是这样被描述的</em>：</p>
+<p>闭包是函数和执行它的作用域组成的综合体 — 《JavaScript权威指南》</p>
+<p>闭包是一种在函数内访问和操作外部变量的方式;所有的函数都是闭包;函数可以访问它被创建时的上下文环境，成为闭包  — 《JavaScript语言精粹》</p>
 <p>内部函数比它的外部函数具有更长的生命周期</p>
 <p>更简单的定义—<br>闭包就是能够读取其他函数内部变量的函数。</p>
-<p>由于在JavaScript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<p>由于在JavaScript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
 <h3 id="改变私有变量？">改变私有变量？</h3>
 <p>我们能否在闭包外面改变私有变量呢？</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
