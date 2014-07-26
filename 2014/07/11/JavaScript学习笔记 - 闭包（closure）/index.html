@@ -85,7 +85,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-07-11T12:59:40.000Z" itemprop="datePublished">7月 11 2014</time>
-    更新日期:<time datetime="2014-07-14T08:15:08.000Z" itemprop="dateModified">7月 14 2014</time>
+    更新日期:<time datetime="2014-07-26T10:24:23.000Z" itemprop="dateModified">7月 26 2014</time>
     
   </p>
 </header>
@@ -551,6 +551,11 @@ console.log(foo.getCount());   <span class="comment">//output：5</span>
 <p>(function(){}())是使用了强制运算符执行函数调用运算，(function(){})()是通过函数调用运算符操作函数引用。两者功能上是一致的，只是运算过程不同。</p>
 <h2 id="闭包是什么？">闭包是什么？</h2>
 <p>闭包是 JavaScript一个非常重要的特性，这意味着当前作用域总是能够访问外部作用域中的变量。 因为函数是JavaScript中唯一拥有自身作用域的结构，因此闭包的创建依赖于函数。</p>
+<p>闭包在书中是这样被描述的：</p>
+<p>闭包是函数和执行它的作用域组成的综合体<br>                        — 《JavaScript权威指南》<br>闭包是一种在函数内访问和操作外部变量的方式<br>所有的函数都是闭包<br>函数可以访问它被创建时的上下文环境，成为闭包<br>                        — 《JavaScript语言精粹》</p>
+<p>内部函数比它的外部函数具有更长的生命周期</p>
+<p>更简单的定义—<br>闭包就是能够读取其他函数内部变量的函数。</p>
+<p>由于在JavaScript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
 <h3 id="改变私有变量？">改变私有变量？</h3>
 <p>我们能否在闭包外面改变私有变量呢？</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
@@ -707,7 +712,7 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
 
 <p><em>避免在循环中创建函数</em>，在循环中创建函数，会导致错误，只会带来无谓的计算及引起混淆。<br>在循环之外创建一个辅助函数，让这个辅助函数再返回一个绑定了当前i值的函数，这样就不会导致混淆了。</p>
 <hr>
-<p>参考文献：<br><a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank">[1] 学习Javascript闭包（Closure）</a><br><a href="http://book.douban.com/subject/2994925/" target="_blank">[2] JavaScript - The Good Parts</a><br><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.closures" target="_blank">[3] JavaScript 秘密花园 - 闭包和引用</a></p>
+<p>参考文献：<br><a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank">[1] 学习Javascript闭包（Closure）</a><br><a href="http://book.douban.com/subject/2994925/" target="_blank">[2] JavaScript - The Good Parts</a><br><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.closures" target="_blank">[3] JavaScript 秘密花园 - 闭包和引用</a><br><a href="http://www.slideshare.net/lijing00333/javascript-12526041" target="_blank">[4] 潜力无限的编程语言JavaScript</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">

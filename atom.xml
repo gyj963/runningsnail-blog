@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-07-25T02:13:15.583Z</updated>
+  <updated>2014-07-26T10:25:36.663Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://snailsky.me/2014/07/22/%E9%82%A3%E4%BA%9B%E5%B9%B4%E8%A2%AB%E6%88%91%E4%BB%AC%E8%AF%AF%E7%94%A8%E7%9A%84CSS%E9%80%89%E6%8B%A9%E5%99%A8/"/>
     <id>http://snailsky.me/2014/07/22/那些年被我们误用的CSS选择器/</id>
     <published>2014-07-22T14:57:11.000Z</published>
-    <updated>2014-07-25T02:11:54.000Z</updated>
+    <updated>2014-07-25T02:13:52.000Z</updated>
     <content type="html"><![CDATA[<p>曾几何时，我天真的认为“选择器肯定是越详细，层数越多越好呗”。现在觉得自己以前真是图样图森破…<br>谨以此文，祭奠那些被我误用的CSS, orz。<br>此文重在讨论<em>如何书写高效的CSS选择器</em>。如有错误，欢迎指正，O(∩_∩)O</p>
 <hr>
 <h2 id="浏览如何识别选择器？">浏览如何识别选择器？</h2>
@@ -214,7 +214,7 @@ ul {…}                          /* Tag */</span>
 </pre></td><td class="code"><pre><span class="id">#nav</span> <span class="tag">a</span><span class="rules">{<span class="rule">…}</span></span>
 </pre></td></tr></table></figure>
 
-<h3 id="我认为…">我认为…</h3>
+<h3 id="笔者认为…">笔者认为…</h3>
 <p>笔者认为虽然ID是最高效的选择器，不过如果把所有要选择的元素全都写上ID也是一件很蠢的事…<br>ID选择器权重太高，不存在任何可重用性，因此要尽量少用ID选择器。<br>笔者倾向于使用类选择器，简短且语义化的命名，同时书写模块化的CSS会使你的CSS更容易扩展和可重用。</p>
 <hr>
 <p>参考文献：<br><a href="http://www.w3cplus.com/css/css-selector-performance" target="_blank">[1] CSS选择器的优化</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Writing_efficient_CSS" target="_blank">[2] Writing efficient CSS</a><br><a href="http://css-tricks.com/efficiently-rendering-css/" target="_blank">[3] Efficiently Rendering CSS</a><br><a href="http://www.alloyteam.com/2012/10/high-performance-css/" target="_blank">[4] 高性能CSS</a><br><a href="http://www.w3cplus.com/css/css-specificity-things-you-should-know.html" target="_blank">[5] 你应该知道的一些事情——CSS权重</a></p>
@@ -695,7 +695,7 @@ console<span class="built_in">.</span><span class="keyword">log</span>(uni<span 
     <link href="http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://snailsky.me/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-14T08:15:08.000Z</updated>
+    <updated>2014-07-26T10:24:23.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
@@ -1150,6 +1150,11 @@ console.log(foo.getCount());   <span class="comment">//output：5</span>
 <p>(function(){}())是使用了强制运算符执行函数调用运算，(function(){})()是通过函数调用运算符操作函数引用。两者功能上是一致的，只是运算过程不同。</p>
 <h2 id="闭包是什么？">闭包是什么？</h2>
 <p>闭包是 JavaScript一个非常重要的特性，这意味着当前作用域总是能够访问外部作用域中的变量。 因为函数是JavaScript中唯一拥有自身作用域的结构，因此闭包的创建依赖于函数。</p>
+<p>闭包在书中是这样被描述的：</p>
+<p>闭包是函数和执行它的作用域组成的综合体<br>                        — 《JavaScript权威指南》<br>闭包是一种在函数内访问和操作外部变量的方式<br>所有的函数都是闭包<br>函数可以访问它被创建时的上下文环境，成为闭包<br>                        — 《JavaScript语言精粹》</p>
+<p>内部函数比它的外部函数具有更长的生命周期</p>
+<p>更简单的定义—<br>闭包就是能够读取其他函数内部变量的函数。</p>
+<p>由于在JavaScript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
 <h3 id="改变私有变量？">改变私有变量？</h3>
 <p>我们能否在闭包外面改变私有变量呢？</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
@@ -1306,7 +1311,7 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
 
 <p><em>避免在循环中创建函数</em>，在循环中创建函数，会导致错误，只会带来无谓的计算及引起混淆。<br>在循环之外创建一个辅助函数，让这个辅助函数再返回一个绑定了当前i值的函数，这样就不会导致混淆了。</p>
 <hr>
-<p>参考文献：<br><a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank">[1] 学习Javascript闭包（Closure）</a><br><a href="http://book.douban.com/subject/2994925/" target="_blank">[2] JavaScript - The Good Parts</a><br><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.closures" target="_blank">[3] JavaScript 秘密花园 - 闭包和引用</a></p>
+<p>参考文献：<br><a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank">[1] 学习Javascript闭包（Closure）</a><br><a href="http://book.douban.com/subject/2994925/" target="_blank">[2] JavaScript - The Good Parts</a><br><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.closures" target="_blank">[3] JavaScript 秘密花园 - 闭包和引用</a><br><a href="http://www.slideshare.net/lijing00333/javascript-12526041" target="_blank">[4] 潜力无限的编程语言JavaScript</a></p>
 ]]></content>
     
     
