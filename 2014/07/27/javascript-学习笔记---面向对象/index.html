@@ -4,20 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Grunt的配置及liveReload功能实例 | Running_snail&#39;s Blog</title>
+    <title>JavaScript 学习笔记 - 面向对象 | Running_snail&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="running_snail">
-    
-    <meta name="description" content="Grunt的介绍
-Grunt是一个自动化的项目构建工具，配置好Grunt可以完成压缩，代码检查，单元测试等任务。C/C++有makefile，Java有Maven，Nodejs有grunt~
-Grunt常用的插件有：1).grunt-contrib-uglify：压缩js代码2).grunt-con">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="running_snail1" />
-    <meta name="twitter:title" content="Grunt的配置及liveReload功能实例 | Running_snail&#39;s Blog" />
+    <meta name="twitter:title" content="JavaScript 学习笔记 - 面向对象 | Running_snail&#39;s Blog" />
       
     
     
@@ -75,15 +71,15 @@ Grunt常用的插件有：1).grunt-contrib-uglify：压缩js代码2).grunt-con">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/19/grunt的配置及使用示例/" title="Grunt的配置及liveReload功能实例" itemprop="url">Grunt的配置及liveReload功能实例</a>
+      <a href="/2014/07/27/javascript-学习笔记---面向对象/" title="JavaScript 学习笔记 - 面向对象" itemprop="url">JavaScript 学习笔记 - 面向对象</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/104285874726961351995?rel=author" title="running_snail" target="_blank" itemprop="author">running_snail</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-19T11:27:42.000Z" itemprop="datePublished">7月 19 2014</time>
-    更新日期:<time datetime="2014-07-19T12:23:32.000Z" itemprop="dateModified">7月 19 2014</time>
+    <time datetime="2014-07-27T15:33:08.000Z" itemprop="datePublished">7月 27 2014</time>
+    更新日期:<time datetime="2014-07-27T15:33:08.000Z" itemprop="dateModified">7月 27 2014</time>
     
   </p>
 </header>
@@ -92,103 +88,19 @@ Grunt常用的插件有：1).grunt-contrib-uglify：压缩js代码2).grunt-con">
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Grunt的介绍"><span class="toc-number">1.</span> <span class="toc-text">Grunt的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完整实例"><span class="toc-number">2.</span> <span class="toc-text">完整实例</span></a></li></ol>
+		
 		</div>
 		
-		<h2 id="Grunt的介绍">Grunt的介绍</h2>
-<p>Grunt是一个自动化的项目构建工具，配置好Grunt可以完成压缩，代码检查，单元测试等任务。C/C++有makefile，Java有Maven，Nodejs有grunt~</p>
-<p>Grunt常用的插件有：<br>1).grunt-contrib-uglify：压缩js代码<br>2).grunt-contrib-concat：合并js文件<br>3).grunt-contrib-qunit：单元测试<br>4).grunt-contrib-jshint：js代码检查<br>5).grunt-contrib-watch：文件监控</p>
-<p>关于这些插件的使用 <a href="http://blog.fens.me/nodejs-grunt-intro/" target="_blank">grunt让Nodejs规范起来</a> 这篇文章已经做了详细的介绍，此就不多说了。</p>
-<h2 id="完整实例">完整实例</h2>
-<p>此实例完成的工作为：保存代码后网页自动刷新，即时查看代码效果</p>
-<p>安装 grunt-cli(先保证nodejs安装完成)<br><img src="/img/gruntConfig/1.png" alt="grunt"><br>grunt-cli 安装完成<br><img src="/img/gruntConfig/2.png" alt="grunt"></p>
-<p>全局安装grunt<br><img src="/img/gruntConfig/3.png" alt="grunt"></p>
-<p>grunt安装完成<br><img src="/img/gruntConfig/4.png" alt="grunt"></p>
-<p>安装grunt到本项目中<br><img src="/img/gruntConfig/6.png" alt="grunt"></p>
-<p>安装完毕<br><img src="/img/gruntConfig/7.png" alt="grunt"></p>
-<p>—save-dev自动将依赖写入了package.json</p>
-<p>执行grunt 发现报错了<br><img src="/img/gruntConfig/8.png" alt="grunt"></p>
-<p>原来是缺少gruntfile.js</p>
-<p>创建gruntfile.js<br>(此处是livereload功能的示例，需下载这个chrome扩展程序，配合使用，功能：可以保存代码后网页自动刷新，即时查看代码效果）</p>
-<p><img src="/img/gruntConfig/9.png" alt="grunt"></p>
-<p>gruntfile.js 内容：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="code"><pre>module.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> {</span>
- <span class="comment">// 项目配置(任务配置)</span>
- grunt.initConfig({
-                   pkg: grunt.file.readJSON(<span class="string">'package.json'</span>),
-                   watch: {
-                    client: {
-                     files: [<span class="string">'public/**/**/*'</span>, <span class="string">'public/*'</span>,<span class="string">'public/**/*'</span>,<span class="string">'views/*'</span>],
-                     options: {
-                      livereload: <span class="literal">true</span>
-                     }
-                    }
-                   }
-                  });
- <span class="comment">// 加载插件</span>
- grunt.loadNpmTasks(<span class="string">'grunt-contrib-watch'</span>);
- <span class="comment">// 自定义任务 即需执行： grunt live</span>
- grunt.registerTask(<span class="string">'live'</span>, [<span class="string">'watch'</span>]);
-};
-</pre></td></tr></table></figure>
-
-
-<p>再次执行 又报错了<br><img src="/img/gruntConfig/10.png" alt="grunt"></p>
-<p>是没找到grunt-contrib-watch 这个包</p>
-<p>下载这个包<br><img src="/img/gruntConfig/11.png" alt="grunt"></p>
-<p>下载完成<br><img src="/img/gruntConfig/12.png" alt="grunt"></p>
-<p>再次执行grunt<br><img src="/img/gruntConfig/13.png" alt="grunt"></p>
-<p>我们回来看下代码，发现 default 任务没有注册 ，<br>而我们自定义了live任务：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>grunt.registerTask(<span class="string">'live'</span>, [<span class="string">'watch'</span>]);
-</pre></td></tr></table></figure>
-
-<p>你现在可以执行 grunt live 来执行这个任务<br><img src="/img/gruntConfig/15.png" alt="grunt"></p>
-<p>你也可以创建一个default任务<br>如果创建default 这样创建 添加到gruntfile里</p>
-<p><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre><span class="comment">// Default task(s).</span>
-grunt.registerTask(<span class="string">'default'</span>, [<span class="string">'watch'</span>]);
-</pre></td></tr></table></figure><br>此时你可以 输入命令 grunt 或 grunt watch 来执行这个任务<br><img src="/img/gruntConfig/14.png" alt="grunt"></p>
-<p>至此 启动你下载好的chrome livereload那个插件即可。<br>此时你就可以实时看代码效果，代码保存网页那边就刷新了，妈妈再也不用担心我玩命的按F5啦 ╮(╯▽╰)╭</p>
-  
+		  
 	</div>
 		<footer class="article-footer clearfix">
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/grunt/">grunt</a><a href="/tags/nodejs/">nodejs</a><a href="/tags/安装/">安装</a><a href="/tags/前端/">前端</a><a href="/tags/笔记/">笔记</a><a href="/tags/实践/">实践</a>
-  </div>
-
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/实践笔记/">实践笔记</a>
-</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://snailsky.me/2014/07/19/grunt的配置及使用示例/" data-title="Grunt的配置及liveReload功能实例 | Running_snail&#39;s Blog" data-tsina="1649298213" class="share clearfix">
+  <div data-url="http://snailsky.me/2014/07/27/javascript-学习笔记---面向对象/" data-title="JavaScript 学习笔记 - 面向对象 | Running_snail&#39;s Blog" data-tsina="1649298213" class="share clearfix">
   </div>
 
 </div>
@@ -197,19 +109,11 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/07/22/那些年被我们误用的CSS选择器/" title="那些年被我们误用的CSS选择器">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  那些年被我们误用的CSS选择器</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/07/12/JavaScript学习笔记 - 模块化编程/"  title="JavaScript学习笔记 - 模块化编程">
+<a href="/2014/07/22/那些年被我们误用的CSS选择器/"  title="那些年被我们误用的CSS选择器">
  <strong>NEXT:</strong><br/> 
- <span>JavaScript学习笔记 - 模块化编程
+ <span>那些年被我们误用的CSS选择器
 </span>
 </a>
 </div>
@@ -226,7 +130,7 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Grunt的介绍"><span class="toc-number">1.</span> <span class="toc-text">Grunt的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完整实例"><span class="toc-number">2.</span> <span class="toc-text">完整实例</span></a></li></ol>
+  
   </div>
 
 <div id="asidepart">

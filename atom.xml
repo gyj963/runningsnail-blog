@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-07-26T10:45:26.651Z</updated>
+  <updated>2014-07-27T15:35:20.192Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -13,6 +13,17 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[JavaScript 学习笔记 - 面向对象]]></title>
+    <link href="http://snailsky.me/2014/07/27/javascript-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0---%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://snailsky.me/2014/07/27/javascript-学习笔记---面向对象/</id>
+    <published>2014-07-27T15:33:08.000Z</published>
+    <updated>2014-07-27T15:33:08.000Z</updated>
+    <content type="html"><![CDATA[]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[那些年被我们误用的CSS选择器]]></title>
