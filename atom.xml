@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-07-27T15:35:20.192Z</updated>
+  <updated>2014-07-29T03:53:12.105Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -13,17 +13,6 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[JavaScript 学习笔记 - 面向对象]]></title>
-    <link href="http://snailsky.me/2014/07/27/javascript-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0---%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    <id>http://snailsky.me/2014/07/27/javascript-学习笔记---面向对象/</id>
-    <published>2014-07-27T15:33:08.000Z</published>
-    <updated>2014-07-27T15:33:08.000Z</updated>
-    <content type="html"><![CDATA[]]></content>
-    
-    
-  </entry>
   
   <entry>
     <title><![CDATA[那些年被我们误用的CSS选择器]]></title>
@@ -346,11 +335,11 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
   </entry>
   
   <entry>
-    <title><![CDATA[JavaScript学习笔记 - 模块化编程]]></title>
+    <title><![CDATA[JavaScript 学习笔记 - 模块化编程]]></title>
     <link href="http://snailsky.me/2014/07/12/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BC%96%E7%A8%8B/"/>
     <id>http://snailsky.me/2014/07/12/JavaScript学习笔记 - 模块化编程/</id>
     <published>2014-07-12T03:05:46.000Z</published>
-    <updated>2014-07-14T08:15:08.000Z</updated>
+    <updated>2014-07-27T15:39:05.000Z</updated>
     <content type="html"><![CDATA[<p>前段时间，我急需这种模块化的方法来管理我的JavaScript代码<br><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">Javascript模块化编程</a>这一系列文章给我很大帮助，介绍得很通俗易懂，小伙伴们可以看看，我将在此文基础上记录一些我的笔记。</p>
 <hr>
 <h2 id="JavaScript模块简介">JavaScript模块简介</h2>
@@ -702,11 +691,11 @@ console<span class="built_in">.</span><span class="keyword">log</span>(uni<span 
   </entry>
   
   <entry>
-    <title><![CDATA[JavaScript学习笔记 - 闭包（closure）]]></title>
+    <title><![CDATA[JavaScript 学习笔记 - 闭包（closure）]]></title>
     <link href="http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://snailsky.me/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-26T10:41:09.000Z</updated>
+    <updated>2014-07-27T15:39:05.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
