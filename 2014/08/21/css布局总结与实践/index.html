@@ -9,29 +9,10 @@
     
     <meta name="author" content="running_snail">
     
-    <meta name="description" content="如何设置块级元素水平居中？
-方法一(差)：设置width + margin
-1
-2
-3
-4
-#main {
-  width: 600px;
-  margin: 0 auto;
-}
+    <meta name="description" content="重在实践，把常用的布局及其实践总结在这备忘，方便以后查询和使用。包含了 “如何设置块级元素水平居中” 、 “如何实现左固定宽度或百分比，右边自适应” 等常见问题。和 “外边距折叠” 这类重要的概念。及各种常见的属性和布局。
 
-
-DEMO:
-
-
-
-方法二(可)：设置max-width + margin
-1
-2
-3
-4
-#main {
-  max">
+如何设置块级元素水平居中？
+方法一(差)：设置width + margin">
     
     
     
@@ -103,7 +84,7 @@ DEMO:
     </p>
   <p class="article-time">
     <time datetime="2014-08-21T10:08:23.000Z" itemprop="datePublished">8月 21 2014</time>
-    更新日期:<time datetime="2014-08-23T16:37:34.000Z" itemprop="dateModified">8月 24 2014</time>
+    更新日期:<time datetime="2014-08-24T11:16:36.000Z" itemprop="dateModified">8月 24 2014</time>
     
   </p>
 </header>
@@ -115,7 +96,9 @@ DEMO:
 		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何设置块级元素水平居中？"><span class="toc-number">1.</span> <span class="toc-text">如何设置块级元素水平居中？</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一(差)：设置width_+_margin"><span class="toc-number">1.1.</span> <span class="toc-text">方法一(差)：设置width + margin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二(可)：设置max-width_+_margin"><span class="toc-number">1.2.</span> <span class="toc-text">方法二(可)：设置max-width + margin</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#盒子模型"><span class="toc-number">2.</span> <span class="toc-text">盒子模型</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#盒子模型的结构"><span class="toc-number">2.1.</span> <span class="toc-text">盒子模型的结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外边距折叠(_Collapsing_margins_)"><span class="toc-number">2.2.</span> <span class="toc-text">外边距折叠( Collapsing margins )</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#折叠后_margin_的计算"><span class="toc-number">2.2.1.</span> <span class="toc-text">折叠后 margin 的计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不发生margin折叠的情况"><span class="toc-number">2.2.2.</span> <span class="toc-text">不发生margin折叠的情况</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#浮动元素、inline-block_元素、绝对定位元素"><span class="toc-number">2.3.</span> <span class="toc-text">浮动元素、inline-block 元素、绝对定位元素</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建了块级格式化上下文的元素"><span class="toc-number">2.3.1.</span> <span class="toc-text">创建了块级格式化上下文的元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#元素自身的margin折叠"><span class="toc-number">2.3.2.</span> <span class="toc-text">元素自身的margin折叠</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#内容的尺寸与元素框的总尺寸"><span class="toc-number">2.4.</span> <span class="toc-text">内容的尺寸与元素框的总尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS3属性：box-sizing"><span class="toc-number">2.5.</span> <span class="toc-text">CSS3属性：box-sizing</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#position属性"><span class="toc-number">3.</span> <span class="toc-text">position属性</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#position属性值"><span class="toc-number">3.1.</span> <span class="toc-text">position属性值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#position例子-左固定宽度，右自适应宽度"><span class="toc-number">3.2.</span> <span class="toc-text">position例子-左固定宽度，右自适应宽度</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#float"><span class="toc-number">4.</span> <span class="toc-text">float</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如何清除浮动？"><span class="toc-number">4.1.</span> <span class="toc-text">如何清除浮动？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#float例子-左固定宽度，右自适应宽度"><span class="toc-number">4.2.</span> <span class="toc-text">float例子-左固定宽度，右自适应宽度</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#百分比宽度"><span class="toc-number">5.</span> <span class="toc-text">百分比宽度</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#百分比宽度布局-左固定百分比右自适应"><span class="toc-number">5.1.</span> <span class="toc-text">百分比宽度布局-左固定百分比右自适应</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#媒体查询"><span class="toc-number">6.</span> <span class="toc-text">媒体查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inline-block"><span class="toc-number">7.</span> <span class="toc-text">inline-block</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#inline-block_布局-左固定百分比右自适应"><span class="toc-number">7.1.</span> <span class="toc-text">inline-block 布局-左固定百分比右自适应</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS3属性-column"><span class="toc-number">8.</span> <span class="toc-text">CSS3属性-column</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flexbox"><span class="toc-number">9.</span> <span class="toc-text">flexbox</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用_Flexbox_的简单布局"><span class="toc-number">9.1.</span> <span class="toc-text">使用 Flexbox 的简单布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用_Flexbox_的牛逼布局"><span class="toc-number">9.2.</span> <span class="toc-text">使用 Flexbox 的牛逼布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用_Flexbox_的居中布局"><span class="toc-number">9.3.</span> <span class="toc-text">使用 Flexbox 的居中布局</span></a></li></ol>
 		</div>
 		
-		<h2 id="如何设置块级元素水平居中？">如何设置块级元素水平居中？</h2>
+		<p>重在实践，把常用的布局及其实践总结在这备忘，方便以后查询和使用。<br>包含了 “如何设置块级元素水平居中” 、 “如何实现左固定宽度或百分比，右边自适应” 等常见问题。<br>和 “外边距折叠” 这类重要的概念。及各种常见的属性和布局。</p>
+<hr>
+<h2 id="如何设置块级元素水平居中？">如何设置块级元素水平居中？</h2>
 <h3 id="方法一(差)：设置width_+_margin">方法一(差)：设置width + margin</h3>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
@@ -975,7 +958,7 @@ DEMO:
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/CSS/">CSS</a><a href="/tags/总结/">总结</a><a href="/tags/实践/">实践</a><a href="/tags/前端/">前端</a>
+  <span></span> <a href="/tags/CSS/">CSS</a><a href="/tags/总结/">总结</a><a href="/tags/实践/">实践</a>
   </div>
 
 
@@ -997,6 +980,14 @@ DEMO:
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2014/08/24/block-level-boxes、containing-block、block-formatting-context/" title="block-level boxes、containing block、block formatting context">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  block-level boxes、containing block、block formatting context</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2014/08/20/浮动和它的工作原理？清除浮动的技巧？/"  title="【CSS】浮动和它的工作原理？清除浮动的技巧？">
@@ -1030,7 +1021,7 @@ DEMO:
 	<p class="asidetitle">分类</p>
 		<ul>
 		
-			<li><a href="/categories/CSS/" title="CSS">CSS<sup>4</sup></a></li>
+			<li><a href="/categories/CSS/" title="CSS">CSS<sup>5</sup></a></li>
 		
 			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>4</sup></a></li>
 		
@@ -1047,7 +1038,7 @@ DEMO:
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08">八月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">七月 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08">八月 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">七月 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
 
@@ -1055,7 +1046,7 @@ DEMO:
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/CSS/" style="font-size: 14.00px;">CSS</a><a href="/tags/JavaScript/" style="font-size: 14.00px;">JavaScript</a><a href="/tags/grunt/" style="font-size: 10.00px;">grunt</a><a href="/tags/mongo/" style="font-size: 10.00px;">mongo</a><a href="/tags/mongodb/" style="font-size: 10.00px;">mongodb</a><a href="/tags/nodejs/" style="font-size: 10.00px;">nodejs</a><a href="/tags/书/" style="font-size: 12.00px;">书</a><a href="/tags/前端/" style="font-size: 20.00px;">前端</a><a href="/tags/区别/" style="font-size: 10.00px;">区别</a><a href="/tags/原理/" style="font-size: 12.00px;">原理</a><a href="/tags/学习生活/" style="font-size: 10.00px;">学习生活</a><a href="/tags/安装/" style="font-size: 12.00px;">安装</a><a href="/tags/实践/" style="font-size: 16.00px;">实践</a><a href="/tags/心情/" style="font-size: 10.00px;">心情</a><a href="/tags/性能优化/" style="font-size: 10.00px;">性能优化</a><a href="/tags/总结/" style="font-size: 10.00px;">总结</a><a href="/tags/感悟/" style="font-size: 10.00px;">感悟</a><a href="/tags/技巧/" style="font-size: 10.00px;">技巧</a><a href="/tags/日记/" style="font-size: 12.00px;">日记</a><a href="/tags/生活/" style="font-size: 10.00px;">生活</a><a href="/tags/笔记/" style="font-size: 18.00px;">笔记</a><a href="/tags/选择器/" style="font-size: 10.00px;">选择器</a>
+       <a href="/tags/CSS/" style="font-size: 16.00px;">CSS</a><a href="/tags/JavaScript/" style="font-size: 14.00px;">JavaScript</a><a href="/tags/grunt/" style="font-size: 10.00px;">grunt</a><a href="/tags/mongo/" style="font-size: 10.00px;">mongo</a><a href="/tags/mongodb/" style="font-size: 10.00px;">mongodb</a><a href="/tags/nodejs/" style="font-size: 10.00px;">nodejs</a><a href="/tags/书/" style="font-size: 12.00px;">书</a><a href="/tags/前端/" style="font-size: 10.00px;">前端</a><a href="/tags/区别/" style="font-size: 10.00px;">区别</a><a href="/tags/原理/" style="font-size: 12.00px;">原理</a><a href="/tags/学习生活/" style="font-size: 10.00px;">学习生活</a><a href="/tags/安装/" style="font-size: 12.00px;">安装</a><a href="/tags/实践/" style="font-size: 18.00px;">实践</a><a href="/tags/心情/" style="font-size: 10.00px;">心情</a><a href="/tags/性能优化/" style="font-size: 10.00px;">性能优化</a><a href="/tags/总结/" style="font-size: 12.00px;">总结</a><a href="/tags/感悟/" style="font-size: 10.00px;">感悟</a><a href="/tags/技巧/" style="font-size: 10.00px;">技巧</a><a href="/tags/日记/" style="font-size: 12.00px;">日记</a><a href="/tags/生活/" style="font-size: 10.00px;">生活</a><a href="/tags/笔记/" style="font-size: 20.00px;">笔记</a><a href="/tags/选择器/" style="font-size: 10.00px;">选择器</a>
     </div>
   </div>
 
@@ -1065,7 +1056,7 @@ DEMO:
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/CSS/" title="CSS">CSS<sup>4</sup></a></li>
+			<li><a href="/tags/CSS/" title="CSS">CSS<sup>5</sup></a></li>
 		
 			<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>4</sup></a></li>
 		
@@ -1079,7 +1070,7 @@ DEMO:
 		
 			<li><a href="/tags/书/" title="书">书<sup>2</sup></a></li>
 		
-			<li><a href="/tags/前端/" title="前端">前端<sup>10</sup></a></li>
+			<li><a href="/tags/前端/" title="前端">前端<sup>1</sup></a></li>
 		
 			<li><a href="/tags/区别/" title="区别">区别<sup>1</sup></a></li>
 		
@@ -1089,13 +1080,13 @@ DEMO:
 		
 			<li><a href="/tags/安装/" title="安装">安装<sup>2</sup></a></li>
 		
-			<li><a href="/tags/实践/" title="实践">实践<sup>5</sup></a></li>
+			<li><a href="/tags/实践/" title="实践">实践<sup>6</sup></a></li>
 		
 			<li><a href="/tags/心情/" title="心情">心情<sup>1</sup></a></li>
 		
 			<li><a href="/tags/性能优化/" title="性能优化">性能优化<sup>1</sup></a></li>
 		
-			<li><a href="/tags/总结/" title="总结">总结<sup>1</sup></a></li>
+			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
 		
 			<li><a href="/tags/感悟/" title="感悟">感悟<sup>1</sup></a></li>
 		

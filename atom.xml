@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-08-24T06:09:21.539Z</updated>
+  <updated>2014-08-26T03:57:35.797Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -15,12 +15,120 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[block-level boxes、containing block、block formatting context]]></title>
+    <link href="http://snailsky.me/2014/08/24/block-level-boxes%E3%80%81containing-block%E3%80%81block-formatting-context/"/>
+    <id>http://snailsky.me/2014/08/24/block-level-boxes、containing-block、block-formatting-context/</id>
+    <published>2014-08-24T11:05:15.000Z</published>
+    <updated>2014-08-25T17:46:47.000Z</updated>
+    <content type="html"><![CDATA[<p>在知乎看到这样一个问题“CSS 中 block-level boxes、containing block、block formatting context 三者之间的区别和联系是怎样的？”<br>我傻傻分不清楚 = =，这必须记录一下这些概念加深印象，备个忘，同时也让自己掰扯掰扯这些概念。<br>（以下标准翻译部分是博主自己尝试翻译的 &gt;_&lt; ，如有错误或不到位的请指正）</p>
+<hr>
+<h2 id="标准中的描述">标准中的描述</h2>
+<h3 id="Block-level_elements_and_block_boxes">Block-level elements and block boxes</h3>
+<p><a href="http://www.w3.org/TR/CSS21/visuren.html#block-boxes" target="_blank">9.2.1 Block-level elements and block boxes</a></p>
+<blockquote>
+<p>Block-level elements are those elements of the source document that are formatted visually as blocks (e.g., paragraphs). The following values of the ‘display’ property make an element block-level: ‘block’, ‘list-item’, and ‘table’.</p>
+<p>Block-level boxes are boxes that participate in a block formatting context. Each block-level element generates a principal block-level box that contains descendant boxes and generated content and is also the box involved in any positioning scheme. Some block-level elements may generate additional boxes in addition to the principal box: ‘list-item’ elements. These additional boxes are placed with respect to the principal box.</p>
+<p>Except for table boxes, which are described in a later chapter, and replaced elements, a block-level box is also a block container box. A block container box either contains only block-level boxes or establishes an inline formatting context and thus contains only inline-level boxes. Not all block container boxes are block-level boxes: non-replaced inline blocks and non-replaced table cells are block containers but not block-level boxes. Block-level boxes that are also block containers are called block boxes.</p>
+<p>The three terms “block-level box,” “block container box,” and “block box” are sometimes abbreviated as “block” where unambiguous.</p>
+</blockquote>
+<p>译：</p>
+<p><strong>块级元素（block-level elements）</strong>是源文档中那些以块的形式显示的一些元素（比如：段落（paragraphs））。以下”display”属性值，可以使一个元素 变成块级 ： “block” , “list-item” 和 “table”</p>
+<p><strong>块级盒子（block-level boxes）</strong> 会参与到 <strong>块级格式化上下文(block formatting context)</strong>（一种布局方式） 。每个<strong>块级元素</strong>会生成一个<strong>首要块级盒子（principal block-level box）</strong> ，这个<strong>首要块级盒子</strong>包含后代盒子们，以及生成内容，并且这个<strong>块级元素</strong>也被包含到任何一种定位机制中。一些<strong>块级元素</strong>除了会生成<strong>首要块级盒子</strong>之外，还会生成额外盒子们，比如：”list-item” elment。这些额外的盒子参照<strong>首要块级盒子</strong>放置。</p>
+<p>除了<strong>表格盒子（table boxes）</strong>（将在之后的章节中描述它）和<strong><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element" target="_blank">可替换元素（replaced elements）</a></strong>，一个<strong>块级盒子</strong>也是一个<strong>块容器盒子（block container box）</strong>。一个<strong>块容器盒子</strong>要么只包含<strong>块级盒子</strong>，要么创建一个只包含<strong>行级盒子（inline-level boxes）</strong>的<strong>行内格式化上下文（inline formatting context）</strong>。不是所有<strong>块容器盒子</strong>都是<strong>块级盒子</strong>，比如：<strong>不可替换行内块（non-replaced inline blocks）</strong>和<strong>不可替换表格单元格</strong>都是<strong>块容器盒子</strong>但不是<strong>块级盒子</strong>。是<strong>块级盒子</strong>又是<strong>块容器盒子</strong>的被叫做<strong>块盒子（block boxes）</strong>。</p>
+<p>这三个术语 “<strong>块级盒子（block-level boxes）</strong>“,”<strong>块容器盒子（block container box）</strong>“和”<strong>块盒子（block boxes）</strong>“在表述清晰的条件下有时被简称为”块（block）”。</p>
+<hr>
+<h3 id="Block_formatting_contexts">Block formatting contexts</h3>
+<p><a href="http://www.w3.org/TR/CSS21/visuren.html#block-formatting" target="_blank">9.4.1 Block formatting contexts</a></p>
+<blockquote>
+<p>Floats, absolutely positioned elements, block containers (such as inline-blocks, table-cells, and table-captions) that are not block boxes, and block boxes with ‘overflow’ other than ‘visible’ (except when that value has been propagated to the viewport) establish new block formatting contexts for their contents.</p>
+<p>In a block formatting context, boxes are laid out one after the other, vertically, beginning at the top of a containing block. The vertical distance between two sibling boxes is determined by the ‘margin’ properties. Vertical margins between adjacent block-level boxes in a block formatting context collapse.</p>
+<p>In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). This is true even in the presence of floats (although a box’s line boxes may shrink due to the floats), unless the box establishes a new block formatting context (in which case the box itself may become narrower due to the floats).</p>
+<p>For information about page breaks in paged media, please consult the section on allowed page breaks.</p>
+</blockquote>
+<p>译:</p>
+<p>不是<strong>块盒子（block boxes）</strong>的：<strong>浮动（floats）</strong>，<strong>绝对定位元素（absolutely positioned elements）</strong>，<strong>块容器（block containers）</strong>（如：<strong>行内块（inline-blocks）</strong>，<strong>表格单元格（table-cells）</strong>和<strong>表格标题（table-captions）</strong>）；以及有”overflow”属性，且”overflow”属性值不为”visible”的（除了当值传递到窗口 这句没懂…）都会为他们的内容创建一个新的<strong>块级格式化上下文（block formatting contexts）</strong>。</p>
+<p>在一个<strong>块级格式化上下文（block formatting contexts）</strong>中，盒子们自所在的 containing block 顶部起一个接一个垂直排列，水平方向上撑满整个宽度 (除非内部的盒子自己内部建立了新的 BFC)。在两个兄弟盒子之间的垂直间距被定义为”margin”属性。<strong>块级格式化上下文</strong>中毗邻的<strong>块级盒子（block-level boxes）</strong>之间的垂直方向边距不会发生折叠（collapse）。</p>
+<p>在一个<strong>块级格式化上下文</strong>中，每个盒子左外边框紧挨着其包含块的左边框（从右向左排列时，右外边框紧挨着其包含块的右边框）。即使是浮动（floats）的情况下也成立（即使一个（父元素）盒子的线框会由于（子元素）浮动收缩），除非这个盒子创建了一个新的<strong>块级格式化上下文</strong>（在这种情况下这个盒子自己会由于浮动会变窄）。</p>
+<p>想了解关于<strong>分页媒体（paged media）</strong>中的<strong>分页符（page breaks）</strong>，请查阅这个章节：<a href="http://www.w3.org/TR/CSS21/page.html#allowed-page-breaks" target="_blank">allowed page breaks</a></p>
+<hr>
+<h2 id="总结/需要注意的">总结/需要注意的</h2>
+<h3 id="Block_formatting_contexts-1">Block formatting contexts</h3>
+<h4 id="What_triggers_block_formatting_contexts">What triggers block formatting contexts</h4>
+<ul>
+<li>float 除了none以外的值</li>
+<li>overflow 除了visible 以外的值（hidden，auto，scroll ）</li>
+<li>display (table-cell，table-caption，inline-block)</li>
+<li>position（absolute，fixed）</li>
+<li>fieldset元素</li>
+</ul>
+<h4 id="How_block_formatting_contexts_flow">How block formatting contexts flow</h4>
+<p>block formatting contexts 属于普通流（normal flow）</p>
+<h4 id="What_block_formatting_contexts_do">What block formatting contexts do</h4>
+<ol>
+<li><p>创建了 BFC 的元素，不和它的子元素发生外边距折叠。</p>
+<p>外边距折叠的规则：仅当两个块级元素相邻并且在同一个块级格式化上下文时，它们垂直方向之间的外边距才会叠加。也就是说，即便两个块级元素相邻，但当它们不在同一个块级格式化上下文时它们的边距也不会折叠。因此，阻止外边距折叠只需产生新的 BFC 。</p>
+<p>DEMO:<br><iframe width="100%" height="300" src="http://jsfiddle.net/running_snail/0zad5mtv/embedded/result,js,html,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe><br>三个 div 各包含一个 p 元素，三个 div 及其包含的 p 元素都有顶部和底部的外边距，但只有第三个 div 的边距没有与它的子元素 p 的外边距折叠。这是因为第三个 div 创建了新的 BFC ，由此可见：创建了 BFC 的元素，不和它的子元素发生外边距折叠。</p>
+</li>
+<li><p>BFC 可以包含浮动的元素,闭合浮动。</p>
+<p>这也正是使用 overflow: hidden 与 overflow: auto 方法闭合浮动的原理，使用 overflow: hidden 或 overflow: auto 触发浮动元素的父元素的 BFC 特性，从而可以包含浮动元素，闭合浮动。<br>W3C 的原文是“’Auto’ heights for block formatting context roots”，也就是 BFC 会根据子元素的情况自动适应高度，即使其子元素中包括浮动元素。</p>
+<p>DEMO:</p>
+<iframe width="100%" height="300" src="http://jsfiddle.net/running_snail/2vyexx1q/embedded/result,js,html,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>更详细的清除浮动方法可见：<a href="http://snailsky.me/2014/08/20/%E6%B5%AE%E5%8A%A8%E5%92%8C%E5%AE%83%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%9F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%8A%80%E5%B7%A7%EF%BC%9F/" target="_blank">浮动和它的工作原理？清除浮动的技巧？</a></p>
+</li>
+<li><p>BFC 可以阻止元素被浮动元素覆盖</p>
+<p>浮动元素的块级兄弟元素会无视浮动元素的位置，尽量占满一整行，这样就会被浮动元素覆盖，为该兄弟元素触发 BFC 后可以阻止这种情况的发生。<br>DEMO:<br>块级元素会被它的兄弟浮动元素覆盖</p>
+<iframe width="100%" height="300" src="http://jsfiddle.net/running_snail/8o4ysvor/embedded/result,js,html,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>触发了 BFC 的元素不会被它的兄弟浮动元素覆盖</p>
+<iframe width="100%" height="300" src="http://jsfiddle.net/running_snail/xsovngvk/embedded/result,js,html,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>子元素宽度均小于父元素，但父元素宽度不足以容纳一行中所有子元素时，非浮动子元素会下沉</p>
+<iframe width="100%" height="300" src="http://jsfiddle.net/running_snail/tewfLt3w/embedded/result,js,html,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+</li>
+</ol>
+<hr>
+<h3 id="block-level_boxes">block-level boxes</h3>
+<h4 id="relationship_with_block_formatting_contexts">relationship with block formatting contexts</h4>
+<p>一个 block-level element (‘display’ 属性值为 ‘block’, ‘list-item’ 或是 ‘table’) 会生成一个 block-level box，<br>这样的盒子会参与到 block-formatting context (一种布局的方式) 中。</p>
+<hr>
+<h3 id="containing_block">containing block</h3>
+<p>一般来说，盒子本身就为其子孙建立了 containing block，用来计算内部盒子的位置、大小，而对内部的盒子，具体采用哪个 containing block 来计算，需要分情况来讨论：</p>
+<ol>
+<li>根元素所在的 containing block 被称为 initial containing block，在我们常用的浏览器环境下，指的是原点与 canvas 重合，大小和 viewport 相同的矩形；</li>
+<li>对于 position 为 static 或 relative 的元素，其 containing block 为祖先元素中最近的 block container box 的 content box (除 margin, border, padding 外的区域)；</li>
+<li>对于 position:fixed 的元素，其 containing block 由 viewport 建立；</li>
+<li>对于 position:absolute 的元素，则是先找到其祖先元素中最近的 position 属性非 static 的元素，然后判断：<ol>
+<li>若此元素为 inline 元素，则 containing block 为能够包含这个元素生成的第一个和最后一个 inline box 的 padding box (除 margin, border 外的区域) 的最小矩形；</li>
+<li>否则则由这个祖先元素的 padding box 构成。<br>如果都找不到，则为 initial containing block。</li>
+</ol>
+</li>
+</ol>
+<hr>
+<p>参考文献：<br><a href="http://www.w3.org/TR/CSS21/visuren.html#block-boxes" target="_blank">[1] 9.2.1 Block-level elements and block boxes</a><br><a href="http://www.w3.org/TR/CSS21/visuren.html#block-formatting" target="_blank">[2] 9.4.1 Block formatting contexts</a><br><a href="http://w3help.org/zh-cn/kb/008/" target="_blank">[3] KB008: 包含块( Containing block )</a><br><a href="http://www.yuiblog.com/blog/2010/05/19/css-101-block-formatting-contexts" target="_blank">[4] CSS 101: Block Formatting Contexts</a><br><a href="http://kayosite.com/block-formatting-contexts-in-detail.html" target="_blank">[5] 详说 Block Formatting Contexts (块级格式化上下文)</a><br><a href="http://stackoverflow.com/questions/6196725/how-does-the-css-block-formatting-context-work" target="_blank">[6] How does the CSS Block Formatting Context work?</a><br><a href="http://www.zhihu.com/question/20086234" target="_blank">[7] CSS 中 block-level boxes、containing block、block formatting context 三者之间的区别和联系是怎样的？</a></p>
+]]></content>
+    
+    
+      <category term="CSS" scheme="http://snailsky.me/tags/CSS/"/>
+    
+      <category term="总结" scheme="http://snailsky.me/tags/%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="实践" scheme="http://snailsky.me/tags/%E5%AE%9E%E8%B7%B5/"/>
+    
+      <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[CSS布局总结与实践]]></title>
     <link href="http://snailsky.me/2014/08/21/css%E5%B8%83%E5%B1%80%E6%80%BB%E7%BB%93%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
     <id>http://snailsky.me/2014/08/21/css布局总结与实践/</id>
     <published>2014-08-21T10:08:23.000Z</published>
-    <updated>2014-08-23T16:37:34.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="如何设置块级元素水平居中？">如何设置块级元素水平居中？</h2>
+    <updated>2014-08-24T11:16:36.000Z</updated>
+    <content type="html"><![CDATA[<p>重在实践，把常用的布局及其实践总结在这备忘，方便以后查询和使用。<br>包含了 “如何设置块级元素水平居中” 、 “如何实现左固定宽度或百分比，右边自适应” 等常见问题。<br>和 “外边距折叠” 这类重要的概念。及各种常见的属性和布局。</p>
+<hr>
+<h2 id="如何设置块级元素水平居中？">如何设置块级元素水平居中？</h2>
 <h3 id="方法一(差)：设置width_+_margin">方法一(差)：设置width + margin</h3>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
@@ -883,8 +991,6 @@
     
       <category term="实践" scheme="http://snailsky.me/tags/%E5%AE%9E%E8%B7%B5/"/>
     
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
-    
       <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
     
   </entry>
@@ -894,7 +1000,7 @@
     <link href="http://snailsky.me/2014/08/20/%E6%B5%AE%E5%8A%A8%E5%92%8C%E5%AE%83%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%9F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%8A%80%E5%B7%A7%EF%BC%9F/"/>
     <id>http://snailsky.me/2014/08/20/浮动和它的工作原理？清除浮动的技巧？/</id>
     <published>2014-08-20T08:46:45.000Z</published>
-    <updated>2014-08-23T13:52:20.000Z</updated>
+    <updated>2014-08-25T09:00:26.000Z</updated>
     <content type="html"><![CDATA[<p>学习总结浮动和它的工作原理，及清除浮动的方法及原理集锦。探索浮动与清除浮动的奥妙。</p>
 <hr>
 <h2 id="浮动和它的工作原理">浮动和它的工作原理</h2>
@@ -1028,7 +1134,7 @@
 <p>通俗地来说：创建了 BFC的元素就是一个独立的盒子，里面的子元素不会在布局上影响外面的元素，反之亦然，同时BFC任然属于文档中的普通流。<br>overflow:hidden或者auto可以闭合浮动，就是因为父元素创建了新的BFC。</p>
 <p>IE专有属性hadLayout，没有做过IE 不了解，关于hadLayout来这看：<a href="http://www.smallni.com/haslayout-block-formatting-contexts/" target="_blank">hasLayout &amp;&amp; Block Formatting Contexts</a></p>
 <hr>
-<p>参考文献：<br><a href="http://www.iyunlu.com/view/css-xhtml/55.html" target="_blank">[1] 那些年我们一起清除过的浮动</a><br><a href="http://www.yuiblog.com/blog/2010/05/19/css-101-block-formatting-contexts" target="_blank">[2] Block Formatting Contexts</a><br><a href="http://stackoverflow.com/questions/211383/which-method-of-clearfix-is-best" target="_blank">[3] Which method of ‘clearfix’ is best? - Stack Overflow</a></p>
+<p>参考文献：<br><a href="http://www.iyunlu.com/view/css-xhtml/55.html" target="_blank">[1] 那些年我们一起清除过的浮动</a><br><a href="http://www.yuiblog.com/blog/2010/05/19/css-101-block-formatting-contexts" target="_blank">[2] CSS 101: Block Formatting Contexts</a><br><a href="http://stackoverflow.com/questions/211383/which-method-of-clearfix-is-best" target="_blank">[3] Which method of ‘clearfix’ is best? - Stack Overflow</a></p>
 ]]></content>
     
     
@@ -1037,8 +1143,6 @@
       <category term="原理" scheme="http://snailsky.me/tags/%E5%8E%9F%E7%90%86/"/>
     
       <category term="技巧" scheme="http://snailsky.me/tags/%E6%8A%80%E5%B7%A7/"/>
-    
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
     
       <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
     
@@ -1051,7 +1155,7 @@
     <link href="http://snailsky.me/2014/08/18/displaynone-%E5%92%8C-visibilityhidden-%E6%9C%89%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F/"/>
     <id>http://snailsky.me/2014/08/18/displaynone-和-visibilityhidden-有何区别？/</id>
     <published>2014-08-18T13:09:51.000Z</published>
-    <updated>2014-08-21T04:44:44.000Z</updated>
+    <updated>2014-08-24T11:21:12.000Z</updated>
     <content type="html"><![CDATA[<p>在使用CSS隐藏一些元素时，常常用到 display:none 和 visibility:hidden<br>两者差别在哪儿？</p>
 <h2 id="比较与实例">比较与实例</h2>
 <h3 id="空间占据:">空间占据:</h3>
@@ -1160,8 +1264,6 @@
     
       <category term="原理" scheme="http://snailsky.me/tags/%E5%8E%9F%E7%90%86/"/>
     
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
-    
       <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
     
       <category term="stackoverflow" scheme="http://snailsky.me/categories/CSS/stackoverflow/"/>
@@ -1173,7 +1275,7 @@
     <link href="http://snailsky.me/2014/07/22/%E9%82%A3%E4%BA%9B%E5%B9%B4%E8%A2%AB%E6%88%91%E4%BB%AC%E8%AF%AF%E7%94%A8%E7%9A%84CSS%E9%80%89%E6%8B%A9%E5%99%A8/"/>
     <id>http://snailsky.me/2014/07/22/那些年被我们误用的CSS选择器/</id>
     <published>2014-07-22T14:57:11.000Z</published>
-    <updated>2014-08-20T14:11:03.000Z</updated>
+    <updated>2014-08-24T11:21:12.000Z</updated>
     <content type="html"><![CDATA[<p>曾几何时，我天真的认为“选择器肯定是越详细，层数越多越好呗”。现在觉得自己以前真是图样图森破…<br>谨以此文，祭奠那些被我误用的CSS, orz。<br>此文重在讨论<em>如何书写高效的CSS选择器</em>。如有错误，欢迎指正，O(∩_∩)O</p>
 <hr>
 <h2 id="浏览如何识别选择器？">浏览如何识别选择器？</h2>
@@ -1381,8 +1483,6 @@ ul {…}                          /* Tag */</span>
     
       <category term="选择器" scheme="http://snailsky.me/tags/%E9%80%89%E6%8B%A9%E5%99%A8/"/>
     
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
-    
       <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
@@ -1394,7 +1494,7 @@ ul {…}                          /* Tag */</span>
     <link href="http://snailsky.me/2014/07/19/grunt%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/"/>
     <id>http://snailsky.me/2014/07/19/grunt的配置及使用示例/</id>
     <published>2014-07-19T11:27:42.000Z</published>
-    <updated>2014-07-19T12:23:32.000Z</updated>
+    <updated>2014-08-24T11:21:12.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Grunt的介绍">Grunt的介绍</h2>
 <p>Grunt是一个自动化的项目构建工具，配置好Grunt可以完成压缩，代码检查，单元测试等任务。C/C++有makefile，Java有Maven，Nodejs有grunt~</p>
 <p>Grunt常用的插件有：<br>1).grunt-contrib-uglify：压缩js代码<br>2).grunt-contrib-concat：合并js文件<br>3).grunt-contrib-qunit：单元测试<br>4).grunt-contrib-jshint：js代码检查<br>5).grunt-contrib-watch：文件监控</p>
@@ -1478,8 +1578,6 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
     
       <category term="安装" scheme="http://snailsky.me/tags/%E5%AE%89%E8%A3%85/"/>
     
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
-    
       <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="实践" scheme="http://snailsky.me/tags/%E5%AE%9E%E8%B7%B5/"/>
@@ -1493,7 +1591,7 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
     <link href="http://snailsky.me/2014/07/12/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BC%96%E7%A8%8B/"/>
     <id>http://snailsky.me/2014/07/12/JavaScript学习笔记 - 模块化编程/</id>
     <published>2014-07-12T03:05:46.000Z</published>
-    <updated>2014-07-27T15:39:05.000Z</updated>
+    <updated>2014-08-24T11:21:12.000Z</updated>
     <content type="html"><![CDATA[<p>前段时间，我急需这种模块化的方法来管理我的JavaScript代码<br><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">Javascript模块化编程</a>这一系列文章给我很大帮助，介绍得很通俗易懂，小伙伴们可以看看，我将在此文基础上记录一些我的笔记。</p>
 <hr>
 <h2 id="JavaScript模块简介">JavaScript模块简介</h2>
@@ -1834,8 +1932,6 @@ console<span class="built_in">.</span><span class="keyword">log</span>(uni<span 
     
       <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
-    
       <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="实践" scheme="http://snailsky.me/tags/%E5%AE%9E%E8%B7%B5/"/>
@@ -1849,7 +1945,7 @@ console<span class="built_in">.</span><span class="keyword">log</span>(uni<span 
     <link href="http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/"/>
     <id>http://snailsky.me/2014/07/11/JavaScript学习笔记 - 闭包（closure）/</id>
     <published>2014-07-11T12:59:40.000Z</published>
-    <updated>2014-07-27T15:39:05.000Z</updated>
+    <updated>2014-08-24T11:21:12.000Z</updated>
     <content type="html"><![CDATA[<p>本文本着3个目的进行探究<br>1.闭包是什么<br>2.为什么要用闭包<br>3.闭包的应用场景<br>我的傻瓜式学习笔记，给自己备忘，也希望能帮助到一些人，如有错误欢迎指正。O(∩_∩)O~</p>
 <hr>
 <h2 id="为什么要用闭包？">为什么要用闭包？</h2>
@@ -2501,8 +2597,6 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
     
       <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
-    
       <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="实践" scheme="http://snailsky.me/tags/%E5%AE%9E%E8%B7%B5/"/>
@@ -2738,7 +2832,7 @@ onsole.log(foo.<span class="keyword">get</span>());   <span class="comment">//ou
     <link href="http://snailsky.me/2014/06/07/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-ui%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>http://snailsky.me/2014/06/07/javascript-编程实践-ui层的松耦合（二）/</id>
     <published>2014-06-07T07:46:17.000Z</published>
-    <updated>2014-07-14T08:38:33.000Z</updated>
+    <updated>2014-08-24T11:21:12.000Z</updated>
     <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
 <hr>
 <h2 id="5-将HTML从JavaScript中抽离">5.将HTML从JavaScript中抽离</h2>
@@ -3069,8 +3163,6 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
     
       <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
-    
       <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="书" scheme="http://snailsky.me/tags/%E4%B9%A6/"/>
@@ -3084,7 +3176,7 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
     <link href="http://snailsky.me/2014/05/31/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-UI%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://snailsky.me/2014/05/31/javascript-编程实践-UI层的松耦合（一）/</id>
     <published>2014-05-31T03:33:37.000Z</published>
-    <updated>2014-07-21T15:09:34.000Z</updated>
+    <updated>2014-08-24T11:21:12.000Z</updated>
     <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
 <hr>
 <h1 id="UI层的松耦合">UI层的松耦合</h1>
@@ -3284,8 +3376,6 @@ dojo.connect(btn, <span class="string">"click"</span>, doSomething);
     
     
       <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
-    
-      <category term="前端" scheme="http://snailsky.me/tags/%E5%89%8D%E7%AB%AF/"/>
     
       <category term="笔记" scheme="http://snailsky.me/tags/%E7%AC%94%E8%AE%B0/"/>
     
