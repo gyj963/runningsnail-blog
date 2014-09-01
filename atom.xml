@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-08-26T03:57:35.797Z</updated>
+  <updated>2014-09-01T11:14:02.077Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -13,6 +13,199 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[【JS】JavaScript 中 this 是如何工作的？]]></title>
+    <link href="http://snailsky.me/2014/08/31/javascript-%E4%B8%AD-this-%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F/"/>
+    <id>http://snailsky.me/2014/08/31/javascript-中-this-是如何工作的？/</id>
+    <published>2014-08-30T16:13:42.000Z</published>
+    <updated>2014-09-01T10:47:24.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="this关键字的含义">this关键字的含义</h2>
+<p>简单说，this就是指当前函数的运行环境。由于JavaScript支持运行环境的动态切换，所以this的指向是动态的。<br>所谓“运行环境”其实就是对象。可以理解成，this指函数运行时所在的那个对象。</p>
+<p>例：有一个函数f，它同时充当a对象和b对象的方法。JavaScript允许函数f的运行环境动态切换，即一会属于a对象，一会属于b对象，这就要靠this关键字来办到。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span>{</span> console.log(<span class="keyword">this</span>.x); };
+
+<span class="keyword">var</span> a = {x:<span class="string">'a'</span>};
+a.m = f;
+
+<span class="keyword">var</span> b = {x:<span class="string">'b'</span>};
+b.m = f;
+
+a.m() <span class="comment">// a</span>
+b.m() <span class="comment">// b</span>
+</pre></td></tr></table></figure>
+
+<p>当f属于a对象时，this指向a；当f属于b对象时，this指向b，因此打印出了不同的值。由于this的指向可变，所以达到了运行环境动态切换的目的。</p>
+<h2 id="this在不同情况下，指向各不相同">this在不同情况下，指向各不相同</h2>
+<h3 id="全局环境/函数调用">全局环境/函数调用</h3>
+<p>在全局环境使用this，它指的就是顶层对象window。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="built_in">console</span>.log(<span class="keyword">this</span> === <span class="built_in">window</span>) <span class="regexp">//</span> <span class="literal">true</span>
+
+<span class="reserved">function</span> f() {
+    <span class="built_in">console</span>.log(<span class="keyword">this</span> === <span class="built_in">window</span>); <span class="regexp">//</span> <span class="literal">true</span>
+}
+f();
+</pre></td></tr></table></figure>
+
+<p>不管是不是在函数内部，只要是在全局环境下运行，this就是指全局对象window。</p>
+<h3 id="构造函数">构造函数</h3>
+<p>构造函数中的this，指的是实例对象。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="code"><pre><span class="keyword">var</span> O = <span class="function"><span class="keyword">function</span><span class="params">(p)</span> {</span>
+    <span class="keyword">this</span>.p = p;
+};
+
+O.prototype.m = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> <span class="keyword">this</span>.p;
+};
+
+<span class="comment">// test</span>
+
+<span class="keyword">var</span> a = <span class="keyword">new</span> O(<span class="string">"test case 1"</span>);
+console.log ( a.p ); <span class="comment">// test case 1</span>
+console.log ( a.m() ); <span class="comment">// test case 1</span>
+
+<span class="keyword">var</span> b = <span class="keyword">new</span> O(<span class="string">"test case 2"</span>);
+console.log ( b.p ); <span class="comment">// test case 2</span>
+console.log ( b.m() ); <span class="comment">// test case 2</span>
+</pre></td></tr></table></figure>
+
+<p>上面代码定义了一个构造函数O。由于this指向实例对象，所以在构造函数内部定义this.p，就相当于定义实例对象有一个p属性；然后m方法可以返回这个p属性。</p>
+<h3 id="方法调用">方法调用</h3>
+<p>当a对象的方法被赋予b对象，该方法就变成了普通函数，其中的this就从指向a对象变成了指向b对象。这就是this取决于运行时所在的对象的含义，所以要特别小心。如果将某个对象的方法赋值给另一个对象，会改变this的指向。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="keyword">var</span> o1 = <span class="keyword">new</span> <span class="built_in">Object</span>();
+o1.m = <span class="number">1</span>;
+o1.f = <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span> console.log(<span class="keyword">this</span>.m);};
+
+o1.f() <span class="comment">// 1</span>
+
+<span class="keyword">var</span> o2 = <span class="keyword">new</span> <span class="built_in">Object</span>();
+o2.m = <span class="number">2</span>;
+o2.f = o1.f
+
+o2.f() <span class="comment">// 2</span>
+</pre></td></tr></table></figure>
+
+<p>f是o1的方法，但是如果在o2上面调用这个方法，f方法中的this就会指向o2。这就说明JavaScript函数的运行环境完全是动态绑定的，可以在运行时切换。</p>
+<p>如果不想改变this的指向，可以将o2.f改写成下面这样。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="transposed_variable">o2.</span>f = <span class="function"><span class="keyword">function</span> <span class="params">()</span>{ <span class="title">o1</span>.<span class="title">f</span><span class="params">()</span> };</span>
+
+<span class="transposed_variable">o2.</span>f() <span class="comment">// 1</span>
+</pre></td></tr></table></figure>
+
+<p>上面代码表示，由于f方法这时是在o1下面运行，所以this就指向o1。</p>
+<p>有时，某个方法位于多层对象的内部，这时如果为了简化书写，把该方法赋值给一个变量，往往会得到意想不到的结果。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="comment">/*会得到一个意外的答案*/</span>
+
+<span class="keyword">var</span> a = {
+        b : {
+            m : <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+                console.log(<span class="keyword">this</span>.p);
+            },
+            p : <span class="string">'Hello'</span>
+        }
+};
+
+<span class="keyword">var</span> hello = a.b.m;
+hello(); <span class="comment">// undefined</span>
+</pre></td></tr></table></figure>
+
+<p>上面代码表示，m属于多层对象内部的一个方法。为求简写，将其赋值给hello变量，结果调用时，<strong>this指向了全局对象</strong>。<br>为了避免这个问题，可以<strong>只将m所在的对象赋值给hello</strong>，这样调用时，this的指向就不会变。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="keyword">var</span> hello = a.b;
+hello.m() <span class="comment">// Hello</span>
+</pre></td></tr></table></figure>
+
+<h3 id="Node-js">Node.js</h3>
+<p>在Node.js中，this的指向又分成两种情况。全局环境中，this指向<a href="http://nodejs.org/api/globals.html" target="_blank">全局对象global</a>；模块环境中，this指向module.exports。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="comment">// 全局环境</span>
+<span class="keyword">this</span> === global <span class="comment">// true</span>
+
+<span class="comment">// 模块环境</span>
+<span class="keyword">this</span> === <span class="keyword">module</span>.exports <span class="comment">// true</span>
+</pre></td></tr></table></figure>
+
+<p>在浏览器环境下，最高作用域是global作用域，这意味着变量会定义在全局变量下。<br>而在Node下，最高最高作用域不是global作用域，定义的变量属于Node模块。<br>在Node.js中怎样使用全局变量：<a href="http://stackoverflow.com/questions/10987444/how-to-use-global-variable-in-node-js" target="_blank">http://stackoverflow.com/questions/10987444/how-to-use-global-variable-in-node-js</a></p>
+<h3 id="显示的设置this（apply、call）">显示的设置this（apply、call）</h3>
+<hr>
+<p>参考文献：<br><a href="http://javascript.ruanyifeng.com/oop/basic.html#toc5" target="_blank">[1] 面向对象编程概述 - JavaScript 标准参考教程（alpha）</a><br><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.this" target="_blank">[2] this 的工作原理 - JavaScript 秘密花园</a><br><a href="http://nodejs.org/api/globals.html" target="_blank">[3] Global Objects - Node.js v0.10.31 Manual &amp; Documentation</a><br><a href="http://stackoverflow.com/questions/10987444/how-to-use-global-variable-in-node-js" target="_blank">[4] How to use global variable in node.js? - stackoverflow</a></p>
+]]></content>
+    
+    
+      <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
+    
+      <category term="原理" scheme="http://snailsky.me/tags/%E5%8E%9F%E7%90%86/"/>
+    
+      <category term="JavaScript" scheme="http://snailsky.me/categories/JavaScript/"/>
+    
+      <category term="stackoverflow" scheme="http://snailsky.me/categories/JavaScript/stackoverflow/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[block-level boxes、containing block、block formatting context]]></title>
