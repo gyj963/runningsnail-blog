@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-09-15T10:33:26.084Z</updated>
+  <updated>2014-09-15T10:39:55.456Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://snailsky.me/2014/08/31/javascript-%E4%B8%AD-this-%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F/"/>
     <id>http://snailsky.me/2014/08/31/javascript-中-this-是如何工作的？/</id>
     <published>2014-08-30T16:13:42.000Z</published>
-    <updated>2014-09-01T11:15:01.000Z</updated>
+    <updated>2014-09-15T10:39:03.000Z</updated>
     <content type="html"><![CDATA[<h2 id="this关键字的含义">this关键字的含义</h2>
 <p>简单说，this就是指当前函数的运行环境。由于JavaScript支持运行环境的动态切换，所以this的指向是动态的。<br>所谓“运行环境”其实就是对象。可以理解成，this指函数运行时所在的那个对象。</p>
 <p>例：有一个函数f，它同时充当a对象和b对象的方法。JavaScript允许函数f的运行环境动态切换，即一会属于a对象，一会属于b对象，这就要靠this关键字来办到。</p>
@@ -200,11 +200,11 @@ hello.m() <span class="comment">// Hello</span>
     
       <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
     
+      <category term="stackoverflow" scheme="http://snailsky.me/tags/stackoverflow/"/>
+    
       <category term="原理" scheme="http://snailsky.me/tags/%E5%8E%9F%E7%90%86/"/>
     
       <category term="JavaScript" scheme="http://snailsky.me/categories/JavaScript/"/>
-    
-      <category term="stackoverflow" scheme="http://snailsky.me/categories/JavaScript/stackoverflow/"/>
     
   </entry>
   
@@ -1194,7 +1194,7 @@ hello.m() <span class="comment">// Hello</span>
     <link href="http://snailsky.me/2014/08/20/%E6%B5%AE%E5%8A%A8%E5%92%8C%E5%AE%83%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%9F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%8A%80%E5%B7%A7%EF%BC%9F/"/>
     <id>http://snailsky.me/2014/08/20/浮动和它的工作原理？清除浮动的技巧？/</id>
     <published>2014-08-20T08:46:45.000Z</published>
-    <updated>2014-08-25T09:00:26.000Z</updated>
+    <updated>2014-09-15T10:39:33.000Z</updated>
     <content type="html"><![CDATA[<p>学习总结浮动和它的工作原理，及清除浮动的方法及原理集锦。探索浮动与清除浮动的奥妙。</p>
 <hr>
 <h2 id="浮动和它的工作原理">浮动和它的工作原理</h2>
@@ -1338,9 +1338,9 @@ hello.m() <span class="comment">// Hello</span>
     
       <category term="技巧" scheme="http://snailsky.me/tags/%E6%8A%80%E5%B7%A7/"/>
     
-      <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
+      <category term="stackoverflow" scheme="http://snailsky.me/tags/stackoverflow/"/>
     
-      <category term="stackoverflow" scheme="http://snailsky.me/categories/CSS/stackoverflow/"/>
+      <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
     
   </entry>
   
@@ -1349,7 +1349,7 @@ hello.m() <span class="comment">// Hello</span>
     <link href="http://snailsky.me/2014/08/18/displaynone-%E5%92%8C-visibilityhidden-%E6%9C%89%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F/"/>
     <id>http://snailsky.me/2014/08/18/displaynone-和-visibilityhidden-有何区别？/</id>
     <published>2014-08-18T13:09:51.000Z</published>
-    <updated>2014-08-24T11:21:12.000Z</updated>
+    <updated>2014-09-15T10:39:43.000Z</updated>
     <content type="html"><![CDATA[<p>在使用CSS隐藏一些元素时，常常用到 display:none 和 visibility:hidden<br>两者差别在哪儿？</p>
 <h2 id="比较与实例">比较与实例</h2>
 <h3 id="空间占据:">空间占据:</h3>
@@ -1458,9 +1458,9 @@ hello.m() <span class="comment">// Hello</span>
     
       <category term="原理" scheme="http://snailsky.me/tags/%E5%8E%9F%E7%90%86/"/>
     
-      <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
+      <category term="stackoverflow" scheme="http://snailsky.me/tags/stackoverflow/"/>
     
-      <category term="stackoverflow" scheme="http://snailsky.me/categories/CSS/stackoverflow/"/>
+      <category term="CSS" scheme="http://snailsky.me/categories/CSS/"/>
     
   </entry>
   
