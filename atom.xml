@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-09-16T07:29:31.622Z</updated>
+  <updated>2014-09-20T11:18:59.056Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -15,11 +15,363 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[JavaScript事件处理程序与事件代理]]></title>
+    <link href="http://snailsky.me/2014/09/17/JavaScript%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E4%B8%8E%E4%BA%8B%E4%BB%B6%E4%BB%A3%E7%90%86/"/>
+    <id>http://snailsky.me/2014/09/17/JavaScript事件处理程序与事件代理/</id>
+    <published>2014-09-17T07:18:17.000Z</published>
+    <updated>2014-09-20T11:18:10.000Z</updated>
+    <content type="html"><![CDATA[<p>总结DOM中和IE中事件对象的属性和方法；<br>封装一个通用的事件处理类；<br>理解事件代理</p>
+<p>在此备忘，方便查询使用 O(∩_∩)O</p>
+<hr>
+<h2 id="事件对象">事件对象</h2>
+<h3 id="DOM中的事件对象（常用的）">DOM中的事件对象（常用的）</h3>
+<p><strong>type属性 用于获取事件类型</strong></p>
+<blockquote>
+<p>event.type</p>
+</blockquote>
+<p><strong>target属性 用于获取事件目标</strong></p>
+<blockquote>
+<p>event.target</p>
+</blockquote>
+<p>你也可以获取事件目标的节点名称</p>
+<blockquote>
+<p>event.target.nodeName</p>
+</blockquote>
+<p><strong>stopPropagation()方法 用于阻止事件冒泡</strong></p>
+<blockquote>
+<p>event.stopPropagation()</p>
+</blockquote>
+<p><strong>preventDefault()方法  阻止事件的默认行为</strong></p>
+<blockquote>
+<p>event.preventDefault()</p>
+</blockquote>
+<p>tip:默认行为是什么？<br>例如 a标签<br>&lt;a href=”#”&gt;超链接&lt;/a&gt;<br>的默认行为就是跳转。</p>
+<p>阻止a的默认行为就是阻止a跳转。</p>
+<h3 id="IE中的事件对象（常用的）">IE中的事件对象（常用的）</h3>
+<p><strong>type属性 用于获取事件类型</strong></p>
+<blockquote>
+<p>event.type</p>
+</blockquote>
+<p><strong>srcElement属性 用于获取事件目标</strong></p>
+<blockquote>
+<p>event.srcElement</p>
+</blockquote>
+<p><strong>cancelBubble属性 用于阻止事件冒泡</strong><br>设置为true表示阻止冒泡</p>
+<blockquote>
+<p>event.cancelBubble=true</p>
+</blockquote>
+<p>设置为false表示不阻止冒泡</p>
+<blockquote>
+<p>event.cancelBubble=false</p>
+</blockquote>
+<p><strong>returnValue属性  阻止事件的默认行为</strong><br>默认为true<br>设置为false表示阻止事件的默认行为</p>
+<blockquote>
+<p>event.returnValue=false</p>
+</blockquote>
+<p><strong>关于event</strong>：<br>IE8之前的浏览器event要这样获取：</p>
+<blockquote>
+<p>window.event</p>
+</blockquote>
+<p>因此我们的event这样获取便可兼容所有浏览器：</p>
+<blockquote>
+<p>event = event || window.event</p>
+</blockquote>
+<hr>
+<h2 id="跨浏览器事件处理程序">跨浏览器事件处理程序</h2>
+<h3 id="通用事件处理文件">通用事件处理文件</h3>
+<p>此封装了一个事件处理程序函数，此函数应用了能力检测来满足不同浏览器。<br>将此函数放到一个js文件里，需要绑定事件时引用此文件，可处理所有的事件绑定。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+</pre></td><td class="code"><pre><span class="comment">//    跨浏览器事件处理工具</span>
+
+<span class="keyword">var</span> eventUtil = {
+    <span class="comment">//    添加事件</span>
+    addHandler:<span class="function"><span class="keyword">function</span><span class="params">(element,type,handler)</span>{</span>
+        <span class="keyword">if</span>(element.addEventListener){     <span class="comment">// DOM2级事件处理</span>
+            element.addEventListener(type,handler,<span class="literal">false</span>);
+        }<span class="keyword">else</span> <span class="keyword">if</span>(element.attachEvent){    <span class="comment">// IE事件处理</span>
+            element.attachEvent(<span class="string">"on"</span>+type,handler);
+        }<span class="keyword">else</span>{    <span class="comment">//DOM0级事件处理</span>
+            element[<span class="string">"on"</span>+type]=handler;
+        }
+    },
+    <span class="comment">//    删除事件</span>
+    removeHandler:<span class="function"><span class="keyword">function</span><span class="params">(element,type,handler)</span>{</span>
+        <span class="keyword">if</span>(element.removeEventListener){    <span class="comment">// DOM2级事件处理</span>
+             element.removeEventListener(type,handler,<span class="literal">false</span>);
+        }<span class="keyword">else</span> <span class="keyword">if</span>(element.detachEvent){    <span class="comment">// IE事件处理</span>
+            element.detachEvent(<span class="string">"on"</span>+type,handler);
+        }<span class="keyword">else</span>{    <span class="comment">//DOM0级事件处理</span>
+            element[<span class="string">"on"</span>+type]=<span class="literal">null</span>;
+        }
+    },
+    <span class="comment">//    获取事件对象</span>
+    getEvent:<span class="function"><span class="keyword">function</span><span class="params">(event)</span>{</span>
+        <span class="keyword">return</span> event?event:window.event;
+    },
+    <span class="comment">//    获取事件类型</span>
+    getType:<span class="function"><span class="keyword">function</span><span class="params">(event)</span>{</span>
+        <span class="keyword">return</span> event.type;
+    },
+    <span class="comment">//    获取事件目标</span>
+    getElement:<span class="function"><span class="keyword">function</span><span class="params">(event)</span>{</span>
+        <span class="keyword">return</span> event.target || event.srcElement;
+    },
+    <span class="comment">//    阻止默认行为</span>
+    preventDefault:<span class="function"><span class="keyword">function</span><span class="params">(event)</span>{</span>
+        <span class="keyword">if</span>(event.preventDefault){
+            event.preventDefault();
+        }<span class="keyword">else</span>{
+            event.returnValue=<span class="literal">false</span>;
+        }
+    },
+    <span class="comment">//    阻止冒泡</span>
+    stopPropagation:<span class="function"><span class="keyword">function</span><span class="params">(event)</span>{</span>
+        <span class="keyword">if</span>(event.stopPropagation){
+            event.stopPropagation();
+        }<span class="keyword">else</span>{
+            event.cancelBubble=<span class="literal">true</span>;
+        }
+    }
+}
+</pre></td></tr></table></figure>
+
+<h3 id="用法">用法</h3>
+<p>引用包含上述代码的文件，我们现在可以使用它来给我们的程序添加事件了~<br>例：我们来给一个按钮绑定一个弹出“hello world”的事件</p>
+<p>HTML：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>&lt;input <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span> <span class="keyword">value</span>=<span class="string">"按钮"</span> id=<span class="string">"button"</span>&gt;
+</pre></td></tr></table></figure>
+
+<p>JS:</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="keyword">var</span> btn=document.getElementById(<span class="string">"button"</span>);
+<span class="function"><span class="keyword">function</span> <span class="title">showMes</span><span class="params">()</span>{</span>
+    alert(<span class="string">"hello world"</span>);
+}
+<span class="comment">//  添加事件</span>
+eventUtil.addHandler(btn,<span class="string">"click"</span>,showMes);
+<span class="comment">//  删除事件</span>
+eventUtil.removeHandler(btn,<span class="string">"click"</span>,showMes);
+</pre></td></tr></table></figure>
+
+<p>测试一下，chrome和IE都没有问题，你可以试一下更低的版本，都OK。</p>
+<hr>
+<h2 id="事件代理">事件代理</h2>
+<h3 id="什么是事件代理？">什么是事件代理？</h3>
+<p>当我们需要对很多元素添加事件的时候，可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数。</p>
+<p>例：假设有一个 UL 的父节点，包含了很多个 Li 的子节点</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"parent-list"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-1"</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-2"</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-3"</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-4"</span>&gt;</span>Item 4<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-5"</span>&gt;</span>Item 5<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-6"</span>&gt;</span>Item 6<span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+</pre></td></tr></table></figure>
+
+<p>当我们的鼠标移到Li上的时候，需要获取此Li的相关信息并飘出悬浮窗以显示详细信息，或者当某个Li被点击的时候需要触发相应的处理事件。<br>我们通常的写法，是为每个Li都添加一些类似onMouseOver或者onClick之类的事件监听。</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="keyword">function</span> addListeners4Li(liNode){
+    liNode.onclick = <span class="keyword">function</span> clickHandler(){<span class="keyword">...</span>};
+    liNode.onmouseover = <span class="keyword">function</span> mouseOverHandler(){<span class="keyword">...</span>}
+}
+
+window.onload = <span class="keyword">function</span>(){
+    var ulNode = document.getElementById(<span class="string">"parent-list"</span>);
+    var liNodes = ulNode.getElementByTagName(<span class="string">"Li"</span>);
+    <span class="keyword">for</span>(var i=<span class="number">0</span>, l = liNodes.length; i &lt; l; i++){
+        addListeners4Li(liNodes[i]);
+    }
+}
+</pre></td></tr></table></figure>
+
+<p>如果这个UL中的Li子元素会频繁地添加或者删除，我们就需要在每次添加Li的时候都调用这个addListeners4Li方法来为每个Li节点添加事件处理函数。这就添加的复杂度和出错的可能性。</p>
+<p>更简单的方法是使用事件代理机制，当事件被抛到更上层的父节点的时候，我们通过检查事件的目标对象（target）来判断并获取事件源Li。下面的代码可以完成我们想要的效果：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre>// 获取父节点，并为它添加一个click事件
+document<span class="preprocessor">.getElementById</span>(<span class="string">"parent-list"</span>)<span class="preprocessor">.addEventListener</span>(<span class="string">"click"</span>,function(e) {
+  // 检查事件源e<span class="preprocessor">.targe</span>是否为Li
+  if(e<span class="preprocessor">.target</span> && e<span class="preprocessor">.target</span><span class="preprocessor">.nodeName</span><span class="preprocessor">.toUpperCase</span> == <span class="string">"LI"</span>) {
+    // 真正的处理过程在这里
+    console<span class="preprocessor">.log</span>(<span class="string">"List item "</span>,e<span class="preprocessor">.target</span><span class="preprocessor">.id</span><span class="preprocessor">.replace</span>(<span class="string">"post-"</span>),<span class="string">" was clicked!"</span>)<span class="comment">;</span>
+  }
+})<span class="comment">;</span>
+</pre></td></tr></table></figure><br>为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。<br><br><br>### 在JavaScript编程中使用代理<br>上面介绍的是对DOM事件处理时，利用浏览器冒泡机制为DOM元素添加事件代理。其实在纯JS编程中，我们也可以使用这样的编程模式，来创建代理对象来操作目标对象。这里引用司徒正美相关文章中的一个例子：<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="code"><pre><span class="keyword">var</span> delegate = <span class="function"><span class="keyword">function</span><span class="params">(client, clientMethod)</span> {</span>
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+        <span class="keyword">return</span> clientMethod.apply(client, <span class="built_in">arguments</span>);
+    }
+}
+<span class="keyword">var</span> ClassA = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">var</span> _color = <span class="string">"red"</span>;
+    <span class="keyword">return</span> {
+        getColor: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+            console.log(<span class="string">"Color: "</span> + _color);
+        },
+        setColor: <span class="function"><span class="keyword">function</span><span class="params">(color)</span> {</span>
+            _color = color;
+        }
+    };
+};
+
+<span class="keyword">var</span> a = <span class="keyword">new</span> ClassA();
+a.getColor();
+a.setColor(<span class="string">"green"</span>);
+a.getColor();
+console.log(<span class="string">"执行代理！"</span>);
+<span class="keyword">var</span> d = delegate(a, a.setColor);
+d(<span class="string">"blue"</span>);
+console.log(<span class="string">"执行完毕！"</span>);
+a.getColor();
+</pre></td></tr></table></figure>
+
+<p>上面的例子中，通过调用delegate()函数创建的代理函数d来操作对a的修改。这种方式尽管是使用了apply（call也可以）来实现了调用对象的转移，但是从编程模式上实现了对某些对象的隐藏，可以保护这些对象不被随便访问和修改。</p>
+<p>用js函数的apply方法来制定执行作用域，可以解决很多问题。</p>
+<h3 id="jQuery中delegate函数">jQuery中delegate函数</h3>
+<p><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>$(<span class="string">"#link-list"</span>).delegate(<span class="string">"a"</span>, <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+  <span class="comment">// "$(this)" is the node that was clicked</span>
+  console.log(<span class="string">"you clicked a link!"</span>,$(<span class="keyword">this</span>));
+});
+</pre></td></tr></table></figure><br>jQuery的delegate的方法需要三个参数，一个选择器，一个时间名称，和事件处理函数。</p>
+<p><strong>优点</strong></p>
+<p>1.管理的函数变少了。不需要为每个元素都添加监听函数。对于同一个父节点下面类似的子元素，可以通过委托给父元素的监听函数来处理事件。</p>
+<p>2.可以方便地动态添加和修改元素，不需要因为元素的改动而修改事件绑定。</p>
+<p>3.JavaScript和DOM节点之间的关联变少了，这样也就减少了因循环引用而带来的内存泄漏发生的概率。</p>
+<hr>
+<p>参考文献：<br><a href="http://book.douban.com/subject/10546125/" target="_blank">[1] JavaScript高级程序设计（第3版）- 事件</a><br><a href="http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html" target="_blank">[2] JavaScript事件代理和委托（Delegation）</a></p>
+]]></content>
+    
+    
+      <category term="JavaScript" scheme="http://snailsky.me/tags/JavaScript/"/>
+    
+      <category term="总结" scheme="http://snailsky.me/tags/%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="跨浏览器" scheme="http://snailsky.me/tags/%E8%B7%A8%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+      <category term="JavaScript" scheme="http://snailsky.me/categories/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[【JS】JavaScript 中 this 是如何工作的？]]></title>
     <link href="http://snailsky.me/2014/08/31/javascript-%E4%B8%AD-this-%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F/"/>
     <id>http://snailsky.me/2014/08/31/javascript-中-this-是如何工作的？/</id>
     <published>2014-08-30T16:13:42.000Z</published>
-    <updated>2014-09-16T05:34:01.000Z</updated>
+    <updated>2014-09-16T07:37:28.000Z</updated>
     <content type="html"><![CDATA[<h2 id="this关键字的含义">this关键字的含义</h2>
 <p>简单说，this就是指当前函数的运行环境。由于JavaScript支持运行环境的动态切换，所以this的指向是动态的。<br>所谓“运行环境”其实就是对象。可以理解成，this指函数运行时所在的那个对象。</p>
 <p>例：有一个函数f，它同时充当a对象和b对象的方法。JavaScript允许函数f的运行环境动态切换，即一会属于a对象，一会属于b对象，这就要靠this关键字来办到。</p>
@@ -772,7 +1124,7 @@ o2.m() <span class="comment">// 123</span>
 plus5(<span class="number">10</span>) <span class="comment">// 15</span>
 </pre></td></tr></table></figure>
 
-<h4 id="使用call时需注意">使用call时需注意</h4>
+<h4 id="使用bind时需注意">使用bind时需注意</h4>
 <h5 id="每一次返回一个新函数">每一次返回一个新函数</h5>
 <p>bind方法每运行一次，就返回一个新函数，这会产生一些问题。<br>比如，监听事件的时候，不能写成下面这样。</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
