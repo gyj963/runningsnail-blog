@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-09-20T11:18:59.056Z</updated>
+  <updated>2014-09-20T11:34:53.085Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://snailsky.me/2014/09/17/JavaScript%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E4%B8%8E%E4%BA%8B%E4%BB%B6%E4%BB%A3%E7%90%86/"/>
     <id>http://snailsky.me/2014/09/17/JavaScript事件处理程序与事件代理/</id>
     <published>2014-09-17T07:18:17.000Z</published>
-    <updated>2014-09-20T11:18:10.000Z</updated>
+    <updated>2014-09-20T11:33:41.000Z</updated>
     <content type="html"><![CDATA[<p>总结DOM中和IE中事件对象的属性和方法；<br>封装一个通用的事件处理类；<br>理解事件代理</p>
 <p>在此备忘，方便查询使用 O(∩_∩)O</p>
 <hr>
@@ -281,7 +281,12 @@ document<span class="preprocessor">.getElementById</span>(<span class="string">"
     console<span class="preprocessor">.log</span>(<span class="string">"List item "</span>,e<span class="preprocessor">.target</span><span class="preprocessor">.id</span><span class="preprocessor">.replace</span>(<span class="string">"post-"</span>),<span class="string">" was clicked!"</span>)<span class="comment">;</span>
   }
 })<span class="comment">;</span>
-</pre></td></tr></table></figure><br>为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。<br><br><br>### 在JavaScript编程中使用代理<br>上面介绍的是对DOM事件处理时，利用浏览器冒泡机制为DOM元素添加事件代理。其实在纯JS编程中，我们也可以使用这样的编程模式，来创建代理对象来操作目标对象。这里引用司徒正美相关文章中的一个例子：<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+</pre></td></tr></table></figure>
+
+<p>为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。</p>
+<h3 id="在JavaScript编程中使用代理">在JavaScript编程中使用代理</h3>
+<p>上面介绍的是对DOM事件处理时，利用浏览器冒泡机制为DOM元素添加事件代理。其实在纯JS编程中，我们也可以使用这样的编程模式，来创建代理对象来操作目标对象。这里引用司徒正美相关文章中的一个例子：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -338,7 +343,7 @@ a.getColor();
 <p>上面的例子中，通过调用delegate()函数创建的代理函数d来操作对a的修改。这种方式尽管是使用了apply（call也可以）来实现了调用对象的转移，但是从编程模式上实现了对某些对象的隐藏，可以保护这些对象不被随便访问和修改。</p>
 <p>用js函数的apply方法来制定执行作用域，可以解决很多问题。</p>
 <h3 id="jQuery中delegate函数">jQuery中delegate函数</h3>
-<p><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -346,7 +351,9 @@ a.getColor();
   <span class="comment">// "$(this)" is the node that was clicked</span>
   console.log(<span class="string">"you clicked a link!"</span>,$(<span class="keyword">this</span>));
 });
-</pre></td></tr></table></figure><br>jQuery的delegate的方法需要三个参数，一个选择器，一个时间名称，和事件处理函数。</p>
+</pre></td></tr></table></figure>
+
+<p>jQuery的delegate的方法需要三个参数，一个选择器，一个时间名称，和事件处理函数。</p>
 <p><strong>优点</strong></p>
 <p>1.管理的函数变少了。不需要为每个元素都添加监听函数。对于同一个父节点下面类似的子元素，可以通过委托给父元素的监听函数来处理事件。</p>
 <p>2.可以方便地动态添加和修改元素，不需要因为元素的改动而修改事件绑定。</p>
