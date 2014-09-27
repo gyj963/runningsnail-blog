@@ -9,7 +9,7 @@ var fx=function(fn,begin,end){
 	}
 	var options=arguments[3]||{};
 	var duration=options.duration||500;
-	var ease=options.ease||fx.easeOut();
+	var ease=options.ease||fx.easeOut;
 
 	startTime=new Date().getTime();
 	(function(){
