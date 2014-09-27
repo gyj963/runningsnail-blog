@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://snailsky.me/resume/index.html</loc>
-    <lastmod>2014-09-27T16:09:47.000Z</lastmod>
+    <loc>http://snailsky.me/timeline/index.html</loc>
+    <lastmod>2014-09-27T16:28:00.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://snailsky.me/timeline/index.html</loc>
-    <lastmod>2014-09-27T15:49:26.000Z</lastmod>
+    <loc>http://snailsky.me/resume/index.html</loc>
+    <lastmod>2014-09-27T16:09:47.000Z</lastmod>
   </url>
   
   <url>
@@ -47,11 +47,6 @@
   </url>
   
   <url>
-    <loc>http://snailsky.me/2014/06/07/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-ui%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
-    <lastmod>2014-08-24T11:21:12.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://snailsky.me/2014/07/12/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2014-08-24T11:21:12.000Z</lastmod>
   </url>
@@ -62,12 +57,17 @@
   </url>
   
   <url>
+    <loc>http://snailsky.me/2014/07/22/%E9%82%A3%E4%BA%9B%E5%B9%B4%E8%A2%AB%E6%88%91%E4%BB%AC%E8%AF%AF%E7%94%A8%E7%9A%84CSS%E9%80%89%E6%8B%A9%E5%99%A8/</loc>
+    <lastmod>2014-08-24T11:21:12.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://snailsky.me/2014/07/11/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20%E9%97%AD%E5%8C%85%EF%BC%88closure%EF%BC%89/</loc>
     <lastmod>2014-08-24T11:21:12.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://snailsky.me/2014/07/22/%E9%82%A3%E4%BA%9B%E5%B9%B4%E8%A2%AB%E6%88%91%E4%BB%AC%E8%AF%AF%E7%94%A8%E7%9A%84CSS%E9%80%89%E6%8B%A9%E5%99%A8/</loc>
+    <loc>http://snailsky.me/2014/06/07/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-ui%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
     <lastmod>2014-08-24T11:21:12.000Z</lastmod>
   </url>
   

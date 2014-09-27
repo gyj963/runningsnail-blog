@@ -21,7 +21,36 @@
 
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <style>
-        body{
+    .nav-timeline{
+        background:black;
+        color:#ffffff;
+        padding:0;
+        position:fixed;
+        top:0px;
+        z-index:1111;
+    }
+
+    .right{
+        float:right;
+    }
+    .nav-timeline-a{
+        display:inline-block;
+        padding:1em;
+    }
+     .nav-timeline-a:hover{
+         background:#ffffff;
+         color:#000000;
+     }
+     .nav-timeline:after{
+         content:".";
+         display:block;
+         height:0;
+         clear:both;
+         visibility:hidden;
+     }
+
+
+    body{
             background: url(/img/timeline/tlbg.jpg) center 0 no-repeat fixed;
             padding: 0px;
             margin: 0px;
