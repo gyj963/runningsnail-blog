@@ -1,0 +1,512 @@
+
+  
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Timeline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+
+    <meta name="author" content="running_snail">
+
+    <meta name="description" content="running_snail|blog|js|javascript|css|html|前端">
+
+    <link rel="alternative" href="http://snailsky.me/atom.xml" title="Running_snail&#39;s Blog" type="application/atom+xml">
+
+    <link rel="icon" href="/img/snail.ico">
+
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <style>
+        body{
+            background: url(/img/timeline/tlbg.jpg) center 0 no-repeat fixed;
+            padding: 0px;
+            margin: 0px;
+            padding-top: 56px;
+        }
+        .head{
+            width: 960px;height: 150px;
+            margin: 0 auto;
+            background: url(/img/timeline/tltitle.png) center no-repeat;
+            /*rgba(225,225,225,.2);*/
+            font-size: 14px;
+            color: white;
+            text-align: right;
+            border-bottom: 2px solid rgba(225,225,225,.3);;
+        }
+        .container{
+            width: 960px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .scrubber{
+            width: 47px;
+            min-height: 200px;
+            position: absolute;
+            top: 29px;
+            left: 0px;
+            z-index: 999;
+            /*background: rgba(225,225,225,.2);*/
+        }
+        .scrubber a{
+            display: block;
+            height: 26px;line-height: 26px;font-size: 12px;
+            border-right: 2px solid #c8c8c8;
+            border-right-color:rgba(200,200,200,.5);
+            padding-right: 5px;
+            color: #a5a5a5;text-decoration: none;
+            text-shadow:0 1px 1px rgba(0,0,0,.3);
+            text-align: right;
+        }
+        .scrubber a.current{
+            font-weight: bold;
+        }
+        .scrubber a:hover{
+            text-decoration: underline;
+        }
+        .scrubber a.current:hover{
+            text-decoration: none;
+        }
+        .content{
+            min-height: 1000px;
+            border-left: 2px solid rgba(225,225,225,.5);
+            margin: 0 0 0 120px;
+            padding-top: 50px;
+            padding-left: 70px;
+        }
+        .content:after{
+            content: ".";
+            display: block;
+            height: 0;
+            clear:both;
+            visibility: hidden;
+        }
+        .content_year,
+        .content_month{
+            height: 30px;line-height: 30px;color: #a5a5a5;
+            text-shadow: 0 1px 1px rgba(0,0,0,.3);
+            font-weight: bold;
+            font-size: 14px;
+            position: relative;left: -130px;
+            clear:both;
+        }
+        .content_item{
+            width: 370px;
+            min-height: 300px;
+            background: #ffffff;border-radius: 4px;
+            margin: 20px 0 0 0;
+            position: relative;
+            color: #888;
+        }
+
+        .content_item_left{
+            float:left;
+        }
+        .content_item_right{
+            float:right;
+            top: 40px;
+        }
+        .content_item_icon_arrorw{
+            position: absolute;left: -10px;top: 20px;
+            height: 0px;
+            border-color: transparent #ffffff transparent;
+            border-width: 10px 10px 10px 0px;
+            border-style:dashed solid dashed dashed;
+
+        }
+
+        .content_item_right .content_item_icon_dot{
+            left: -474px;
+        }
+        .content_item_icon_dot{
+            width: 11px;height: 11px;
+            border-radius: 11px;
+            background: #ffffff;
+            position: absolute;
+            left: -75.5px;top: 25px;
+        }
+        .content_item_icon_dot_child{
+            width: 7px;height: 7px;
+            border-radius: 11px;
+            background: #a9b9ff;
+            position: absolute;
+            left: 2px;top: 2px;
+        }
+        .content_item_head{
+            padding: 15px;
+            padding-bottom: 0px;
+        }
+        .content_item_head_title{
+            height: 46px;line-height: 46px;font-size: 28px;
+            padding: 0px 0px 10px 56px;
+            position: relative;
+        }
+        .content_item_head_title_lunar{
+            width: 46px;height: 46px;background: #b3dae9;border-radius: 8px;
+            position: absolute;left: 0px;top: 0px;
+            overflow: hidden;
+            color: #ffffff;
+            font-size: 25px;
+            line-height: 23px;
+        }
+        .content_item_head_intro{
+            font-size: 14px;
+            line-height: 22px;
+            padding: 0px 15px;
+            margin-bottom: 10px;
+        }
+        .content_item_media{
+            height: 277px;overflow: hidden;
+            padding-bottom: 10px;
+            line-height: 20px;
+        }
+        .content_item_footer{
+            padding: 10px 15px;
+            margin: 0px 15px;
+            border-top:1px solid #d6d6d6;
+            font-size: 12px;color: #b2b2b2;
+        }
+        .content_item_footer_like{
+            text-align: right;
+        }
+
+
+        @font-face {font-family: 'iconfont';
+            src: url('/iconfont/iconfont.eot'); /* IE9*/
+            src: url('/iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('/iconfont/iconfont.woff') format('woff'), /* chrome、firefox */
+            url('/iconfont/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+            url('/iconfont/iconfont.svg#uxiconfont') format('svg'); /* iOS 4.1- */
+        }
+        .quote{
+            font-family:"iconfont" !important;
+            font-size:16px;font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .ui_icon{
+            overflow: hidden;
+            margin: 0 10px 0 5px;
+        }
+        .zan{
+            font-family:"iconfont" !important;
+            font-size:16px;font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="hide">
+    <div id="tpl_scrubber_year">
+        <a href="javascript:;" class="scrubber_year current" id="scrubber_{year}" onclick="showYear({year})" target="_blank">{year}</a>
+        {list}
+    </div>
+    <div id="tpl_scrubber_month">
+        <a href="javascript:;" class="scrubber_month scrubber_{year}_month" id="scrubber_{year}_{month}" onclick="showMonth({year},{month})" target="_blank">{month}月</a>
+    </div>
+    <div id="tpl_content_year">
+        <div class="content_year" id="content_year_{year}">{year}</div>
+        {list}
+    </div>
+    <div id="tpl_content_month">
+        <div class="content_month" id="content_month_{year}_{month}">{month}月</div>
+        {list}
+    </div>
+
+    <div id="tpl_content_item">
+
+        <div class="content_item content_item_{position}">
+            <div class="content_item_icon_arrorw"></div>
+            <div class="content_item_icon_dot">
+                <div class="content_item_icon_dot_child"></div>
+            </div>
+            <div class="content_item_head">
+                <div class="content_item_head_title">
+                    <div class="content_item_head_title_lunar">
+                        {lunar}
+                    </div>
+                    {date}
+                </div>
+                <div class="content_item_head_intro">
+                    <i class="quote ui_icon">&#x3440;</i>
+                    {intro}
+                    <i class="quote ui_icon">&#x3441;</i>
+                </div>
+            </div>
+            <div class="content_item_media">
+                {media}
+            </div>
+            <div class="content_item_footer">
+                <div class="content_item_footer_like">
+                    <a href="javascript:;" title="赞">
+                        <i class="zan">&#xe690;</i>
+                        ({like})
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<header class="nav-timeline">
+    <span class="left">
+        <a class="nav-timeline-a" href="/">Running_snail&#39;s Blog</a>
+    </span>
+    <span class="right">
+        <!--<a class="nav-timeline-a" href="/aboutme">About me</a>-->
+        <a class="nav-timeline-a" href="/resume">My resume</a>
+    </span>
+</header>
+
+<div class="head" style="position: relative">
+    <p style="position: absolute;bottom: 0px">抱歉，此页面刚开发完，还木有添加内容啦 >_< </p>
+</div>
+<div class="container">
+    <div class="scrubber" id="scrubber">
+        <!--<a href="javascript:;" class="scrubber_year current" target="_blank">2014</a>-->
+        <!--<a href="javascript:;" class="scrubber_month" target="_blank">9月</a>-->
+        <!--<a href="javascript:;" class="scrubber_month" target="_blank">8月</a>-->
+    </div>
+    <div class="content" id="content">
+        <!--<div class="content_year">2014</div>-->
+        <!--<div class="content_month">9月</div>-->
+        <!--<div class="content_item">-->
+            <!--<div class="content_item_icon_arrorw"></div>-->
+            <!--<div class="content_item_icon_dot">-->
+                <!--<div class="content_item_icon_dot_child"></div>-->
+            <!--</div>-->
+            <!--<div class="content_item_head">-->
+                <!--<div class="content_item_head_title">-->
+                    <!--<div class="content_item_head_title_lunar">-->
+                        <!--三<br/>&nbsp;&nbsp;&nbsp;十-->
+                    <!--</div>-->
+                    <!--2014-9-20-->
+                <!--</div>-->
+                <!--<div class="content_item_head_intro">-->
+                    <!--<i class="quote ui_icon">&#x3440;</i>-->
+                    <!--这是心情的内容,这是心情的内容,这是心情的内容,这是心情的内容,这是心情的内容,这是心情的内容,这是心情的内容,-->
+                    <!--这是心情的内容,这是心情的内容,这是心情的内容,这是心情的内容,这是心情的内容,这是心情的内容,这是心情的内容,-->
+                    <!--<i class="quote ui_icon">&#x3441;</i>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="content_item_media">-->
+                <!--<img src="/img/timeline/content/1.jpg" alt="1" width="370"/>-->
+            <!--</div>-->
+            <!--<div class="content_item_footer">-->
+                <!--<div class="content_item_footer_like">-->
+                    <!--<a href="javascript:;" title="赞">-->
+                        <!--<i class="zan">&#xe690;</i>-->
+                        <!--(199)-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+<script src="/js/timelinedata.js"></script>
+<script src="/js/lunar.js"></script>
+<!--fx.js是个动画函数js-->
+<script src="/js/fx.js"></script>
+<script>
+    window.onload=function(){
+        var list={};
+        var container=document.getElementById("container"),
+            scrubber=document.getElementById("scrubber");
+//        取模板
+        var tpl_scrubber_year=g_tpl("scrubber_year"),
+            tpl_scrubber_month=g_tpl("scrubber_month"),
+            tpl_content_year=g_tpl("content_year"),
+            tpl_content_month=g_tpl("content_month"),
+            tpl_content_item=g_tpl("content_item");
+
+//        遍历内容数据取出并格式化信息放在list对象中
+        for(var i=0;i<data.length;i++){
+            var contentObj=data[i],
+                date=new Date(data[i].date),
+                year=date.getFullYear(),
+                month=date.getMonth()+ 1,
+                day=date.getDate(),
+                lunar= calendar.solar2lunar(year,month,day).IDayCn;
+
+            contentObj.year=year;
+            contentObj.month=month;
+            contentObj.lunar=lunar[0]+"<br/>&nbsp;&nbsp;&nbsp;"+lunar[1];
+
+            if(!list[year]){list[year]={};}
+            if(!list[year][month]){list[year][month]=[];}
+
+            list[year][month].push(contentObj);
+        }
+//        用数据填充模板
+
+        var html_scrubber_list=[],
+            html_content_item_list=[];
+
+        for(y in list){
+            var html_scrubber_year,
+                html_content_year,
+                html_content,
+                html_content_list=[],
+                html_content_month_list=[],
+                html_scrubber_month_list=[];
+
+            html_scrubber_year=tpl_scrubber_year.innerHTML.replace(/\{year\}/g,y);
+            html_content_year=tpl_content_year.innerHTML.replace(/\{year\}/g,y);
+            html_scrubber_month_list=[];
+            html_content_month_list=[];
+
+            for(m in list[y]){
+                html_content_list=[];
+
+                html_scrubber_month_list.unshift(tpl_scrubber_month.innerHTML
+                                                         .replace(/\{year\}/g,y)
+                                                         .replace(/\{month\}/g,m));
+                for(var i=0;i<list[y][m].length;i++){
+                    html_content=tpl_content_item.innerHTML
+                            .replace(/\{lunar\}/g,list[y][m][i].lunar)
+                            .replace(/\{date\}/g,list[y][m][i].date)
+                            .replace(/\{intro\}/g,list[y][m][i].intro)
+                            .replace(/\{media\}/g,list[y][m][i].media)
+                            .replace(/\{like\}/g,list[y][m][i].like)
+                            .replace(/\{position\}/g,i%2?"right":"left")
+                    html_content_list.push(html_content);
+                }
+                html_content_month_list.unshift(tpl_content_month.innerHTML
+                                    .replace(/\{year\}/g,y)
+                                    .replace(/\{month\}/g,m)
+                                    .replace(/\{list\}/g,html_content_list.join("")));
+            }
+            html_scrubber_year=html_scrubber_year.replace(/\{list\}/g,html_scrubber_month_list.join(""));
+            html_scrubber_list.unshift(html_scrubber_year);
+
+            html_content_year=html_content_year.replace(/\{list\}/g,html_content_month_list.join(""));
+            html_content_item_list.unshift(html_content_year);
+        }
+        g("scrubber").innerHTML=html_scrubber_list.join("")+'<a href="javascript:;" class="scrubber_year" onclick="window.scroll_top(get_body_h())" target="_blank">出生</a>';
+        g("content").innerHTML=html_content_item_list.join("")+'<div class="content_year" id="content_year_0">出生</div>';
+    }
+    var get_top=function(el){
+        return el.offsetTop + 207;
+    }
+    var scroll_top=function(to){
+        var start=document.body.scrollTop;
+        fx(function(now){
+            window.scroll(0,now);
+        },start, to)
+    }
+    var g_tpl=function(id){
+        return document.getElementById("tpl_"+id);
+    }
+    var g=function(id){
+        return document.getElementById(id);
+    }
+
+    var g_class=function(className){
+        return document.getElementsByClassName(className);
+    }
+    var get_body_w=function(){
+        return document.body.offsetWidth;
+    }
+    var get_body_h=function(){
+        return document.body.offsetHeight;
+    }
+
+//    年份月份点击处理
+    var showYear =function(year){
+        expand_year(year, g('scrubber_'+year));
+        var c_year=g('content_year_'+year);
+        scroll_top(get_top(c_year));
+    }
+    var showMonth=function(year,month){
+        highlight_month(g('scrubber_'+year+"_"+month));
+        var c_month=g('content_month_'+year+"_"+month);
+        scroll_top(get_top(c_month));
+    }
+//    高亮处理-月份
+
+    var highlight_month=function(element){
+        var months=g_class('scrubber_month');
+        for(var i=months.length-1;i>=0;i--){
+            months[i].className=months[i].className.replace(/current/g,'');
+        }   ;
+        element.className=element.className+" current";
+    }
+
+//    年份点击展开
+    var expand_year=function(year,element){
+        var months=g_class('scrubber_month');
+        var show_month=g_class('scrubber_'+year+"_month");
+        var years=g_class('scrubber_year');
+        for(var i=months.length-1;i>=0;i--){
+            months[i].style.display="none";
+        };
+        for(var i=show_month.length-1;i>=0;i--){
+            show_month[i].style.display="block";
+        };
+        for(var i=years.length-1;i>=0;i--){
+            years[i].className=years[i].className.replace(/current/g,'');
+        }
+        element.className=element.className+" current";
+    }
+    var update_scrubber_year=function(top){
+        var years=g('content').getElementsByClassName('content_year');
+        var tops=[];
+        for(var i=0;i<years.length;i++){
+            tops.push(years[i].offsetTop);
+        }
+        for(var i=1;i<tops.length;i++){
+            if(top>tops[i-1]&&top<tops[i]){
+                var year=years[i-1].innerHTML;
+                var s_year=g('scrubber_'+year);
+                expand_year(year, s_year);
+            }
+        }
+    }
+    var update_scrubber_month=function(top){
+        var months=g('content').getElementsByClassName('content_month');
+        var tops=[];
+        for(var i=0;i<months.length;i++){
+            tops.push(months[i].offsetTop);
+        }
+        for(var i=1;i<tops.length;i++){
+            if(top>tops[i-1]&&top<tops[i]){
+                var id = months[i-1].id;
+                highlight_month(g(id.replace('content_month','scrubber')));
+            }
+        }
+    }
+//    页面滚动处理，固定时序菜单位置，自动展开时序菜单
+    window.onscroll=function(){
+        var top=document.body.scrollTop;
+        var scrubber=g('scrubber');
+
+        if(top>180){
+            scrubber.style.position="fixed";
+            scrubber.style.top = "70px";
+            scrubber.style.left = (get_body_w()-960)/2+"px";
+        }else{
+            scrubber.style.position="";
+            scrubber.style.top = "";
+            scrubber.style.left = "";
+        }
+        update_scrubber_year(top);
+        update_scrubber_month(top);
+    }
+
+
+</script>
+</body>
+</html>
+  
