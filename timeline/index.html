@@ -60,6 +60,7 @@
             width: 960px;height: 150px;
             margin: 0 auto;
             background: url(/img/timeline/tltitle.png) center no-repeat;
+            background-size: 440px 130px;
             /*rgba(225,225,225,.2);*/
             font-size: 14px;
             color: white;
@@ -188,7 +189,8 @@
             margin-bottom: 10px;
         }
         .content_item_media{
-            height: 277px;overflow: hidden;
+            height: 277px;
+            overflow: hidden;
             padding-bottom: 10px;
             line-height: 20px;
         }
@@ -238,11 +240,11 @@
 <body>
 <div class="hide">
     <div id="tpl_scrubber_year">
-        <a href="javascript:;" class="scrubber_year current" id="scrubber_{year}" onclick="showYear({year})" target="_blank">{year}</a>
+        <a href="javascript:;" class="scrubber_year current" id="scrubber_{year}" onclick="showYear({year})" target="_blank" rel="external">{year}</a>
         {list}
     </div>
     <div id="tpl_scrubber_month">
-        <a href="javascript:;" class="scrubber_month scrubber_{year}_month" id="scrubber_{year}_{month}" onclick="showMonth({year},{month})" target="_blank">{month}月</a>
+        <a href="javascript:;" class="scrubber_month scrubber_{year}_month" id="scrubber_{year}_{month}" onclick="showMonth({year},{month})" target="_blank" rel="external">{month}月</a>
     </div>
     <div id="tpl_content_year">
         <div class="content_year" id="content_year_{year}">{year}</div>
@@ -278,7 +280,7 @@
             </div>
             <div class="content_item_footer">
                 <div class="content_item_footer_like">
-                    <a href="javascript:;" title="赞">
+                    <a href="javascript:;" title="赞" target="_blank" rel="external">
                         <i class="zan">&#xe690;</i>
                         ({like})
                     </a>
@@ -300,13 +302,13 @@
 </header>
 
 <div class="head" style="position: relative">
-    <p style="position: absolute;bottom: 0px">抱歉，此页面刚开发完，还木有添加内容啦 >_< </p>
+    <!--<p style="position: absolute;bottom: 0px">抱歉，此页面刚开发完，还木有添加内容啦 >_< </p>-->
 </div>
 <div class="container">
     <div class="scrubber" id="scrubber">
-        <!--<a href="javascript:;" class="scrubber_year current" target="_blank">2014</a>-->
-        <!--<a href="javascript:;" class="scrubber_month" target="_blank">9月</a>-->
-        <!--<a href="javascript:;" class="scrubber_month" target="_blank">8月</a>-->
+        <!--<a href="javascript:;" class="scrubber_year current">2014</a>-->
+        <!--<a href="javascript:;" class="scrubber_month">9月</a>-->
+        <!--<a href="javascript:;" class="scrubber_month">8月</a>-->
     </div>
     <div class="content" id="content">
         <!--<div class="content_year">2014</div>-->
@@ -423,7 +425,7 @@
             html_content_year=html_content_year.replace(/\{list\}/g,html_content_month_list.join(""));
             html_content_item_list.unshift(html_content_year);
         }
-        g("scrubber").innerHTML=html_scrubber_list.join("")+'<a href="javascript:;" class="scrubber_year" onclick="window.scroll_top(get_body_h())" target="_blank">出生</a>';
+        g("scrubber").innerHTML=html_scrubber_list.join("")+'<a href="javascript:;" class="scrubber_year" onclick="window.scroll_top(get_body_h())">出生</a>';
         g("content").innerHTML=html_content_item_list.join("")+'<div class="content_year" id="content_year_0">出生</div>';
     }
     var get_top=function(el){

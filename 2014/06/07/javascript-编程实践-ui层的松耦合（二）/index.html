@@ -32,6 +32,7 @@
     <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
     
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+
 </head>
 
   <body>
@@ -82,7 +83,7 @@
   </h1>
   <p class="article-author">By
     
-      <a href="https://plus.google.com/104285874726961351995?rel=author" title="running_snail" target="_blank" itemprop="author">running_snail</a>
+      <a href="https://plus.google.com/104285874726961350000?rel=author" title="running_snail" target="_blank" itemprop="author">running_snail</a>
     </p>
   <p class="article-time">
     <time datetime="2014-06-07T07:46:17.000Z" itemprop="datePublished">6月 7 2014</time>
@@ -95,7 +96,7 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-将HTML从JavaScript中抽离"><span class="toc-number">1.</span> <span class="toc-text">5.将HTML从JavaScript中抽离</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见问题"><span class="toc-number">1.1.</span> <span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-number">1.2.</span> <span class="toc-text">解决方法</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方式一：从服务器加载"><span class="toc-number">1.2.1.</span> <span class="toc-text">方式一：从服务器加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式二：简单客户端模板"><span class="toc-number">1.2.2.</span> <span class="toc-text">方式二：简单客户端模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式三：复杂客户端模板"><span class="toc-number">1.2.3.</span> <span class="toc-text">方式三：复杂客户端模板</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-将HTML从JavaScript中抽离"><span class="toc-number">1.</span> <span class="toc-text">5.将HTML从JavaScript中抽离</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见问题"><span class="toc-number">1.1.</span> <span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-number">1.2.</span> <span class="toc-text">解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方式一：从服务器加载"><span class="toc-number">1.2.1.</span> <span class="toc-text">方式一：从服务器加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式二：简单客户端模板"><span class="toc-number">1.2.2.</span> <span class="toc-text">方式二：简单客户端模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式三：复杂客户端模板"><span class="toc-number">1.2.3.</span> <span class="toc-text">方式三：复杂客户端模板</span></a></li></ol></li></ol></li></ol>
 		</div>
 		
 		<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
@@ -104,159 +105,53 @@
 <p>正如我们需要将JavaScript从HTML中抽离一样，最好也将HTML从JavaScript中抽离。避免HTML的问题被埋在JavaScript代码中，以节省调试时间。</p>
 <h3 id="常见问题">常见问题</h3>
 <p>在JavaScript中使用HTML的情形往往是给innerHTML属性赋值时，比如：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-</pre></td><td class="code"><pre><span class="comment">// 不好的写法</span>
-var <span class="keyword">div</span> = document.getElementById(<span class="string">"my-div"</span>);
-<span class="keyword">div</span>.innerHTML = <span class="string">"&lt;h3&gt;Error&lt;/h3&gt;&lt;p&gt;Invalid e-mail address.&lt;/p&gt;"</span>
-</pre></td></tr></table></figure>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 不好的写法</span></div><div class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"my-div"</span>);</div><div class="line">div.innerHTML = <span class="string">"&lt;h3&gt;Error&lt;/h3&gt;&lt;p&gt;Invalid e-mail address.&lt;/p&gt;"</span></div></pre></td></tr></table></figure>
 
 <p><strong>评价</strong>：将HTML嵌入JavaScript代码中是非常不好的实践。<br><strong>缺点</strong>：增加了跟踪文本和结构性问题的复杂度。追踪bug变得困难。<br>如果你希望修改文本或标签，你只希望去一个地方：可以控制你HTML代码的地方。如果你的标签出现在一处便可以很方便地更新它们。<br>相比于修改JavaScript代码，修改标签通常不会引发太多错误。当HTML和JavaScript混淆在一起时，问题将变得复杂。JavaScript字符串需要对引号做适当转义，这样则会导致它和模板语言的原生语法略有差异。</p>
 <h3 id="解决方法">解决方法</h3>
 <p>因为多数Web应用本质上都是动态的，需要通过JavaScript向页面插入或修改标签。有很多方法可以以低耦合方式完成这项工作。</p>
 <h4 id="方式一：从服务器加载">方式一：从服务器加载</h4>
 <p>将模板放置于远程服务器，使用XMLHttpRequest对象来获取外部标签。<br>例：点击一个链接，希望弹出一个新对话框，代码可能如下：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">loadDialog</span><span class="params">(name, oncomplete)</span>{</span>
-    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();
-    xhr.open(<span class="string">"get"</span>, <span class="string">"/js/dialog"</span> + name, <span class="literal">true</span>);
-
-    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-        <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span> && xhr.status == <span class="number">200</span>) {
-            <span class="keyword">var</span> div = document.getElementById(<span class="string">"dlg-holder"</span>);
-            div.innerHTML = xhr.responseText;
-            oncomplete();
-        }<span class="keyword">else</span>{
-            <span class="comment">// 处理错误</span>
-        }
-    }；
-    xhr.send(<span class="literal">null</span>);
-}
-</pre></td></tr></table></figure>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadDialog</span><span class="params">(name, oncomplete)</span></span>{</div><div class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">    xhr.open(<span class="string">"get"</span>, <span class="string">"/js/dialog"</span> + name, <span class="literal">true</span>);</div><div class="line"></div><div class="line">    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span> && xhr.status == <span class="number">200</span>) {</div><div class="line">            <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"dlg-holder"</span>);</div><div class="line">            div.innerHTML = xhr.responseText;</div><div class="line">            oncomplete();</div><div class="line">        }<span class="keyword">else</span>{</div><div class="line">            <span class="comment">// 处理错误</span></div><div class="line">        }</div><div class="line">    }；</div><div class="line">    xhr.send(<span class="literal">null</span>);</div><div class="line">}</div></pre></td></tr></table></figure>
 
 <p><strong>评价</strong>：低耦合，对单页应用带来更多便捷。<br><strong>优点</strong>：这里没有将HTML字符串嵌入在JavaScript里，而是向服务器发起请求获取字符串，这样可以让HTML代码以最合适的方式注入到页面中。<br><strong>缺点</strong>：这种方法（从服务器获取模板）很容易造成XSS漏洞，需要服务器对模板文件做适当转义处理，比如&lt;和&gt;以及双引号等，当然前端也应当给出与之匹配的渲染规则，总之这种方法需要一揽子前后端的转码和解码策略来尽可能地封堵XSS漏洞。</p>
 <p><strong>JavaScript类库</strong>将这个操作做了封装，使得直接给DOM元素挂在内容变得非常方便。</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="comment">// YUI</span>
-<span class="function"><span class="keyword">function</span> <span class="title">loadDialog</span><span class="params">(name, oncomplete)</span>{</span>
-    <span class="transposed_variable">Y.</span>one(<span class="string">"#dlg-holder"</span>).<span class="built_in">load</span>(<span class="string">"/js/dialog/"</span> + name, oncomplete);
-}
-</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="comment">// jQuery</span>
-<span class="function"><span class="keyword">function</span> <span class="title">loadDialog</span><span class="params">(name, oncomplete)</span>{</span>
-    $(<span class="string">"#dlg-holder"</span>).load(<span class="string">"/js/dialog/"</span> + name, oncomplete);
-}
-</pre></td></tr></table></figure>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// YUI</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadDialog</span><span class="params">(name, oncomplete)</span>{</span></div><div class="line">    <span class="transposed_variable">Y.</span>one(<span class="string">"#dlg-holder"</span>).<span class="built_in">load</span>(<span class="string">"/js/dialog/"</span> + name, oncomplete);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// jQuery</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadDialog</span><span class="params">(name, oncomplete)</span></span>{</div><div class="line">    $(<span class="string">"#dlg-holder"</span>).load(<span class="string">"/js/dialog/"</span> + name, oncomplete);</div><div class="line">}</div></pre></td></tr></table></figure>
 
 <p><strong>适用时机</strong>：当你需要注入大段HTML标签到页面中时，使用远程调用的方式来加载标签是非常有帮助的。出于性能的原因，将大量没用的标签存放于内存或DOM中是很糟糕的做法。对于少量的标签段可以考虑采用客户端模板。</p>
 <h4 id="方式二：简单客户端模板">方式二：简单客户端模板</h4>
 <p>客户端模板是一些带“插槽”的标签片段，这些“插槽”会被JavaScript程序替换为数据以保证模板的完整可用。<br><em>比如：一段用来添加数据项的模板看起来就像下面这样。</em></p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"%s"</span>&gt;</span>%s<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-</pre></td></tr></table></figure>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"%s"</span>&gt;</span>%s<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div></pre></td></tr></table></figure>
 
 <p>这段模板中包含%s占位符，这个位置的文本会被程序替换掉（这个格式和C语言中的sprintf（）一模一样）。JavaScript程序会将这些占位符替换为真实数据，然后将结果注入DOM。</p>
 <p>那么<em>模板放在哪儿呢？</em><br>通常我们将模板定义在其他标签之间，直接存放于HTML页面里，这样可以被JavaScript读取，用以下两种方法之一可做到。</p>
 <p><strong>模板位置一</strong>：在HTML注释中包含模板文本。</p>
 <p>注释是和元素及文本一样的DOM节点，因此可以通过JavaScript将其提取出来。<br><em>完整实例如下</em>（书上的例子有些小问题，所以整理试了下，以下程序亲测可用）：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-</pre></td><td class="code"><pre><span class="comment">&lt;!-- 简单客户端模板（模板位置一） - HTML代码 --&gt;</span>
-<span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"mylist"</span>&gt;</span><span class="comment">&lt;!--&lt;li&gt;&lt;a href="%s"&gt;%s&lt;/a&gt;&lt;/li&gt;--&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/1"</span>&gt;</span>First item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/2"</span>&gt;</span>Second item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/3"</span>&gt;</span>Third item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="code"><pre><span class="comment">//    简单客户端模板（模板位置一） - JavaScript代码</span>
-<span class="comment">//    用参数替换占位符</span>
-<span class="function"><span class="keyword">function</span> <span class="title">sprintf</span><span class="params">(text)</span>{</span>
-    <span class="keyword">var</span> i=<span class="number">1</span>,args=<span class="built_in">arguments</span>;
-    <span class="keyword">return</span> text.replace(<span class="regexp">/%s/g</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
-        <span class="keyword">return</span> (i &lt; args.length) ? args[i++] : <span class="string">""</span>;
-    });
-}
-<span class="comment">//    将填充模板之后的结果添加到适当位置</span>
-<span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">(url, text)</span>{</span>
-    <span class="keyword">var</span> mylist = document.getElementById(<span class="string">"mylist"</span>),
-        templateText = mylist.firstChild.nodeValue,
-        <span class="comment">//templateText:  &lt;li&gt;&lt;a href="%s"&gt;%s&lt;/a&gt;&lt;/li&gt;</span>
-        result = sprintf(templateText,  url,  text);
-    mylist.insertAdjacentHTML(<span class="string">"beforeend"</span>, result);
-}
-<span class="comment">//    用法</span>
-addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item"</span>);
-</pre></td></tr></table></figure>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 简单客户端模板（模板位置一） - HTML代码 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"mylist"</span>&gt;</span><span class="comment">&lt;!--&lt;li&gt;&lt;a href="%s"&gt;%s&lt;/a&gt;&lt;/li&gt;--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/1"</span>&gt;</span>First item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/2"</span>&gt;</span>Second item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/3"</span>&gt;</span>Third item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">//    简单客户端模板（模板位置一） - <span class="type">JavaScript</span>代码</div><div class="line">//    用参数替换占位符</div><div class="line">function sprintf(text){</div><div class="line">    <span class="keyword">var</span> i=<span class="number">1</span>,args=arguments;</div><div class="line">    <span class="keyword">return</span> text.replace(/%s/g,function(){</div><div class="line">        <span class="keyword">return</span> (i &lt; args.length) ? args[i++] : <span class="string">""</span>;</div><div class="line">    });</div><div class="line">}</div><div class="line">//    将填充模板之后的结果添加到适当位置</div><div class="line">function addItem(url, text){</div><div class="line">    <span class="keyword">var</span> mylist = document.getElementById(<span class="string">"mylist"</span>),</div><div class="line">        templateText = mylist.firstChild.nodeValue,</div><div class="line">        //templateText:  &lt;li&gt;&lt;a href=<span class="string">"%s"</span>&gt;%s&lt;/a&gt;&lt;/li&gt;</div><div class="line">        <span class="literal">result</span> = sprintf(templateText,  url,  text);</div><div class="line">    mylist.insertAdjacentHTML(<span class="string">"beforeend"</span>, <span class="literal">result</span>);</div><div class="line">}</div><div class="line">//    用法</div><div class="line">addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item"</span>);</div></pre></td></tr></table></figure>
 
 <p><em>笔记</em>：</p>
 <ul>
-<li><p>HTML代码中的注释部分一定要和上一级的开始标签挨着（此处就是注释和&lt;ul&gt;挨着），如果是像这样写</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="code"><pre><span class="comment">&lt;!-- 错误的写法 --&gt;</span>
-<span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"mylist"</span>&gt;</span>
-    <span class="comment">&lt;!--&lt;li&gt;&lt;a href="%s"&gt;%s&lt;/a&gt;&lt;/li&gt;--&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/1"</span>&gt;</span>First item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/2"</span>&gt;</span>Second item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/3"</span>&gt;</span>Third item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre>var mylist = document<span class="preprocessor">.getElementById</span>(<span class="string">"mylist"</span>),
-    templateText = mylist<span class="preprocessor">.firstChild</span><span class="preprocessor">.nodeValue</span><span class="comment">;</span>
-</pre></td></tr></table></figure><br>将获取不到<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"%s"</span>&gt;</span>%s<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-</pre></td></tr></table></figure>
-</li>
-<li><p>insertAdjacentHTML方法：在指定的地方插入html标签语句<br>原型：insertAdajcentHTML(swhere,stext)<br>参数：swhere: 指定插入html标签语句的地方，有四种值可用：</p>
-</li>
+<li>HTML代码中的注释部分一定要和上一级的开始标签挨着（此处就是注释和&lt;ul&gt;挨着），如果是像这样写</li>
+</ul>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 错误的写法 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"mylist"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--&lt;li&gt;&lt;a href="%s"&gt;%s&lt;/a&gt;&lt;/li&gt;--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/1"</span>&gt;</span>First item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/2"</span>&gt;</span>Second item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/3"</span>&gt;</span>Third item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mylist = <span class="built_in">document</span>.getElementById(<span class="string">"mylist"</span>),</div><div class="line">    templateText = mylist.firstChild.nodeValue;</div></pre></td></tr></table></figure>
+
+<p>将获取不到</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"%s"</span>&gt;</span>%s<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>insertAdjacentHTML方法：在指定的地方插入html标签语句<br>原型：insertAdajcentHTML(swhere,stext)<br>参数：swhere: 指定插入html标签语句的地方，有四种值可用：</li>
 </ul>
 <ol>
 <li>beforeBegin: 插入到标签开始前</li>
@@ -267,162 +162,57 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 <p><strong>模板位置二</strong>：放在一个带有自定义type属性的&lt;script&gt;元素。</p>
 <p>浏览器会默认将&lt;script&gt;元素中的内容识别为JavaScript代码，但你可以通过给type赋值为浏览器不识别的类型，来告诉浏览器这不是一段JavaScript脚本。</p>
 <p><em>完整实例如下</em>：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-</pre></td><td class="code"><pre><span class="comment">&lt;!-- 简单客户端模板（模板位置二） - HTML代码 --&gt;</span>
-<span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"mylist"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/1"</span>&gt;</span>First item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/2"</span>&gt;</span>Second item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/3"</span>&gt;</span>Third item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre>//    简单客户端模板（模板位置二） - 模板写在script元素中
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/x-my-template"</span> <span class="attribute">id</span>=<span class="value">"list-item"</span>&gt;</span><span class="javascript">
-    &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"%s"</span>&gt;</span>%s<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-</span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-</pre></td><td class="code"><pre><span class="comment">//    简单客户端模板（模板位置二） - JavaScript代码</span>
-<span class="comment">//    用参数替换占位符</span>
-<span class="function"><span class="keyword">function</span> <span class="title">sprintf</span><span class="params">(text)</span>{</span>
-    <span class="keyword">var</span> i=<span class="number">1</span>,args=<span class="built_in">arguments</span>;
-    <span class="keyword">return</span> text.replace(<span class="regexp">/%s/g</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
-        <span class="keyword">return</span> (i &lt; args.length) ? args[i++] : <span class="string">""</span>;
-    });
-}
-<span class="comment">//    将填充模板之后的结果添加到适当位置</span>
-<span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">(url, text)</span>{</span>
-    <span class="keyword">var</span> mylist = document.getElementById(<span class="string">"mylist"</span>),
-        script = document.getElementById(<span class="string">"list-item"</span>),
-        templateText = script.text,
-        result = sprintf(templateText,  url,  text),
-        div = document.createElement(<span class="string">"div"</span>);
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 简单客户端模板（模板位置二） - HTML代码 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"mylist"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/1"</span>&gt;</span>First item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/2"</span>&gt;</span>Second item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/3"</span>&gt;</span>Third item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></div></pre></td></tr></table></figure>
 
-    div.innerHTML = result.replace(<span class="regexp">/^\s*/</span>, <span class="string">""</span>);
-    mylist.appendChild(div.firstChild);
-}
-<span class="comment">//    用法</span>
-addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item"</span>);
-</pre></td></tr></table></figure>
+
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//    简单客户端模板（模板位置二） - 模板写在script元素中</div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/x-my-template"</span> <span class="attribute">id</span>=<span class="value">"list-item"</span>&gt;</span><span class="javascript"></span></div><div class="line">    &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"%s"</span>&gt;</span>%s<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></span></div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">//    简单客户端模板（模板位置二） - <span class="type">JavaScript</span>代码</div><div class="line">//    用参数替换占位符</div><div class="line">function sprintf(text){</div><div class="line">    <span class="keyword">var</span> i=<span class="number">1</span>,args=arguments;</div><div class="line">    <span class="keyword">return</span> text.replace(/%s/g,function(){</div><div class="line">        <span class="keyword">return</span> (i &lt; args.length) ? args[i++] : <span class="string">""</span>;</div><div class="line">    });</div><div class="line">}</div><div class="line">//    将填充模板之后的结果添加到适当位置</div><div class="line">function addItem(url, text){</div><div class="line">    <span class="keyword">var</span> mylist = document.getElementById(<span class="string">"mylist"</span>),</div><div class="line">        script = document.getElementById(<span class="string">"list-item"</span>),</div><div class="line">        templateText = script.text,</div><div class="line">        <span class="literal">result</span> = sprintf(templateText,  url,  text),</div><div class="line">        <span class="keyword">div</span> = document.createElement(<span class="string">"div"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">div</span>.innerHTML = <span class="literal">result</span>.replace(/^\s*/, <span class="string">""</span>);</div><div class="line">    mylist.appendChild(<span class="keyword">div</span>.firstChild);</div><div class="line">}</div><div class="line">//    用法</div><div class="line">addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item"</span>);</div></pre></td></tr></table></figure>
 
 <p><em>笔记</em>：</p>
 <ul>
-<li>函数中去掉了模板文本中的前导空格<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>result.<span class="operator"><span class="keyword">replace</span>(/^\s*/, <span class="string">""</span>);</span>
-</pre></td></tr></table></figure><br>之所以会出现这个多余的前导空格，是因为模板文本总是在 &lt;script&gt;起始标签的下一行。如果将模板文本原样注入，则会在 &lt;div&gt;里创建一个文本结点，这个文本节点的内容是一个空格，而这个文本节点最终会代替 &lt;li&gt;被添加进列表之中。</li>
+<li>函数中去掉了模板文本中的前导空格</li>
 </ul>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="literal">result</span>.replace(/^\s*/, <span class="string">""</span>);</div></pre></td></tr></table></figure>
+
+<p>之所以会出现这个多余的前导空格，是因为模板文本总是在 &lt;script&gt;起始标签的下一行。如果将模板文本原样注入，则会在 &lt;div&gt;里创建一个文本结点，这个文本节点的内容是一个空格，而这个文本节点最终会代替 &lt;li&gt;被添加进列表之中。</p>
 <h4 id="方式三：复杂客户端模板">方式三：复杂客户端模板</h4>
-<p>前两种方式模板格式都非常简单，无太多转义，如果想用一些更健壮的模板，可以考虑诸如<a href="http://handlebarsjs.com/" target="_blank">Handlebars</a>所提供的解决方案。</p>
+<p>前两种方式模板格式都非常简单，无太多转义，如果想用一些更健壮的模板，可以考虑诸如<a href="http://handlebarsjs.com/" target="_blank" rel="external">Handlebars</a>所提供的解决方案。</p>
 <p>Handlebars是专为浏览器端JavaScript设计的完整的客户端模板系统。<br>在Handlebars的模板中，占位符使用双花括号来表示。</p>
 <p><em>上一节中的模板Handlebars版本完整实例如下</em>：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-</pre></td><td class="code"><pre><span class="comment">&lt;!-- 复杂客户端模板（Handlebars） - HTML代码 --&gt;</span>
-<span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"mylist"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/1"</span>&gt;</span>First item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/2"</span>&gt;</span>Second item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/3"</span>&gt;</span>Third item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre>//    复杂客户端模板（Handlebars） - 模板写在script元素中
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/x-handlebars-template"</span> <span class="attribute">id</span>=<span class="value">"list-item"</span>&gt;</span><span class="javascript">
-    &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-</span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</pre></td></tr></table></figure><br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-</pre></td><td class="code"><pre>//    复杂客户端模板（Handlebars） - JavaScript代码
-function addItem(url, text){
-    var mylist = document<span class="preprocessor">.getElementById</span>(<span class="string">"mylist"</span>),
-        script = document<span class="preprocessor">.getElementById</span>(<span class="string">"list-item"</span>),
-        templateText = script<span class="preprocessor">.text</span>,
-        template = Handlebars<span class="preprocessor">.compile</span>(templateText),
-        div = document<span class="preprocessor">.createElement</span>(<span class="string">"div"</span>),
-        result<span class="comment">;</span>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 复杂客户端模板（Handlebars） - HTML代码 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"mylist"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/1"</span>&gt;</span>First item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/2"</span>&gt;</span>Second item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/item/3"</span>&gt;</span>Third item<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></div></pre></td></tr></table></figure>
 
-        <span class="comment">/* 变量template包含了一个函数，当执行这个函数时则返回一个
-        格式化好的字符串，你需要做的仅仅是传入一个包含属性的对象，
-        参数会自动做HTML转义。*/</span>
-        result = template({
-            text:text,
-            url:url
-        })<span class="comment">;</span>
-    div<span class="preprocessor">.innerHTML</span> = result<span class="comment">;</span>
-    mylist<span class="preprocessor">.appendChild</span>(div<span class="preprocessor">.firstElementChild</span>)<span class="comment">;</span>
-}
-//    用法
-addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item"</span>)<span class="comment">;</span>
-</pre></td></tr></table></figure>
+
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//    复杂客户端模板（Handlebars） - 模板写在script元素中</div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/x-handlebars-template"</span> <span class="attribute">id</span>=<span class="value">"list-item"</span>&gt;</span><span class="javascript"></span></div><div class="line">    &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></span></div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">//    复杂客户端模板（<span class="type">Handlebars</span>） - <span class="type">JavaScript</span>代码</div><div class="line">function addItem(url, text){</div><div class="line">    <span class="keyword">var</span> mylist = document.getElementById(<span class="string">"mylist"</span>),</div><div class="line">        script = document.getElementById(<span class="string">"list-item"</span>),</div><div class="line">        templateText = script.text,</div><div class="line">        <span class="keyword">template</span> = <span class="type">Handlebars</span>.compile(templateText),</div><div class="line">        <span class="keyword">div</span> = document.createElement(<span class="string">"div"</span>),</div><div class="line">        <span class="literal">result</span>;</div><div class="line"></div><div class="line">        /* 变量<span class="keyword">template</span>包含了一个函数，当执行这个函数时则返回一个</div><div class="line">        格式化好的字符串，你需要做的仅仅是传入一个包含属性的对象，</div><div class="line">        参数会自动做<span class="type">HTML</span>转义。*/</div><div class="line">        <span class="literal">result</span> = <span class="keyword">template</span>({</div><div class="line">            text:text,</div><div class="line">            url:url</div><div class="line">        });</div><div class="line">    <span class="keyword">div</span>.innerHTML = <span class="literal">result</span>;</div><div class="line">    mylist.appendChild(<span class="keyword">div</span>.firstElementChild);</div><div class="line">}</div><div class="line">//    用法</div><div class="line">addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item"</span>);</div></pre></td></tr></table></figure>
 
 <p><em>笔记</em>：</p>
 <ul>
-<li><p>要使用Handlebars首先要将Handlebars类库引入页面。这个类库会创建一个名为Handlebars的全局变量，用来将模板文本编译为一个函数。<br>我是用的 bower 来安装 Handlebars 的：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>bower <span class="keyword">install</span> handlebars -g
-</pre></td></tr></table></figure><br>(注：Bower 是 twitter 推出的一款包管理工具，基于nodejs的模块化思想，把功能分散到各个模块中，让模块和模块之间存在联系，通过 Bower 来管理模块间的这种联系。)<br>安装后记得引用进页面来：<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/javascripts/handlebars.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</pre></td></tr></table></figure>
-</li>
+<li>要使用Handlebars首先要将Handlebars类库引入页面。这个类库会创建一个名为Handlebars的全局变量，用来将模板文本编译为一个函数。<br>我是用的 bower 来安装 Handlebars 的：</li>
+</ul>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bower <span class="operator"><span class="keyword">install</span> handlebars -g</span></div></pre></td></tr></table></figure>
+
+<p>(注：Bower 是 twitter 推出的一款包管理工具，基于nodejs的模块化思想，把功能分散到各个模块中，让模块和模块之间存在联系，通过 Bower 来管理模块间的这种联系。)<br>安装后记得引用进页面来：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/javascripts/handlebars.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<ul>
 <li><p>在Handlebars模板中，占位符都记为一个名称，以便可以在JavaScript中设计其映射。Handlebars 建议将模板嵌入 HTML 页面中，并使用 type 属性为 “text/x-handlebars-template”的&lt;script&gt;标签来表示（如上例所示）</p>
 </li>
 <li><p>变量template包含了一个函数，当执行这个函数时则返回一个格式化好的字符串，你需要做的仅仅是传入一个包含属性的对象。参数会自动做HTML转义，转义操作也是格式化的一部分。转义是为了增强模板的安全性，并确保简单的文本值不会破坏你的标签结构。比如，字符”&amp;”会自动转义为 “&amp;amp”;</p>
 </li>
-<li><p>关于上面例子的写法，最初我尝试用之前的写法：<br><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>mylist<span class="preprocessor">.appendChild</span>(div<span class="preprocessor">.firstChild</span>)<span class="comment">;</span>
-</pre></td></tr></table></figure><br>可是无效，我又打印出div看，div 的 firstChild 确实是li，可是打印 div.firstChild 出来是“#text”它的值貌似是个回车。我发现打印div下有个 firstElementChild 和 firstChild 里面的东西一样的所以就用 firstElementChild 试了，还真可以，不过还是不懂为什么firstChild不行了，大家如果知道原因，求指点。</p>
+<li><p>关于上面例子的写法，最初我尝试用之前的写法：</p>
 </li>
 </ul>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mylist.append<span class="variable">Child</span>(<span class="keyword">div</span>.first<span class="variable">Child</span>);</div></pre></td></tr></table></figure>
+
+<p>可是无效，我又打印出div看，div 的 firstChild 确实是li，可是打印 div.firstChild 出来是“#text”它的值貌似是个回车。我发现打印div下有个 firstElementChild 和 firstChild 里面的东西一样的所以就用 firstElementChild 试了，还真可以，不过还是不懂为什么firstChild不行了，大家如果知道原因，求指点。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -480,7 +270,7 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-将HTML从JavaScript中抽离"><span class="toc-number">1.</span> <span class="toc-text">5.将HTML从JavaScript中抽离</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见问题"><span class="toc-number">1.1.</span> <span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-number">1.2.</span> <span class="toc-text">解决方法</span></a></li><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方式一：从服务器加载"><span class="toc-number">1.2.1.</span> <span class="toc-text">方式一：从服务器加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式二：简单客户端模板"><span class="toc-number">1.2.2.</span> <span class="toc-text">方式二：简单客户端模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式三：复杂客户端模板"><span class="toc-number">1.2.3.</span> <span class="toc-text">方式三：复杂客户端模板</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-将HTML从JavaScript中抽离"><span class="toc-number">1.</span> <span class="toc-text">5.将HTML从JavaScript中抽离</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见问题"><span class="toc-number">1.1.</span> <span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-number">1.2.</span> <span class="toc-text">解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方式一：从服务器加载"><span class="toc-number">1.2.1.</span> <span class="toc-text">方式一：从服务器加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式二：简单客户端模板"><span class="toc-number">1.2.2.</span> <span class="toc-text">方式二：简单客户端模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方式三：复杂客户端模板"><span class="toc-number">1.2.3.</span> <span class="toc-text">方式三：复杂客户端模板</span></a></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
@@ -496,6 +286,8 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 		
 			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>6</sup></a></li>
 		
+			<li><a href="/categories/Node-js/" title="Node.js">Node.js<sup>8</sup></a></li>
+		
 			<li><a href="/categories/实践笔记/" title="实践笔记">实践笔记<sup>2</sup></a></li>
 		
 			<li><a href="/categories/生活随笔/" title="生活随笔">生活随笔<sup>2</sup></a></li>
@@ -507,7 +299,7 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">九月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08">八月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">七月 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
 
@@ -517,7 +309,7 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/CSS/" style="font-size: 16.00px;">CSS</a><a href="/tags/JavaScript/" style="font-size: 18.00px;">JavaScript</a><a href="/tags/grunt/" style="font-size: 10.00px;">grunt</a><a href="/tags/mongo/" style="font-size: 10.00px;">mongo</a><a href="/tags/mongodb/" style="font-size: 10.00px;">mongodb</a><a href="/tags/nodejs/" style="font-size: 10.00px;">nodejs</a><a href="/tags/stackoverflow/" style="font-size: 14.00px;">stackoverflow</a><a href="/tags/书/" style="font-size: 12.00px;">书</a><a href="/tags/前端/" style="font-size: 10.00px;">前端</a><a href="/tags/区别/" style="font-size: 10.00px;">区别</a><a href="/tags/原理/" style="font-size: 14.00px;">原理</a><a href="/tags/学习生活/" style="font-size: 10.00px;">学习生活</a><a href="/tags/安装/" style="font-size: 12.00px;">安装</a><a href="/tags/实践/" style="font-size: 18.00px;">实践</a><a href="/tags/心情/" style="font-size: 10.00px;">心情</a><a href="/tags/性能优化/" style="font-size: 10.00px;">性能优化</a><a href="/tags/总结/" style="font-size: 14.00px;">总结</a><a href="/tags/感悟/" style="font-size: 10.00px;">感悟</a><a href="/tags/技巧/" style="font-size: 10.00px;">技巧</a><a href="/tags/日记/" style="font-size: 12.00px;">日记</a><a href="/tags/生活/" style="font-size: 10.00px;">生活</a><a href="/tags/笔记/" style="font-size: 20.00px;">笔记</a><a href="/tags/跨浏览器/" style="font-size: 10.00px;">跨浏览器</a><a href="/tags/选择器/" style="font-size: 10.00px;">选择器</a>
+       <a href="/tags/CSS/" style="font-size: 14.29px;">CSS</a><a href="/tags/JavaScript/" style="font-size: 15.71px;">JavaScript</a><a href="/tags/Node-js/" style="font-size: 18.57px;">Node.js</a><a href="/tags/grunt/" style="font-size: 10.00px;">grunt</a><a href="/tags/mongo/" style="font-size: 10.00px;">mongo</a><a href="/tags/mongodb/" style="font-size: 10.00px;">mongodb</a><a href="/tags/nodejs/" style="font-size: 10.00px;">nodejs</a><a href="/tags/stackoverflow/" style="font-size: 12.86px;">stackoverflow</a><a href="/tags/yeoman/" style="font-size: 18.57px;">yeoman</a><a href="/tags/书/" style="font-size: 11.43px;">书</a><a href="/tags/前端/" style="font-size: 10.00px;">前端</a><a href="/tags/区别/" style="font-size: 10.00px;">区别</a><a href="/tags/原理/" style="font-size: 12.86px;">原理</a><a href="/tags/学习生活/" style="font-size: 10.00px;">学习生活</a><a href="/tags/安装/" style="font-size: 11.43px;">安装</a><a href="/tags/实践/" style="font-size: 20.00px;">实践</a><a href="/tags/心情/" style="font-size: 10.00px;">心情</a><a href="/tags/性能优化/" style="font-size: 10.00px;">性能优化</a><a href="/tags/总结/" style="font-size: 12.86px;">总结</a><a href="/tags/感悟/" style="font-size: 10.00px;">感悟</a><a href="/tags/技巧/" style="font-size: 10.00px;">技巧</a><a href="/tags/新手教程/" style="font-size: 18.57px;">新手教程</a><a href="/tags/日记/" style="font-size: 11.43px;">日记</a><a href="/tags/生活/" style="font-size: 10.00px;">生活</a><a href="/tags/笔记/" style="font-size: 17.14px;">笔记</a><a href="/tags/跨浏览器/" style="font-size: 10.00px;">跨浏览器</a><a href="/tags/选择器/" style="font-size: 10.00px;">选择器</a>
     </div>
   </div>
 
@@ -531,6 +323,8 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 		
 			<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>6</sup></a></li>
 		
+			<li><a href="/tags/Node-js/" title="Node.js">Node.js<sup>8</sup></a></li>
+		
 			<li><a href="/tags/grunt/" title="grunt">grunt<sup>1</sup></a></li>
 		
 			<li><a href="/tags/mongo/" title="mongo">mongo<sup>1</sup></a></li>
@@ -540,6 +334,8 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 			<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
 		
 			<li><a href="/tags/stackoverflow/" title="stackoverflow">stackoverflow<sup>3</sup></a></li>
+		
+			<li><a href="/tags/yeoman/" title="yeoman">yeoman<sup>8</sup></a></li>
 		
 			<li><a href="/tags/书/" title="书">书<sup>2</sup></a></li>
 		
@@ -553,7 +349,7 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 		
 			<li><a href="/tags/安装/" title="安装">安装<sup>2</sup></a></li>
 		
-			<li><a href="/tags/实践/" title="实践">实践<sup>6</sup></a></li>
+			<li><a href="/tags/实践/" title="实践">实践<sup>14</sup></a></li>
 		
 			<li><a href="/tags/心情/" title="心情">心情<sup>1</sup></a></li>
 		
@@ -562,10 +358,6 @@ addItem(<span class="string">"/item/4"</span>, <span class="string">"Fourth item
 			<li><a href="/tags/总结/" title="总结">总结<sup>3</sup></a></li>
 		
 			<li><a href="/tags/感悟/" title="感悟">感悟<sup>1</sup></a></li>
-		
-			<li><a href="/tags/技巧/" title="技巧">技巧<sup>1</sup></a></li>
-		
-			<li><a href="/tags/日记/" title="日记">日记<sup>2</sup></a></li>
 		
 		</ul>
 </div>

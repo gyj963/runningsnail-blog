@@ -15,7 +15,7 @@ var fx=function(fn,begin,end){
 	(function(){
 		setTimeout(function(){
 			timestap=new Date().getTime()-startTime;
-			fn(ease(timestap,begin, (end-begin),duration),'step');
+			fn( ease ( timestap,begin, (end-begin),duration ),'step');
 			if(duration<=timestap){
 				fn(end, 'end');
 			}else{

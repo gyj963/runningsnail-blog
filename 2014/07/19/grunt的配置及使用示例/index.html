@@ -31,6 +31,7 @@ Grunt常用的插件有：1).grunt-contrib-uglify：压缩js代码2).grunt-con">
     <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
     
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+
 </head>
 
   <body>
@@ -81,7 +82,7 @@ Grunt常用的插件有：1).grunt-contrib-uglify：压缩js代码2).grunt-con">
   </h1>
   <p class="article-author">By
     
-      <a href="https://plus.google.com/104285874726961351995?rel=author" title="running_snail" target="_blank" itemprop="author">running_snail</a>
+      <a href="https://plus.google.com/104285874726961350000?rel=author" title="running_snail" target="_blank" itemprop="author">running_snail</a>
     </p>
   <p class="article-time">
     <time datetime="2014-07-19T11:27:42.000Z" itemprop="datePublished">7月 19 2014</time>
@@ -100,7 +101,7 @@ Grunt常用的插件有：1).grunt-contrib-uglify：压缩js代码2).grunt-con">
 		<h2 id="Grunt的介绍">Grunt的介绍</h2>
 <p>Grunt是一个自动化的项目构建工具，配置好Grunt可以完成压缩，代码检查，单元测试等任务。C/C++有makefile，Java有Maven，Nodejs有grunt~</p>
 <p>Grunt常用的插件有：<br>1).grunt-contrib-uglify：压缩js代码<br>2).grunt-contrib-concat：合并js文件<br>3).grunt-contrib-qunit：单元测试<br>4).grunt-contrib-jshint：js代码检查<br>5).grunt-contrib-watch：文件监控</p>
-<p>关于这些插件的使用 <a href="http://blog.fens.me/nodejs-grunt-intro/" target="_blank">grunt让Nodejs规范起来</a> 这篇文章已经做了详细的介绍，此就不多说了。</p>
+<p>关于这些插件的使用 <a href="http://blog.fens.me/nodejs-grunt-intro/" target="_blank" rel="external">grunt让Nodejs规范起来</a> 这篇文章已经做了详细的介绍，此就不多说了。</p>
 <h2 id="完整实例">完整实例</h2>
 <p>此实例完成的工作为：保存代码后网页自动刷新，即时查看代码效果</p>
 <p>安装 grunt-cli(先保证nodejs安装完成)<br><img src="/img/gruntConfig/1.png" alt="grunt"><br>grunt-cli 安装完成<br><img src="/img/gruntConfig/2.png" alt="grunt"></p>
@@ -114,44 +115,7 @@ Grunt常用的插件有：1).grunt-contrib-uglify：压缩js代码2).grunt-con">
 <p>创建gruntfile.js<br>(此处是livereload功能的示例，需下载这个chrome扩展程序，配合使用，功能：可以保存代码后网页自动刷新，即时查看代码效果）</p>
 <p><img src="/img/gruntConfig/9.png" alt="grunt"></p>
 <p>gruntfile.js 内容：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="code"><pre>module.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> {</span>
- <span class="comment">// 项目配置(任务配置)</span>
- grunt.initConfig({
-                   pkg: grunt.file.readJSON(<span class="string">'package.json'</span>),
-                   watch: {
-                    client: {
-                     files: [<span class="string">'public/**/**/*'</span>, <span class="string">'public/*'</span>,<span class="string">'public/**/*'</span>,<span class="string">'views/*'</span>],
-                     options: {
-                      livereload: <span class="literal">true</span>
-                     }
-                    }
-                   }
-                  });
- <span class="comment">// 加载插件</span>
- grunt.loadNpmTasks(<span class="string">'grunt-contrib-watch'</span>);
- <span class="comment">// 自定义任务 即需执行： grunt live</span>
- grunt.registerTask(<span class="string">'live'</span>, [<span class="string">'watch'</span>]);
-};
-</pre></td></tr></table></figure>
-
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> </span>{</div><div class="line"> <span class="comment">// 项目配置(任务配置)</span></div><div class="line"> grunt.initConfig({</div><div class="line">                   pkg: grunt.file.readJSON(<span class="string">'package.json'</span>),</div><div class="line">                   watch: {</div><div class="line">                    client: {</div><div class="line">                     files: [<span class="string">'public/**/**/*'</span>, <span class="string">'public/*'</span>,<span class="string">'public/**/*'</span>,<span class="string">'views/*'</span>],</div><div class="line">                     options: {</div><div class="line">                      livereload: <span class="literal">true</span></div><div class="line">                     }</div><div class="line">                    }</div><div class="line">                   }</div><div class="line">                  });</div><div class="line"> <span class="comment">// 加载插件</span></div><div class="line"> grunt.loadNpmTasks(<span class="string">'grunt-contrib-watch'</span>);</div><div class="line"> <span class="comment">// 自定义任务 即需执行： grunt live</span></div><div class="line"> grunt.registerTask(<span class="string">'live'</span>, [<span class="string">'watch'</span>]);</div><div class="line">};</div></pre></td></tr></table></figure>
 
 <p>再次执行 又报错了<br><img src="/img/gruntConfig/10.png" alt="grunt"></p>
 <p>是没找到grunt-contrib-watch 这个包</p>
@@ -159,17 +123,13 @@ Grunt常用的插件有：1).grunt-contrib-uglify：压缩js代码2).grunt-con">
 <p>下载完成<br><img src="/img/gruntConfig/12.png" alt="grunt"></p>
 <p>再次执行grunt<br><img src="/img/gruntConfig/13.png" alt="grunt"></p>
 <p>我们回来看下代码，发现 default 任务没有注册 ，<br>而我们自定义了live任务：</p>
-<figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>grunt.registerTask(<span class="string">'live'</span>, [<span class="string">'watch'</span>]);
-</pre></td></tr></table></figure>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grunt.registerTask(<span class="string">'live'</span>, [<span class="string">'watch'</span>]);</div></pre></td></tr></table></figure>
 
 <p>你现在可以执行 grunt live 来执行这个任务<br><img src="/img/gruntConfig/15.png" alt="grunt"></p>
 <p>你也可以创建一个default任务<br>如果创建default 这样创建 添加到gruntfile里</p>
-<p><figure class="highlight {bash}"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre><span class="comment">// Default task(s).</span>
-grunt.registerTask(<span class="string">'default'</span>, [<span class="string">'watch'</span>]);
-</pre></td></tr></table></figure><br>此时你可以 输入命令 grunt 或 grunt watch 来执行这个任务<br><img src="/img/gruntConfig/14.png" alt="grunt"></p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Default task(s).</span></div><div class="line">grunt.registerTask(<span class="string">'default'</span>, [<span class="string">'watch'</span>]);</div></pre></td></tr></table></figure>
+
+<p>此时你可以 输入命令 grunt 或 grunt watch 来执行这个任务<br><img src="/img/gruntConfig/14.png" alt="grunt"></p>
 <p>至此 启动你下载好的chrome livereload那个插件即可。<br>此时你就可以实时看代码效果，代码保存网页那边就刷新了，妈妈再也不用担心我玩命的按F5啦 ╮(╯▽╰)╭</p>
   
 	</div>
@@ -244,6 +204,8 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
 		
 			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>6</sup></a></li>
 		
+			<li><a href="/categories/Node-js/" title="Node.js">Node.js<sup>8</sup></a></li>
+		
 			<li><a href="/categories/实践笔记/" title="实践笔记">实践笔记<sup>2</sup></a></li>
 		
 			<li><a href="/categories/生活随笔/" title="生活随笔">生活随笔<sup>2</sup></a></li>
@@ -255,7 +217,7 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">九月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08">八月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">七月 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
 
@@ -265,7 +227,7 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/CSS/" style="font-size: 16.00px;">CSS</a><a href="/tags/JavaScript/" style="font-size: 18.00px;">JavaScript</a><a href="/tags/grunt/" style="font-size: 10.00px;">grunt</a><a href="/tags/mongo/" style="font-size: 10.00px;">mongo</a><a href="/tags/mongodb/" style="font-size: 10.00px;">mongodb</a><a href="/tags/nodejs/" style="font-size: 10.00px;">nodejs</a><a href="/tags/stackoverflow/" style="font-size: 14.00px;">stackoverflow</a><a href="/tags/书/" style="font-size: 12.00px;">书</a><a href="/tags/前端/" style="font-size: 10.00px;">前端</a><a href="/tags/区别/" style="font-size: 10.00px;">区别</a><a href="/tags/原理/" style="font-size: 14.00px;">原理</a><a href="/tags/学习生活/" style="font-size: 10.00px;">学习生活</a><a href="/tags/安装/" style="font-size: 12.00px;">安装</a><a href="/tags/实践/" style="font-size: 18.00px;">实践</a><a href="/tags/心情/" style="font-size: 10.00px;">心情</a><a href="/tags/性能优化/" style="font-size: 10.00px;">性能优化</a><a href="/tags/总结/" style="font-size: 14.00px;">总结</a><a href="/tags/感悟/" style="font-size: 10.00px;">感悟</a><a href="/tags/技巧/" style="font-size: 10.00px;">技巧</a><a href="/tags/日记/" style="font-size: 12.00px;">日记</a><a href="/tags/生活/" style="font-size: 10.00px;">生活</a><a href="/tags/笔记/" style="font-size: 20.00px;">笔记</a><a href="/tags/跨浏览器/" style="font-size: 10.00px;">跨浏览器</a><a href="/tags/选择器/" style="font-size: 10.00px;">选择器</a>
+       <a href="/tags/CSS/" style="font-size: 14.29px;">CSS</a><a href="/tags/JavaScript/" style="font-size: 15.71px;">JavaScript</a><a href="/tags/Node-js/" style="font-size: 18.57px;">Node.js</a><a href="/tags/grunt/" style="font-size: 10.00px;">grunt</a><a href="/tags/mongo/" style="font-size: 10.00px;">mongo</a><a href="/tags/mongodb/" style="font-size: 10.00px;">mongodb</a><a href="/tags/nodejs/" style="font-size: 10.00px;">nodejs</a><a href="/tags/stackoverflow/" style="font-size: 12.86px;">stackoverflow</a><a href="/tags/yeoman/" style="font-size: 18.57px;">yeoman</a><a href="/tags/书/" style="font-size: 11.43px;">书</a><a href="/tags/前端/" style="font-size: 10.00px;">前端</a><a href="/tags/区别/" style="font-size: 10.00px;">区别</a><a href="/tags/原理/" style="font-size: 12.86px;">原理</a><a href="/tags/学习生活/" style="font-size: 10.00px;">学习生活</a><a href="/tags/安装/" style="font-size: 11.43px;">安装</a><a href="/tags/实践/" style="font-size: 20.00px;">实践</a><a href="/tags/心情/" style="font-size: 10.00px;">心情</a><a href="/tags/性能优化/" style="font-size: 10.00px;">性能优化</a><a href="/tags/总结/" style="font-size: 12.86px;">总结</a><a href="/tags/感悟/" style="font-size: 10.00px;">感悟</a><a href="/tags/技巧/" style="font-size: 10.00px;">技巧</a><a href="/tags/新手教程/" style="font-size: 18.57px;">新手教程</a><a href="/tags/日记/" style="font-size: 11.43px;">日记</a><a href="/tags/生活/" style="font-size: 10.00px;">生活</a><a href="/tags/笔记/" style="font-size: 17.14px;">笔记</a><a href="/tags/跨浏览器/" style="font-size: 10.00px;">跨浏览器</a><a href="/tags/选择器/" style="font-size: 10.00px;">选择器</a>
     </div>
   </div>
 
@@ -279,6 +241,8 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
 		
 			<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>6</sup></a></li>
 		
+			<li><a href="/tags/Node-js/" title="Node.js">Node.js<sup>8</sup></a></li>
+		
 			<li><a href="/tags/grunt/" title="grunt">grunt<sup>1</sup></a></li>
 		
 			<li><a href="/tags/mongo/" title="mongo">mongo<sup>1</sup></a></li>
@@ -288,6 +252,8 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
 			<li><a href="/tags/nodejs/" title="nodejs">nodejs<sup>1</sup></a></li>
 		
 			<li><a href="/tags/stackoverflow/" title="stackoverflow">stackoverflow<sup>3</sup></a></li>
+		
+			<li><a href="/tags/yeoman/" title="yeoman">yeoman<sup>8</sup></a></li>
 		
 			<li><a href="/tags/书/" title="书">书<sup>2</sup></a></li>
 		
@@ -301,7 +267,7 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
 		
 			<li><a href="/tags/安装/" title="安装">安装<sup>2</sup></a></li>
 		
-			<li><a href="/tags/实践/" title="实践">实践<sup>6</sup></a></li>
+			<li><a href="/tags/实践/" title="实践">实践<sup>14</sup></a></li>
 		
 			<li><a href="/tags/心情/" title="心情">心情<sup>1</sup></a></li>
 		
@@ -310,10 +276,6 @@ grunt.registerTask(<span class="string">'default'</span>, [<span class="string">
 			<li><a href="/tags/总结/" title="总结">总结<sup>3</sup></a></li>
 		
 			<li><a href="/tags/感悟/" title="感悟">感悟<sup>1</sup></a></li>
-		
-			<li><a href="/tags/技巧/" title="技巧">技巧<sup>1</sup></a></li>
-		
-			<li><a href="/tags/日记/" title="日记">日记<sup>2</sup></a></li>
 		
 		</ul>
 </div>
