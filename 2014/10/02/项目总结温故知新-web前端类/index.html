@@ -9,8 +9,8 @@
     
     <meta name="author" content="running_snail">
     
-    <meta name="description" content="这是我对自己曾经做过的东西的梳理整理，写给自己的，记录的东西可能良莠不齐。如果路过的小伙伴有兴趣，也欢迎来指导。^ ^
-以前做东西，基本不会总结写什么东西，而我记性又差（我总觉得自己像只只有七秒记忆的鱼，很多东西很快就忘记），所以导致之前做过的东西，只能记得个大概，细节什么的如果不看代码就完全忘了。">
+    <meta name="description" content="这是我对自己曾经做过的比较大的东西的大概梳理(小东西，以后我会自己注意整理，每做完就整理)，写给自己的，记录的东西可能良莠不齐。如果路过的小伙伴有兴趣，也欢迎来指导。^ ^
+以前做东西，基本不会总结写什么东西，而我记性又差（我总觉得自己像只只有七秒记忆的鱼，很多东西很快就忘记），所以导致之前做过的东">
     
     
     
@@ -85,7 +85,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-10-02T05:44:12.000Z" itemprop="datePublished">10月 2 2014</time>
-    更新日期:<time datetime="2014-10-05T16:43:49.000Z" itemprop="dateModified">10月 6 2014</time>
+    更新日期:<time datetime="2014-10-05T16:46:37.000Z" itemprop="dateModified">10月 6 2014</time>
     
   </p>
 </header>
@@ -97,7 +97,7 @@
 		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#可视化编辑器"><span class="toc-number">1.</span> <span class="toc-text">可视化编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么用Node？"><span class="toc-number">1.1.</span> <span class="toc-text">为什么用Node？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动项目"><span class="toc-number">1.2.</span> <span class="toc-text">启动项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用MongoDB(mongoose)存储"><span class="toc-number">1.3.</span> <span class="toc-text">使用MongoDB(mongoose)存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Angular的视图、控制器和指令。"><span class="toc-number">1.4.</span> <span class="toc-text">Angular的视图、控制器和指令。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iframe子页面用了jQuery来做DOM操作"><span class="toc-number">1.5.</span> <span class="toc-text">iframe子页面用了jQuery来做DOM操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块化的写法"><span class="toc-number">1.6.</span> <span class="toc-text">模块化的写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于拖拽"><span class="toc-number">1.7.</span> <span class="toc-text">关于拖拽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打包压缩怎么做？"><span class="toc-number">1.8.</span> <span class="toc-text">打包压缩怎么做？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">1.9.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参与某移动web框架的开发"><span class="toc-number">2.</span> <span class="toc-text">参与某移动web框架的开发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#滚动焦点图"><span class="toc-number">2.1.</span> <span class="toc-text">滚动焦点图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标题下拉框"><span class="toc-number">2.2.</span> <span class="toc-text">标题下拉框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载中动画"><span class="toc-number">2.3.</span> <span class="toc-text">加载中动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#柱形图"><span class="toc-number">2.4.</span> <span class="toc-text">柱形图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_web系列项目小结"><span class="toc-number">3.</span> <span class="toc-text">Java web系列项目小结</span></a></li></ol>
 		</div>
 		
-		<p>这是我对自己曾经做过的东西的梳理整理，写给自己的，记录的东西可能良莠不齐。如果路过的小伙伴有兴趣，也欢迎来指导。^ ^</p>
+		<p>这是我对自己曾经做过的比较大的东西的大概梳理(小东西，以后我会自己注意整理，每做完就整理)，写给自己的，记录的东西可能良莠不齐。如果路过的小伙伴有兴趣，也欢迎来指导。^ ^</p>
 <p>以前做东西，基本不会总结写什么东西，而我记性又差（我总觉得自己像只只有七秒记忆的鱼，很多东西很快就忘记），所以导致之前做过的东西，只能记得个大概，细节什么的如果不看代码就完全忘了。<br>以前做东西的风格比较狂放，通常不会考虑太多，有很多时候因为时间紧张，当时很感兴趣的东西，也没有太多时间来深入学习，通常是完成功能就OK了，然后过了一阵子自己也就忘记要深入学习这样一个东西这件事了。</p>
 <p>现在的我知道总结有多么重要，也明白以前会的那么多东西，现在记不得多少的痛苦。“出来混总是要还的”，作为补偿吧，我将把曾经做过的东西全部梳理一遍(这完全是个体力活，以后再不敢做完东西不总结了…)，把我现在仍然觉得有价值的东西，需要记录的东西梳理一下。希望看到我以前的代码看到自己的不足，如果现在来做我有什么更好的解决方法吗？</p>
 <hr>
