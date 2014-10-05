@@ -80,5 +80,4 @@ var data = [
 		media:'<img src="/img/timeline/content/2.jpg" alt="1" width="370"/>',
 		like:1
 	}
-
 ];
