@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-10-05T17:01:05.597Z</updated>
+  <updated>2014-10-05T17:18:42.372Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://snailsky.me/2014/10/02/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%B8%A9%E6%95%85%E7%9F%A5%E6%96%B0-web%E5%89%8D%E7%AB%AF%E7%B1%BB/"/>
     <id>http://snailsky.me/2014/10/02/项目总结温故知新-web前端类/</id>
     <published>2014-10-02T05:44:12.000Z</published>
-    <updated>2014-10-05T16:46:37.000Z</updated>
+    <updated>2014-10-05T17:17:06.000Z</updated>
     <content type="html"><![CDATA[<p>这是我对自己曾经做过的比较大的东西的大概梳理(小东西，以后我会自己注意整理，每做完就整理)，写给自己的，记录的东西可能良莠不齐。如果路过的小伙伴有兴趣，也欢迎来指导。^ ^</p>
 <p>以前做东西，基本不会总结写什么东西，而我记性又差（我总觉得自己像只只有七秒记忆的鱼，很多东西很快就忘记），所以导致之前做过的东西，只能记得个大概，细节什么的如果不看代码就完全忘了。<br>以前做东西的风格比较狂放，通常不会考虑太多，有很多时候因为时间紧张，当时很感兴趣的东西，也没有太多时间来深入学习，通常是完成功能就OK了，然后过了一阵子自己也就忘记要深入学习这样一个东西这件事了。</p>
 <p>现在的我知道总结有多么重要，也明白以前会的那么多东西，现在记不得多少的痛苦。“出来混总是要还的”，作为补偿吧，我将把曾经做过的东西全部梳理一遍(这完全是个体力活，以后再不敢做完东西不总结了…)，把我现在仍然觉得有价值的东西，需要记录的东西梳理一下。希望看到我以前的代码看到自己的不足，如果现在来做我有什么更好的解决方法吗？</p>
@@ -135,6 +135,20 @@
 <p>还有很多好用的插件啦其实，像datepicker、验证表单及时提示错误消息那个插件（想不起名字，乃们不要怪我T_T）、uploadify（用于上传文件、图片那些）等等<br>这些都是做项目的神器呐，好了偷了个懒，就写到这吧，好困~</p>
 ]]></content>
     
+    
+      <category term="总结" scheme="http://snailsky.me/tags/%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="stackoverflow" scheme="http://snailsky.me/tags/stackoverflow/"/>
+    
+      <category term="Node.js" scheme="http://snailsky.me/tags/Node-js/"/>
+    
+      <category term="AngularJS" scheme="http://snailsky.me/tags/AngularJS/"/>
+    
+      <category term="MongoDB" scheme="http://snailsky.me/tags/MongoDB/"/>
+    
+      <category term="jQuery插件" scheme="http://snailsky.me/tags/jQuery%E6%8F%92%E4%BB%B6/"/>
+    
+      <category term="Summary" scheme="http://snailsky.me/categories/Summary/"/>
     
   </entry>
   
@@ -1738,7 +1752,7 @@
     <link href="http://snailsky.me/2014/07/02/mongodb%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/"/>
     <id>http://snailsky.me/2014/07/02/mongodb的安装及简单使用示例/</id>
     <published>2014-07-02T06:26:23.000Z</published>
-    <updated>2014-09-30T16:02:27.000Z</updated>
+    <updated>2014-10-05T17:15:44.000Z</updated>
     <content type="html"><![CDATA[<h2 id="什么是MongoDB">什么是MongoDB</h2>
 <p>MongoDB是介于传统数据库和NoSQL数据库之间的一种非关系型数据库。MongoDB使用c++实现，具有高可靠，高可用等优秀特性。<br>Mongo的官方网站地址是：<a href="http://www.mongodb.org/" target="_blank" rel="external">http://www.mongodb.org/</a></p>
 <h2 id="MongoDB的安装(windows下)">MongoDB的安装(windows下)</h2>
@@ -1817,9 +1831,7 @@
 ]]></content>
     
     
-      <category term="mongodb" scheme="http://snailsky.me/tags/mongodb/"/>
-    
-      <category term="mongo" scheme="http://snailsky.me/tags/mongo/"/>
+      <category term="MongoDB" scheme="http://snailsky.me/tags/MongoDB/"/>
     
       <category term="安装" scheme="http://snailsky.me/tags/%E5%AE%89%E8%A3%85/"/>
     
