@@ -9,6 +9,12 @@ var data = [
 		like:1
 	},
 	{
+		date:"2014-7-19",
+		intro:"刚刚背着电脑，还一些别的东西在包里很重，坐23路，路人甲“哎呀，这书包挺沉呐”，路人乙“现在小孩书包都沉” ......",
+		media:'<img src="/img/timeline/content/15.jpg" alt="1" width="370"/>',
+		like:1
+	},
+	{
 		date:"2014-5-31",
 		intro:"周笔畅unlock成都演唱会太赞了啊啊啊啊~ 笔笔好棒！",
 		media:'<img src="/img/timeline/content/13.jpg" alt="1" width="370"/>',
@@ -30,12 +36,6 @@ var data = [
 		date:"2013-12-20",
 		intro:"困~ 用绳命写代码...... 向广大程序猿前辈致敬",
 		media:'<img src="/img/timeline/content/10.jpg" alt="1" width="370"/>',
-		like:1
-	},
-	{
-		date:"2013-4-4",
-		intro:"提前过六一咯~~~",
-		media:'<img src="/img/timeline/content/9.jpg" alt="1" width="370"/>',
 		like:1
 	},
 	{
