@@ -87,7 +87,7 @@ Yeoman是什么？
     </p>
   <p class="article-time">
     <time datetime="2014-09-30T09:42:23.000Z" itemprop="datePublished">9月 30 2014</time>
-    更新日期:<time datetime="2014-10-06T10:41:16.000Z" itemprop="dateModified">10月 6 2014</time>
+    更新日期:<time datetime="2014-10-07T06:31:18.000Z" itemprop="dateModified">10月 7 2014</time>
     
   </p>
 </header>
@@ -200,7 +200,12 @@ Yeoman是什么？
 <p>在纠结了n久终于不报错了<br><img src="/img/nodejs/yeomanstart29.png" alt="Yeoman的起步"><br>可是在那之后运行之后啥都没有也不报错，只有sass可能有问题了…<br>把gruntfile.js里所有带sass全部注释掉，再试试！<br><img src="/img/nodejs/yeomanstart30.png" alt="Yeoman的起步"></p>
 <h4 id="端口被占用的解决方法">端口被占用的解决方法</h4>
 <p>终于有反应了，说是9000端口被占用了，我们看看9000端口被什么占用了<br>先来查看下 9000端口所在程序的PID<br><img src="/img/nodejs/yeomanstart31.png" alt="Yeoman的起步"><br><img src="/img/nodejs/yeomanstart32.png" alt="Yeoman的起步"><br>就是这个4156，我们打开任务管理器看看这个PID对应的是什么程序<br><img src="/img/nodejs/yeomanstart33.png" alt="Yeoman的起步"></p>
-<p>原来是我的酷狗，ORZ<br>先关掉酷狗吧，囧，其实你也可以改一下它默认的9000端口号<br><img src="/img/nodejs/yeomanstart34.png" alt="Yeoman的起步"><br>关了酷狗我们在任务管理器上面，找不到4156的应用了<br>所以我们试一下<br><img src="/img/nodejs/yeomanstart35.png" alt="Yeoman的起步"><br>这回终于一切正常，并且它自己打开了网页，当当当当~~<br><img src="/img/nodejs/yeomanstart36.png" alt="Yeoman的起步"><br>不过显示好像有点问题。<br><img src="/img/nodejs/yeomanstart37.png" alt="Yeoman的起步"><br>是个与CSS有关的错呀… 大概是和sass有关吧…<br>尝试把刚刚注释掉的sass相关的，再恢复下试试<br><img src="/img/nodejs/yeomanstart38.png" alt="Yeoman的起步"><br>给跪，又变成这样半死不活的状态了<br>好吧先不用sass…</p>
+<p>原来是我的酷狗，ORZ<br>先关掉酷狗吧，囧，其实你也可以改一下它默认的9000端口号<br><img src="/img/nodejs/yeomanstart34.png" alt="Yeoman的起步"><br>关了酷狗我们在任务管理器上面，找不到4156的应用了<br>所以我们试一下<br><img src="/img/nodejs/yeomanstart35.png" alt="Yeoman的起步"><br>这回终于一切正常，并且它自己打开了网页，当当当当~~<br><img src="/img/nodejs/yeomanstart36.png" alt="Yeoman的起步"><br>不过显示好像有点问题。<br><img src="/img/nodejs/yeomanstart37.png" alt="Yeoman的起步"><br>是个与CSS有关的错呀… 大概是和sass有关吧…<br>尝试把刚刚注释掉的sass相关的，再恢复下试试<br><img src="/img/nodejs/yeomanstart38.png" alt="Yeoman的起步"><br>给跪，又变成这样半死不活的状态了</p>
+<p>你可以安装Ruby和Sass<br>一旦有了Ruby，执行以下命令安装Sass：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>gem install sass</div></pre></td></tr></table></figure>
+
+<p>就可以了~</p>
+<p>当然如果不是非要用Sass，你也可以选择重装一次 webapp 脚手架 嘿嘿~</p>
 <h4 id="运行yo_webapp">运行yo webapp</h4>
 <p>我重新运行yo webapp从头开始（直接在命令行里输入yo webapp就行了不需要删什么东西），<br>这次我重新选择我要的东西，这次我只选了bootstrap<br><img src="/img/nodejs/yeomanstart39.png" alt="Yeoman的起步"><br>并根据提示重写了相关配置文件<br><img src="/img/nodejs/yeomanstart40.png" alt="Yeoman的起步"><br>看起来一切正常</p>
 <h4 id="运行grunt_serve_（success）">运行grunt serve （success）</h4>
@@ -321,7 +326,7 @@ Yeoman是什么？
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
 
@@ -427,7 +432,7 @@ Yeoman是什么？
 		
 		
 	</div>
-		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
 		
 		<a href="http://snailsky.me" target="_blank" title="running_snail">running_snail</a>
 		

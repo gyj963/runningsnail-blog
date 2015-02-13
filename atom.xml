@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2014-10-06T14:43:45.111Z</updated>
+  <updated>2015-02-13T06:02:14.022Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -13,6 +13,17 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Canvas绘图之旅]]></title>
+    <link href="http://snailsky.me/2015/02/10/Canvas%E7%BB%98%E5%9B%BE%E4%B9%8B%E6%97%85/"/>
+    <id>http://snailsky.me/2015/02/10/Canvas绘图之旅/</id>
+    <published>2015-02-10T10:15:29.000Z</published>
+    <updated>2015-02-13T05:55:36.000Z</updated>
+    <content type="html"><![CDATA[]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[项目总结温故知新 - web前端类]]></title>
@@ -157,7 +168,7 @@
     <link href="http://snailsky.me/2014/09/30/Yeoman-%E7%8E%B0%E4%BB%A3wepapp%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6-Getting-started/"/>
     <id>http://snailsky.me/2014/09/30/Yeoman-现代wepapp的脚手架-Getting-started/</id>
     <published>2014-09-30T09:42:23.000Z</published>
-    <updated>2014-10-06T10:41:16.000Z</updated>
+    <updated>2014-10-07T06:31:18.000Z</updated>
     <content type="html"><![CDATA[<p>这是一篇边学边记录的实践笔记，<br>我尽量详尽的记录了整个实验的过程，<br>包括失败的尝试及解决问题的过程，<br>让没使用过的人，可以知道怎么解决问题，<br>也让我再碰到同样问题时，可以方便地查到。<br>作为一名初学者，以一名初学者角度所记录的笔记，<br>希望可以对其他初学者有益。</p>
 <hr>
 <h2 id="Yeoman是什么？">Yeoman是什么？</h2>
@@ -259,7 +270,12 @@
 <p>在纠结了n久终于不报错了<br><img src="/img/nodejs/yeomanstart29.png" alt="Yeoman的起步"><br>可是在那之后运行之后啥都没有也不报错，只有sass可能有问题了…<br>把gruntfile.js里所有带sass全部注释掉，再试试！<br><img src="/img/nodejs/yeomanstart30.png" alt="Yeoman的起步"></p>
 <h4 id="端口被占用的解决方法">端口被占用的解决方法</h4>
 <p>终于有反应了，说是9000端口被占用了，我们看看9000端口被什么占用了<br>先来查看下 9000端口所在程序的PID<br><img src="/img/nodejs/yeomanstart31.png" alt="Yeoman的起步"><br><img src="/img/nodejs/yeomanstart32.png" alt="Yeoman的起步"><br>就是这个4156，我们打开任务管理器看看这个PID对应的是什么程序<br><img src="/img/nodejs/yeomanstart33.png" alt="Yeoman的起步"></p>
-<p>原来是我的酷狗，ORZ<br>先关掉酷狗吧，囧，其实你也可以改一下它默认的9000端口号<br><img src="/img/nodejs/yeomanstart34.png" alt="Yeoman的起步"><br>关了酷狗我们在任务管理器上面，找不到4156的应用了<br>所以我们试一下<br><img src="/img/nodejs/yeomanstart35.png" alt="Yeoman的起步"><br>这回终于一切正常，并且它自己打开了网页，当当当当~~<br><img src="/img/nodejs/yeomanstart36.png" alt="Yeoman的起步"><br>不过显示好像有点问题。<br><img src="/img/nodejs/yeomanstart37.png" alt="Yeoman的起步"><br>是个与CSS有关的错呀… 大概是和sass有关吧…<br>尝试把刚刚注释掉的sass相关的，再恢复下试试<br><img src="/img/nodejs/yeomanstart38.png" alt="Yeoman的起步"><br>给跪，又变成这样半死不活的状态了<br>好吧先不用sass…</p>
+<p>原来是我的酷狗，ORZ<br>先关掉酷狗吧，囧，其实你也可以改一下它默认的9000端口号<br><img src="/img/nodejs/yeomanstart34.png" alt="Yeoman的起步"><br>关了酷狗我们在任务管理器上面，找不到4156的应用了<br>所以我们试一下<br><img src="/img/nodejs/yeomanstart35.png" alt="Yeoman的起步"><br>这回终于一切正常，并且它自己打开了网页，当当当当~~<br><img src="/img/nodejs/yeomanstart36.png" alt="Yeoman的起步"><br>不过显示好像有点问题。<br><img src="/img/nodejs/yeomanstart37.png" alt="Yeoman的起步"><br>是个与CSS有关的错呀… 大概是和sass有关吧…<br>尝试把刚刚注释掉的sass相关的，再恢复下试试<br><img src="/img/nodejs/yeomanstart38.png" alt="Yeoman的起步"><br>给跪，又变成这样半死不活的状态了</p>
+<p>你可以安装Ruby和Sass<br>一旦有了Ruby，执行以下命令安装Sass：</p>
+<figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>gem install sass</div></pre></td></tr></table></figure>
+
+<p>就可以了~</p>
+<p>当然如果不是非要用Sass，你也可以选择重装一次 webapp 脚手架 嘿嘿~</p>
 <h4 id="运行yo_webapp">运行yo webapp</h4>
 <p>我重新运行yo webapp从头开始（直接在命令行里输入yo webapp就行了不需要删什么东西），<br>这次我重新选择我要的东西，这次我只选了bootstrap<br><img src="/img/nodejs/yeomanstart39.png" alt="Yeoman的起步"><br>并根据提示重写了相关配置文件<br><img src="/img/nodejs/yeomanstart40.png" alt="Yeoman的起步"><br>看起来一切正常</p>
 <h4 id="运行grunt_serve_（success）">运行grunt serve （success）</h4>
@@ -1979,7 +1995,7 @@
     <link href="http://snailsky.me/2014/05/31/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-UI%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://snailsky.me/2014/05/31/javascript-编程实践-UI层的松耦合（一）/</id>
     <published>2014-05-31T03:33:37.000Z</published>
-    <updated>2014-08-24T11:21:12.000Z</updated>
+    <updated>2015-02-13T05:55:36.000Z</updated>
     <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
 <hr>
 <h1 id="UI层的松耦合">UI层的松耦合</h1>
