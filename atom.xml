@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Some notes about Web Front-End and others]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://snailsky.me/"/>
-  <updated>2015-02-13T06:02:14.022Z</updated>
+  <updated>2015-02-13T06:19:13.293Z</updated>
   <id>http://snailsky.me/</id>
   
   <author>
@@ -1995,7 +1995,7 @@
     <link href="http://snailsky.me/2014/05/31/javascript-%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5-UI%E5%B1%82%E7%9A%84%E6%9D%BE%E8%80%A6%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://snailsky.me/2014/05/31/javascript-编程实践-UI层的松耦合（一）/</id>
     <published>2014-05-31T03:33:37.000Z</published>
-    <updated>2015-02-13T05:55:36.000Z</updated>
+    <updated>2015-02-13T06:18:30.000Z</updated>
     <content type="html"><![CDATA[<p><em>这是一篇读书笔记，对书中的描述进行精简，归纳，总结，<br>有时也会自己写一些例子，感想和扩展 O(∩_∩)O~</em></p>
 <hr>
 <h1 id="UI层的松耦合">UI层的松耦合</h1>
@@ -2068,8 +2068,8 @@
 <li>点击事件发生时，doSomething()函数必须存在，否则会报JavaScript错误，页面或弹出错误信息或点击事件不会有任何响应。</li>
 <li>如果修改了doSomething()的函数名或如果此时点击按钮调用了其他函数，需要同时修改JavaScript和HTML代码。给维护带来了困难，这是典型的紧耦合的代码。</li>
 </ol>
-<h4 id="方式二（最佳）：_通过&lt;script&gt;标签来引用">方式二（最佳）： 通过&lt;script&gt;标签来引用</h4>
-<p>绝大多数（并非所有的）JavaScript代码包含在外部文件中，并在页面中通过&lt;script&gt;标签来引用。<br>对于支持2级DOM模型的浏览器来说，用下代码可完成上面例子中的功能：</p>
+<h4 id="方式二（最佳）：_通过script标签来引用">方式二（最佳）： 通过script标签来引用</h4>
+<p>绝大多数（并非所有的）JavaScript代码包含在外部文件中，并在页面中通过script标签来引用。<br>对于支持2级DOM模型的浏览器来说，用下代码可完成上面例子中的功能：</p>
 <figure class="highlight {bash}"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span><span class="params">()</span></span>{</div><div class="line">    <span class="comment">//代码</span></div><div class="line">}</div><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"action-btn"</span>);</div><div class="line">btn.addEventListener(<span class="string">"click"</span>, doSomething, <span class="literal">false</span>);</div></pre></td></tr></table></figure>
 
 <p><strong>关于addEventListener()函数</strong>：<br>IE8及其更早的版本不支持addEventListener()函数，因此需要一个标准的函数将这些差异性做封装。</p>
